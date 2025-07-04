@@ -1,8 +1,6 @@
 # Advanced To-Do List
 Lista de tarefas avançada com suporte a subtarefas, filtro de tarefas inteligente, drag and drop, armazenamento local e muito mais.
 
-![Preview](./assets/banner.png)
-
 ## Sobre o projeto
 Criado originalmente para atender minhas necessidades do dia a dia e para estudo, o **Advanced To-Do List** é um sistema de gerenciamento de tarefas que vai além das listas de tarefas tradicionais, oferecendo diversas funcionalidades e preservando a imersão do usuário.
 
