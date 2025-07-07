@@ -131,10 +131,66 @@ header #createTasks{
     border-radius: 6px;
     justify-content: space-between;
 
+    /*checkbox*/
+    .task input{
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .task .checkmark{
+        position: relative;
+        display: inline-block;
+        width: 16px; height: 16px;
+        border: 2px solid var(--text-primary);
+    }
+
+    .task .checkmark::after{
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    .task input:checked + .checkmark::after{
+        display: block;
+        left: 1px; top: -8px;
+        /* left: 50%; top: 50%; */
+        transform: rotate(45deg);
+        border-radius: 2px;
+        width: 10px; height: 16px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+    }
+
     .task, .management{
         display: flex;
         gap: 8px;
         justify-content: center;
         align-items: center;
+    }
+
+    /* Task name*/
+    .taskName{
+        position: relative;
+    }
+
+    /*Animation in task name*/
+    .taskName::before{
+        content: "";
+        width: 0%;
+        height: 3px;
+        background-color: rgba(255, 255, 255, 0.8);
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transition: 0.3s;
+    }
+
+    .taskName.checked{
+        color: #9C9E9F;
+    }
+
+    .taskName.checked::before{
+        width: 100%;
     }
 }
