@@ -30,6 +30,33 @@ body{
     --tip: #F96464 /*Cor de dicas: */
 }
 
+input{
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+    .checkmark{
+        position: relative;
+        display: inline-block;
+        width: 16px; height: 16px;
+        border: 2px solid var(--text-primary);
+        margin-right: -4px;
+    }
+    .checkmark::after{
+        content: "";
+        position: absolute;
+        display: none;
+    }
+    input:checked + .checkmark::after{
+        display: block;
+        left: 1px; top: -8px;
+        transform: rotate(45deg);
+        border-radius: 2px;
+        width: 10px; height: 16px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+    }
+
 
 /*Section header*/
 header{
@@ -135,37 +162,6 @@ header #createTasks{
     border-radius: 6px;
     justify-content: space-between;
 
-    /*checkbox*/
-    .task input{
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-    }
-
-    .task .checkmark{
-        position: relative;
-        display: inline-block;
-        width: 16px; height: 16px;
-        border: 2px solid var(--text-primary);
-        margin-right: -4px;
-    }
-
-    .task .checkmark::after{
-        content: "";
-        position: absolute;
-        display: none;
-    }
-
-    .task input:checked + .checkmark::after{
-        display: block;
-        left: 1px; top: -8px;
-        transform: rotate(45deg);
-        border-radius: 2px;
-        width: 10px; height: 16px;
-        border: solid white;
-        border-width: 0 3px 3px 0;
-    }
-
     /*Gerenciamento*/
     .task, .management{
         display: flex;
@@ -204,4 +200,78 @@ header #createTasks{
     .taskName.checked::before{
         width: 100%;
     }
+}
+
+
+/*Task with subtask*/
+.task-container.main{
+    display: flex;
+    flex-direction: column;
+
+    .main-task{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        cursor: pointer;
+        justify-content: space-between;
+    }
+
+    .task-name-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .main-task h3{
+        font-size: 1.1em;
+    }
+
+    .main-task .triangle{
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 8px solid var(--text-primary);
+        transform: rotate(-90deg);
+        transition: transform 0.3s ease;
+        margin-top: 4px;
+    }
+    /* Ativado */
+    .triangle.expand{
+        transform: rotate(0deg);
+    }
+
+
+    .progress{
+        display: none;
+    }
+}
+
+/* Subtarefas */
+.subtask-container{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.subtasks-list{
+    overflow: hidden;
+    height: 0;
+}
+/*Ideia*/
+/* .subtask-container:nth-child(2){
+    padding-bottom: 2px;
+    border-bottom: 2px dashed rgba(204, 204, 204, 0.6);
+} */
+
+.subtask-container .subtask{
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
 }

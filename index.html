@@ -29,6 +29,7 @@
         <section class="column">
             <h2 class="task-status">Tarefas pendentes (0)</h2>
 
+            <!-- Simple task -->
             <article class="task-container">
                 <label class="task">
                     <input type="checkbox" name="" id="">
@@ -45,22 +46,82 @@
                     </button>
                 </div>
             </article>
-            <article class="task-container">
-                <label class="task">
-                    <input type="checkbox" name="" id="">
-                    <span class="checkmark"></span>
-                    <span class="taskName">Task name</span>
-                </label>
 
-                <div class="management">
-                    <button>
-                        <img src="assets/edit.png" alt="imagem de editar tarefa">
-                    </button>
-                    <button>
-                        <img src="assets/delete.png" alt="imagem de excluir tarefa">
-                    </button>
-                </div>
-            </article>
+
+            <!-- Task with subtasks -->
+             <article class="task-container main">
+                <header class="main-task">
+                    <section class="task-name-container">
+                        <h3>Main task name</h3>
+                        <div class="triangle"></div>
+                    </section>
+                    
+                    <div class="management">
+                        <button>
+                            <img src="assets/edit.png" alt="">
+                        </button>
+
+                        <button>
+                            <img src="assets/delete.png" alt="">
+                        </button>
+                    </div>
+                    
+                    <div class="progress"></div>
+                </header>
+
+                <section class="subtasks-list">
+                    <article class="subtask-container">
+                        <label class="subtask">
+                            <input type="checkbox" name="" id="">
+                            <span class="checkmark"></span>
+                            <span class="taskName">Task name</span>
+                        </label>
+
+                        <div class="management">
+                            <button>
+                                <img src="assets/edit.png" alt="" width="24px" height="24px">
+                            </button>
+                            <button>
+                                <img src="assets/delete.png" alt="" width="20px" height="20px">
+                            </button>
+                        </div>
+                    </article>
+
+                     <article class="subtask-container">
+                        <label class="subtask">
+                            <input type="checkbox" name="" id="">
+                            <span class="checkmark"></span>
+                            <span class="taskName">Task name</span>
+                        </label>
+
+                        <div class="management">
+                            <button>
+                                <img src="assets/edit.png" alt="" width="24px" height="24px">
+                            </button>
+                            <button>
+                                <img src="assets/delete.png" alt="" width="20px" height="20px">
+                            </button>
+                        </div>
+                    </article>
+
+                         <article class="subtask-container">
+                        <label class="subtask">
+                            <input type="checkbox" name="" id="">
+                            <span class="checkmark"></span>
+                            <span class="taskName">Task name</span>
+                        </label>
+
+                        <div class="management">
+                            <button>
+                                <img src="assets/edit.png" alt="" width="24px" height="24px">
+                            </button>
+                            <button>
+                                <img src="assets/delete.png" alt="" width="20px" height="20px">
+                            </button>
+                        </div>
+                    </article>
+                </section>
+             </article>
 
         </section>
 
