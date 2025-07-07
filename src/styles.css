@@ -97,7 +97,8 @@ header #createTasks{
 /*Conteúdos*/
 #main-container{
     width: 90%;
-    height: 80vh;
+    min-height: 80vh;
+    height: max-content;
     border: 2px solid #fff;
     margin: 0 auto;
     display: flex;
@@ -158,7 +159,6 @@ header #createTasks{
     .task input:checked + .checkmark::after{
         display: block;
         left: 1px; top: -8px;
-        /* left: 50%; top: 50%; */
         transform: rotate(45deg);
         border-radius: 2px;
         width: 10px; height: 16px;
