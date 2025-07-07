@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+/* Formatações gerais */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body{
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+}
+
+:root{
+    --background-primary: #040404; /*Cor principal*/
+    --text-primary: #FFFFFF; /*Cor principal das letras*/
+    --error: #DF0D0D; /*Cor de erro: lixeira e armazenamento cheio*/
+    --cta-primary: #ED7600; /*Cor do botão p/ criar tarefa principal*/
+    --task-completed: rgba(71, 196, 49, 0.6); /*Tarefa concluída*/
+    --checked: #258601; /**/
+    --button-create-task: #2CD70A; /*Cor do botão de criar tarefa*/
+    --background-task: #575252; /*Cor do container de tarefas*/
+    --letter-water: #716AC9; /*Cor da letra da tarefa especial*/
+    --drink-water: rgba(13, 140, 233, 0.7); /*Cor da água da garrafa*/
+    --cup-water: rgba(60, 54, 224, 0.5); /*Cor da água do copo*/
+    --bg-subtask-modal: #EEEEEE; /*Cor de background da subtarefa no modal*/
+    --tip: #F96464 /*Cor de dicas: */
+}
+
+
+/*Section header*/
+header{
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    font-family: "Karla", sans-serif;
+}
+
+header #visual-storage{
+    margin-top: 5px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+/*Barra de progresso do armazenamento*/
+header #visual-storage .progress-storage{
+    width: 50%;
+    height: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+/*Título e criação de tarefas*/
+/* Observação: */
+/* #createTasks e #main-container precisam ter a mesma largura */
+header #createTasks{
+    position: relative;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+
+    .btn-createTasks{
+        color: var(--text-primary);
+        background-color: var(--button-create-task);
+        padding: 8px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: .8em;
+        position: absolute; top: 50%; right: 0;
+        transform: translate(0, -50%);
+    }
+
+    .btn-createTasks img,
+    .btn-createTasks span{
+        background-color: var(--button-create-task);
+    }
+}
+
+/*Conteúdos*/
+#main-container{
+    width: 90%;
+    height: 80vh;
+    border: 2px solid #fff;
+    margin: 0 auto;
+    display: flex;
+    padding: 30px 0;
+
+    .task-status{
+        text-align: center;
+    }
+
+    .column{
+        width: 50%;
+        height: 100%;
+        padding: 0 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+#main-container .task-status{
+    font-family: "Karla", sans-serif;
+    font-size: 1.8em;
+}
+
+/* Task container */
+.task-container{
+    margin-top: 18px;
+    width: 80%;
+    padding: 10px;
+    font-size: 1.4em;
+    display: flex; 
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-task);
+    border-radius: 6px;
+    justify-content: space-between;
+
+    .task, .management{
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+    }
+}
