@@ -137,7 +137,6 @@ header #createTasks{
 
     .column{
         width: 50%;
-        height: 100%;
         padding: 0 30px;
         display: flex;
         flex-direction: column;
