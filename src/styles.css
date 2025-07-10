@@ -164,7 +164,7 @@ dialog .line{
 }
 
 /*Animation*/
-@keyframes fadeIn{
+@keyframes slideDown{
     from{
         top: -300px;
         left: 50%;
@@ -175,9 +175,23 @@ dialog .line{
     }
 }
 
+@keyframes fadeOut{
+    from{
+        opacity: 1;
+    }
+    to{
+        opacity: 0;
+    }
+}
+
+dialog.fadeOut{
+    animation: fadeOut 0.3s ease;
+}
+
+
 /*Modal principal*/
-.main-modal.animation{
-    animation: fadeIn 0.6s ease;
+.main-modal.slideDown{
+    animation: slideDown 0.6s ease;
 }
 
 .main-modal p{
@@ -243,7 +257,7 @@ dialog .line{
     border-radius: 4px;
     padding: 4px 20px;
     font-size: 1em;
-    transition: background .2s ease;
+    transition: background 0.2s ease;
 }
 .simpleTask-modal button:hover{
     background-color: #399714;

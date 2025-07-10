@@ -1,21 +1,39 @@
 // Criação de tarefa simples e tarefa com subtarefas
 const btnCreateTasks = document.querySelector(".btn-createTasks");
 const mainContainer = document.querySelector(".main-container");
+let allModal = document.querySelectorAll("dialog");
 const mainModal = document.querySelector(".main-modal");
 const btnCreateST = mainModal.querySelector(".btn-createSimpleTask");
 let firstColumn = document.querySelector(".column:first-child");
 const simpleTaskModal = document.querySelector(".simpleTask-modal");
 
+// Modal
 btnCreateTasks.addEventListener("click", () => {
     mainModal.showModal();
-    mainModal.classList.add("animation");
+    mainModal.classList.add("slideDown");
 
     btnCreateST.addEventListener("click", () => {
         mainModal.close();
-        mainModal.classList.remove("animation");
+        mainModal.classList.remove("slideDown");
         simpleTaskModal.showModal();
     });
-    
+});
+
+allModal.forEach(modal => {
+    modal.addEventListener("click", (e) => {
+        let posModal = modal.getBoundingClientRect();
+
+        let modalContainer =
+        posModal.top <= e.clientY &&
+        posModal.left <= e.clientX &&
+        e.clientY <= posModal.top + posModal.height &&
+        e.clientX <= posModal.left + posModal.width;
+
+        if(!modalContainer){
+            modal.classList.remove("slideDown");
+            modal.close();
+        };
+    });
 });
 
 // btnCreateTasks.addEventListener("click", () => {
