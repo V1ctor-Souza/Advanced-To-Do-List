@@ -2,11 +2,20 @@
 const btnCreateTasks = document.querySelector(".btn-createTasks");
 const mainContainer = document.querySelector(".main-container");
 const mainModal = document.querySelector(".main-modal");
+const btnCreateST = mainModal.querySelector(".btn-createSimpleTask");
 let firstColumn = document.querySelector(".column:first-child");
+const simpleTaskModal = document.querySelector(".simpleTask-modal");
 
 btnCreateTasks.addEventListener("click", () => {
     mainModal.showModal();
     mainModal.classList.add("animation");
+
+    btnCreateST.addEventListener("click", () => {
+        mainModal.close();
+        mainModal.classList.remove("animation");
+        simpleTaskModal.showModal();
+    });
+    
 });
 
 // btnCreateTasks.addEventListener("click", () => {

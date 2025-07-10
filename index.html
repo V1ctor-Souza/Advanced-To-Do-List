@@ -23,12 +23,18 @@
         </section>
     </header>
 
-    <!-- Modal -->
+<!-- 
+    ############
+    #          #
+    #  MODAIS  #
+    #          #
+    ############ 
+ -->
     <dialog class="main-modal">
         <section class="texts-container">
             <h2 class="title">Escolha o tipo de tarefa</h2>
-            <p class="simpleTask"><strong>Tarefa simples:</strong> diz respeito a uma única tarefa, não contendo subtarefas.</p>
-            <p class="taskWithSubtasks"><strong>Tarefa com subtarefas:</strong> tarefa principal que contém pequenas tarefas, chamadas de subtarefas. Para concluí-la é necessário finalizar todas as subtarefas.</p>
+            <p><strong>Tarefa simples:</strong> diz respeito a uma única tarefa, não contendo subtarefas.</p>
+            <p><strong>Tarefa com subtarefas:</strong> tarefa principal que contém pequenas tarefas, chamadas de subtarefas. Para concluí-la é necessário finalizar todas as subtarefas.</p>
             <a href="#">Entenda mais</a>
         </section>
         <div class="line"></div>
@@ -36,6 +42,18 @@
         <section class="buttons">
             <button class="btn-createSimpleTask">Criar tarefa simples</button>
             <button class="btn-createTWS">Criar tarefa com subtarefas</button>
+        </section>
+    </dialog>
+
+    <dialog class="simpleTask-modal">
+        <h2 class="title">Digite o nome da nova tarefa</h2>
+        <p><strong>Filtro de Tarefas Inteligente:</strong> reconhece palavras-chaves que criam tarefas especiais com funcionalidades únicas. Escrever, por exemplo "beber água" ou algo similiar a isso cria uma tarefa especial.</p>
+        <a href="">Saiba mais</a>
+        <div class="line"></div>
+
+        <section class="input-container">
+            <input class="nameSimpleTask" type="text" placeholder="Escreva o nome da tarefa">
+            <button>Criar tarefa</button>
         </section>
     </dialog>
 
