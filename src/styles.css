@@ -26,7 +26,7 @@ body{
     --letter-water: #716AC9; /*Cor da letra da tarefa especial*/
     --drink-water: rgba(13, 140, 233, 0.7); /*Cor da água da garrafa*/
     --cup-water: rgba(60, 54, 224, 0.5); /*Cor da água do copo*/
-    --bg-subtask-modal: #EEEEEE; /*Cor de background da subtarefa no modal*/
+    --bg-subtask-main-modal: #EEEEEE; /*Cor de background da subtarefa no main-modal*/
     --tip: #F96464 /*Cor de dicas: */
 }
 
@@ -120,6 +120,104 @@ header #createTasks{
         background-color: var(--button-create-task);
     }
 }
+
+/*main-modal*/
+
+/*Geral*/
+dialog[open]{
+    font-family: 'Roboto', sans-serif;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 0 30px;
+}
+
+dialog .title{
+    font-family: 'Karla', sans-serif;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+dialog .texts-container,
+dialog .buttons{
+    padding: 0 25px;
+}
+
+
+/*Animation*/
+@keyframes fadeIn{
+    from{
+        top: -300px;
+        left: 50%;
+    }
+    to{
+        top: 50%;
+        left: 50%;
+    }
+}
+
+/*Escolha o tipo de tarefa*/
+.main-modal{
+    padding: 20px;
+    width: 40%;
+}
+.main-modal.animation{
+    animation: fadeIn 0.5s ease;
+}
+
+.main-modal .title{
+    font-size: 1.8em;
+}
+
+
+.main-modal p{
+    margin-bottom: 5px;
+}
+
+.line{
+    width: 100%;
+    height: 2px;
+    border: 1px solid #6b676766;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.main-modal .buttons{
+    display: flex;
+    flex-direction: column;
+    /* width: 60%; */
+}
+
+.main-modal .buttons button{
+    padding: 6px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-align: center;
+}
+.main-modal .buttons .btn-createSimpleTask{
+    margin-bottom: 10px;
+    background-color: var(--button-create-task);
+    width: 35%;
+}
+.main-modal .buttons .btn-createSimpleTask:hover{
+    background-color: #399714;
+}
+
+.main-modal .buttons .btn-createTWS{
+    background-color: var(--cta-primary);
+    width: 48%;
+}
+.main-modal .buttons .btn-createTWS:hover{
+    background-color: #c96f16;
+}
+
 
 /*Conteúdos*/
 #main-container{

@@ -8,8 +8,6 @@
 </head>
 
 <body>
-
-
     <header>
         <section id="visual-storage">
             <h3 class="title-storage">Armazenamento</h3>
@@ -24,6 +22,22 @@
             </button>
         </section>
     </header>
+
+    <!-- Modal -->
+    <dialog class="main-modal">
+        <section class="texts-container">
+            <h2 class="title">Escolha o tipo de tarefa</h2>
+            <p class="simpleTask"><strong>Tarefa simples:</strong> diz respeito a uma única tarefa, não contendo subtarefas.</p>
+            <p class="taskWithSubtasks"><strong>Tarefa com subtarefas:</strong> tarefa principal que contém pequenas tarefas, chamadas de subtarefas. Para concluí-la é necessário finalizar todas as subtarefas.</p>
+            <a href="#">Entenda mais</a>
+        </section>
+        <div class="line"></div>
+
+        <section class="buttons">
+            <button class="btn-createSimpleTask">Criar tarefa simples</button>
+            <button class="btn-createTWS">Criar tarefa com subtarefas</button>
+        </section>
+    </dialog>
 
     <main id="main-container">
         <section class="column">
