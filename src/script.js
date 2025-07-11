@@ -6,17 +6,32 @@ const mainModal = document.querySelector(".main-modal");
 const btnCreateST = mainModal.querySelector(".btn-createSimpleTask");
 let firstColumn = document.querySelector(".column:first-child");
 const simpleTaskModal = document.querySelector(".simpleTask-modal");
+const inputSimpleTask = document.querySelector(".input-container input");
+const btnSimpleTask = document.querySelector(".input-container button");
+
+
 
 // Modal
+
+// show main Modal
 btnCreateTasks.addEventListener("click", () => {
+    btnCreateTasks.blur();
     mainModal.showModal();
     mainModal.classList.add("slideDown");
+});
 
-    btnCreateST.addEventListener("click", () => {
-        mainModal.close();
-        mainModal.classList.remove("slideDown");
-        simpleTaskModal.showModal();
-    });
+
+// show simple task modal
+btnCreateST.addEventListener("click", () => {
+    mainModal.close();
+    mainModal.classList.remove("slideDown");
+    simpleTaskModal.showModal();
+});
+
+// button to create simple task
+btnSimpleTask.addEventListener("click", createSimpleTask);
+inputSimpleTask.addEventListener("keydown", (e) => {
+    if(e.key === 'Enter') createSimpleTask();
 });
 
 allModal.forEach(modal => {
@@ -31,25 +46,17 @@ allModal.forEach(modal => {
 
         if(!modalContainer){
             modal.classList.remove("slideDown");
-            modal.close();
+            modal.close();  
+            inputSimpleTask.value = '';
         };
     });
 });
 
-// btnCreateTasks.addEventListener("click", () => {
-//     let taskContainer = createSimpleTask("article", "task-container", undefined, firstColumn);
-//     let labelTask = createSimpleTask("label", "task", undefined, taskContainer);
-//     let inputTask = createSimpleTask("input", undefined, {type: "checkbox"}, labelTask);
-//     let checkmark = createSimpleTask("span", "checkmark", undefined, labelTask);
-//     let taskName = createSimpleTask("span", "taskName", {nameTask: "Nome da tarefa"}, labelTask);
-// });
-
-
 // Functions
 
 
-// Function to create simple task
-function createSimpleTask(element, className, attributes = {}, parentElement, subtask = false){
+// Function to create task
+function createTask(element, className, attributes = {}, parentElement, subtask = false){
     let el = document.createElement(element);
     if (className) el.classList.add(...className.split(" "));
     for (let attr in attributes){
@@ -57,4 +64,17 @@ function createSimpleTask(element, className, attributes = {}, parentElement, su
         else el.setAttribute(attr, attributes[attr]);
     }
     return parentElement.appendChild(el);
+}
+
+
+// Function to create simple task
+function createSimpleTask(){
+    let taskContainer = createTask("article", "task-container", undefined, firstColumn);
+    let labelTask = createTask("label", "task", undefined, taskContainer);
+    let inputTask = createTask("input", undefined, {type: "checkbox"}, labelTask);
+    let checkmark = createTask("span", "checkmark", undefined, labelTask);
+    let taskName = createTask("span", "taskName", {nameTask: inputSimpleTask.value}, labelTask);
+
+    inputSimpleTask.value = '';
+    simpleTaskModal.close();
 }
