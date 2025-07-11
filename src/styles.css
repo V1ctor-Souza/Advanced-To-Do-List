@@ -303,6 +303,10 @@ dialog.fadeOut{
     border-radius: 6px;
     justify-content: space-between;
 
+    .task{
+        cursor: pointer;
+    }
+
     /*Gerenciamento*/
     .task, .management{
         display: flex;

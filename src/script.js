@@ -75,6 +75,12 @@ function createSimpleTask(){
     let checkmark = createTask("span", "checkmark", undefined, labelTask);
     let taskName = createTask("span", "taskName", {nameTask: inputSimpleTask.value}, labelTask);
 
+    let management = createTask("div", "management", undefined, taskContainer);
+    let btnEdit = createTask("button", undefined, undefined, management);
+    let imgEdit = createTask("img", undefined, {src: "assets/edit.png", alt: "imagem de editar tarefa"}, btnEdit);
+    let btnDelete = createTask("button", undefined, undefined, management);
+    let imgDelete = createTask("img", undefined, {src: "assets/delete.png", alt: "imagem de excluir tarefa"}, btnDelete);
+
     inputSimpleTask.value = '';
     simpleTaskModal.close();
 }
