@@ -57,6 +57,75 @@
         </section>
     </dialog>
 
+        <dialog class="taskSubtasks-modal" open>
+            <h2 class="title">Digite o nome da tarefa principal</h2>
+            <section class="taskSubtasks-inputs">
+                <label>
+                    <input type="text" placeholder="Ex: treino na academia">
+                    <button>Definir tarefa</button>
+                </label>
+
+                <span>Digite o nome da subtarefa:</span>
+
+                <label>
+                    <input type="text" placeholder="Ex: mesa flexora">
+                    <button class="btn-addSubtask">
+                        <i class="bi bi-plus-lg"></i>
+                    </button>
+                    
+                    <div class="limit">15</div>
+                </label>
+            </section>
+
+            <section class="taskSubtasks-list">
+                <section class="subtask-list-inModal">
+                    <p>
+                        <span class="handle">
+                            <i class="bi bi-arrows-move" ></i>
+                        </span>
+                        <span class="nameSubTask">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+
+                        <span class="delete">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </span>
+                    </p>
+
+                    <p>
+                        <span class="handle">
+                            <i class="bi bi-arrows-move" ></i>
+                        </span>
+                        <span class="nameSubTask">Subtask 2</span>
+
+                        <span class="delete">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </span>
+                    </p>
+
+                    <p>
+                        <span class="handle">
+                            <i class="bi bi-arrows-move" ></i>
+                        </span>
+                        <span class="nameSubTask">Subtask 3</span>
+
+                        <span class="delete">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </span>
+                    </p>
+
+                    <p>
+                        <span class="handle">
+                            <i class="bi bi-arrows-move" ></i>
+                        </span>
+                        <span class="nameSubTask">Subtask 4</span>
+
+                        <span class="delete">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </span>
+                    </p>
+                </section>
+            </section>
+        </dialog>
+
     <main id="main-container">
         <section class="column">
             <h2 class="task-status">Tarefas pendentes (0)</h2>

@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+
 
 /* Formatações gerais */
 *{
@@ -132,6 +134,7 @@ dialog[open]{
     transform: translate(-50%, -50%);
     border: none;
     border-radius: 0 30px;
+    overflow: hidden;
 }
 
 dialog::backdrop{
@@ -263,6 +266,146 @@ dialog.fadeOut{
     background-color: #399714;
 }
 
+/*Modal de tarefa com subtarefas*/
+.taskSubtasks-inputs{
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+.taskSubtasks-inputs label{
+    display: flex;
+    margin-bottom: 20px;
+    height: 31px;
+}
+.taskSubtasks-inputs .btn-addSubtask{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.taskSubtasks-inputs label i{
+    font-size: 26px;
+}
+.taskSubtasks-inputs input{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    padding: 4px;
+    outline: none;
+    border: 1px solid #5e5b5b;
+    border-radius: 4px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: 60%;
+}
+.taskSubtasks-inputs button{
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    padding: 4px 20px;
+    background-color: var(--button-create-task);
+    cursor: pointer;
+    color: #fff;
+    font-size: 1em;
+    border: 1px solid #5e5b5b;
+    border-left: none;
+    transition: background 0.2s ease;
+}
+.taskSubtasks-inputs button:hover{
+    background: #258601;
+}
+.taskSubtasks-inputs label + span{
+    margin-bottom: 4px;
+}
+
+.taskSubtasks-inputs label:last-child button{
+    padding: 4px 8px;
+}
+
+.taskSubtasks-inputs .limit{
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    padding: 6px;
+    border-radius: 4px;
+    text-align: center;
+    background-color: var(--cta-primary);
+    cursor: pointer;
+}
+
+    /*Lista de subtarefas*/
+    .taskSubtasks-list{
+        position: relative;
+        width: 100%;
+        min-height: 300px;
+        max-height: max-content;
+        border: 2px solid #000;      
+        border-radius: 0 30px;
+        padding: 30px 0;
+    }
+    .taskSubtasks-list::before{
+        content: 'Lista de subtarefas';
+        z-index: 999;
+        background-color: #fff;
+        font-weight: 600;
+        font-size: 1.2em;
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* in Modal */
+    .subtask-list-inModal{
+        min-height: 300px;
+        max-height: 300px;
+        overflow-y: auto;
+        font-size: 1.2em;
+    }
+    .subtask-list-inModal p{
+        position: relative;
+        border: 1px solid #000;
+        border-left: none;
+        border-right: none;
+        padding: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+    }
+    .subtask-list-inModal p:first-child{
+        border-top: none;
+    }
+    .subtask-list-inModal p:nth-child(even){
+        background-color: var(--bg-subtask-main-modal);
+        border-top: none;
+        border-bottom: none;
+    }
+    .subtask-list-inModal p:last-child{
+        border-bottom: 1px solid #000;
+    }
+    .subtask-list-inModal p .nameSubTask{
+        display: inline-block;
+        width: 60%;
+        border-left: 1px solid #797575;
+        padding-left: 8px;
+    }
+    .handle{
+        padding: 0 8px;
+        cursor: grab;
+    }
+    .handle i{
+        font-size: .8em;
+    }
+    .delete i{
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 10px;
+        color: red;
+    }
+
 /*Conteúdos*/
 #main-container{
     width: 90%;
@@ -302,10 +445,6 @@ dialog.fadeOut{
     background-color: var(--background-task);
     border-radius: 6px;
     justify-content: space-between;
-
-    .task{
-        cursor: pointer;
-    }
 
     /*Gerenciamento*/
     .task, .management{
