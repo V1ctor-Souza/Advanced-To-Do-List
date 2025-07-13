@@ -9,7 +9,14 @@ const simpleTaskModal = document.querySelector(".simpleTask-modal");
 const inputSimpleTask = document.querySelector(".input-container input");
 const btnSimpleTask = document.querySelector(".input-container button");
 
+// const checkmark = document.querySelector('.checkmark');
+// let icon = checkmark.querySelector('i');
+// let taskName = document.querySelector(".taskName");
 
+// checkmark.onclick = ()=> {
+//     icon.classList.toggle("active");
+//     taskName.classList.toggle("checked");
+// }
 
 // Modal
 
@@ -71,9 +78,10 @@ function createTask(element, className, attributes = {}, parentElement, subtask 
 function createSimpleTask(){
     let taskContainer = createTask("article", "task-container", undefined, firstColumn);
     let labelTask = createTask("label", "task", undefined, taskContainer);
-    let inputTask = createTask("input", undefined, {type: "checkbox"}, labelTask);
     let checkmark = createTask("span", "checkmark", undefined, labelTask);
-    let taskName = createTask("span", "taskName", {nameTask: inputSimpleTask.value}, labelTask);
+    let iconCheck = createTask("i", "bi bi-check2", undefined, checkmark);
+    let taskName = createTask("div", "taskName", undefined, labelTask);
+    let valueTask = createTask("span", undefined, {nameTask: inputSimpleTask.value}, taskName);
 
     let management = createTask("div", "management", undefined, taskContainer);
     let btnEdit = createTask("button", undefined, undefined, management);

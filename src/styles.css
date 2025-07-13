@@ -32,33 +32,28 @@ body{
     --tip: #F96464 /*Cor de dicas: */
 }
 
-input[type="checkbox"]{
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-    }
-    .checkmark{
+.checkmark{
         position: relative;
         display: inline-block;
         width: 16px; height: 16px;
         border: 2px solid var(--text-primary);
         margin-right: -4px;
     }
-    .checkmark::after{
-        content: "";
+
+    .checkmark i{
         position: absolute;
-        display: none;
-    }
-    input:checked + .checkmark::after{
-        display: block;
-        left: 1px; top: -8px;
-        transform: rotate(45deg);
-        border-radius: 2px;
-        width: 10px; height: 16px;
-        border: solid white;
-        border-width: 0 3px 3px 0;
+        top: 40%;
+        left: 70%;
+        transform: translate(-50%, -50%);
+        font-size: 32px;
+        font-weight: 600;
+        opacity: 0;
+        transition: opacity .2s ease;
     }
 
+    .checkmark i.active{
+        opacity: 1;
+    }
 
 /*Section header*/
 header{
@@ -477,30 +472,27 @@ dialog.fadeOut{
 
     /* Task name*/
     .taskName{
-        border: 1px solid red;
         width: 90%;
+        height: max-content;
         position: relative;
         overflow-wrap: break-word;
     }
 
     /*Animation in task name*/
-    .taskName::before{
-        content: "";
-        width: 0%;
-        height: 3px;
-        background-color: rgba(255, 255, 255, 0.8);
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transition: 0.3s;
+    .taskName span{
+        display: inline;
+        position: relative;
     }
 
-    .taskName.checked{
-        color: #9C9E9F;
+    .taskName span{
+        background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
+        background-size: 0% 4px;
+        background-repeat: no-repeat;
+        background-position: left center;
+        transition: background-size 0.4s;
     }
-
-    .taskName.checked::before{
-        width: 100%;
+    .taskName.checked span{
+        background-size: 100% 4px;
     }
 }
 
