@@ -57,7 +57,7 @@
         </section>
     </dialog>
 
-        <dialog class="taskSubtasks-modal" open>
+        <dialog class="taskSubtasks-modal">
             <h2 class="title">Digite o nome da tarefa principal</h2>
             <section class="taskSubtasks-inputs">
                 <label>
@@ -65,16 +65,18 @@
                     <button>Definir tarefa</button>
                 </label>
 
-                <span>Digite o nome da subtarefa:</span>
-
-                <label>
-                    <input type="text" placeholder="Ex: mesa flexora">
-                    <button class="btn-addSubtask">
-                        <i class="bi bi-plus-lg"></i>
-                    </button>
-                    
-                    <div class="limit">15</div>
-                </label>
+                <div class="nameSubtask-container">
+                    <span>Digite o nome da subtarefa:</span>
+                    <label>
+                        <input type="text" placeholder="Ex: mesa flexora">
+                        <button class="btn-addSubtask">
+                            <i class="bi bi-plus-lg"></i>
+                        </button>
+                        
+                        <div class="limit">15</div>
+                    </label>
+                </div>
+               
             </section>
 
             <section class="taskSubtasks-list">
@@ -129,6 +131,24 @@
     <main id="main-container">
         <section class="column">
             <h2 class="task-status">Tarefas pendentes (0)</h2>
+
+            <article class="task-container">
+                <label class="task">
+                    <input type="checkbox" name="">
+                    <span class="checkmark"></span>
+                    <span class="taskName">
+                        Agradecer a Deus por mais um dia e oração AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeadasd
+                    </span>
+                </label>
+                <div class="management">
+                    <button>
+                        <img src="assets/edit.png" alt="">
+                    </button>
+                    <button>
+                        <img src="assets/delete.png" alt="">
+                    </button>
+                </div>
+            </article>
 
             <!-- Task with subtasks -->
              <!-- <article class="task-container main">

@@ -279,6 +279,15 @@ dialog.fadeOut{
     margin-bottom: 20px;
     height: 31px;
 }
+
+/*Ativação*/
+.nameSubtask-container{
+    display: none;
+}
+.taskSubtasks-inputs.active .nameSubtask-container{
+    display: block;
+}
+/*--------*/
 .taskSubtasks-inputs .btn-addSubtask{
     display: flex;
     align-items: center;
@@ -437,14 +446,20 @@ dialog.fadeOut{
 /* Task container */
 .task-container{
     margin-top: 18px;
+    height: max-content;
     width: 80%;
     padding: 10px;
     font-size: 1.4em;
-    display: flex; 
+    display: flex;
     font-family: 'Roboto', sans-serif;
     background-color: var(--background-task);
     border-radius: 6px;
     justify-content: space-between;
+
+    .task{
+        width: 90%;
+        overflow: hidden;
+    }
 
     /*Gerenciamento*/
     .task, .management{
@@ -462,7 +477,10 @@ dialog.fadeOut{
 
     /* Task name*/
     .taskName{
+        border: 1px solid red;
+        width: 90%;
         position: relative;
+        overflow-wrap: break-word;
     }
 
     /*Animation in task name*/
