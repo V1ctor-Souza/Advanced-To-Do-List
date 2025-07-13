@@ -38,6 +38,7 @@ body{
         width: 16px; height: 16px;
         border: 2px solid var(--text-primary);
         margin-right: -4px;
+        cursor: pointer;
     }
 
     .checkmark i{
@@ -450,10 +451,13 @@ dialog.fadeOut{
     background-color: var(--background-task);
     border-radius: 6px;
     justify-content: space-between;
+    /* cursor: grab; */
 
     .task{
-        width: 90%;
+        min-width: 80%;
+        max-width: max-content;
         overflow: hidden;
+        cursor: grab;
     }
 
     /*Gerenciamento*/
@@ -482,6 +486,7 @@ dialog.fadeOut{
     .taskName span{
         display: inline;
         position: relative;
+        cursor: pointer;
     }
 
     .taskName span{

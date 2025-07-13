@@ -4,19 +4,12 @@ const mainContainer = document.querySelector(".main-container");
 let allModal = document.querySelectorAll("dialog");
 const mainModal = document.querySelector(".main-modal");
 const btnCreateST = mainModal.querySelector(".btn-createSimpleTask");
-let firstColumn = document.querySelector(".column:first-child");
+const btnCreateTWS = mainModal.querySelector(".btn-createTWS");
+const firstColumn = document.querySelector(".column:first-child");
 const simpleTaskModal = document.querySelector(".simpleTask-modal");
 const inputSimpleTask = document.querySelector(".input-container input");
 const btnSimpleTask = document.querySelector(".input-container button");
-
-// const checkmark = document.querySelector('.checkmark');
-// let icon = checkmark.querySelector('i');
-// let taskName = document.querySelector(".taskName");
-
-// checkmark.onclick = ()=> {
-//     icon.classList.toggle("active");
-//     taskName.classList.toggle("checked");
-// }
+const taskSubtasksModal = document.querySelector(".taskSubtasks-modal");
 
 // Modal
 
@@ -33,6 +26,14 @@ btnCreateST.addEventListener("click", () => {
     mainModal.close();
     mainModal.classList.remove("slideDown");
     simpleTaskModal.showModal();
+});
+
+
+// show task with subtasks modal
+btnCreateTWS.addEventListener("click", () => {
+    mainModal.close();
+    mainModal.classList.remove("slideDown");
+    taskSubtasksModal.showModal();
 });
 
 // button to create simple task
@@ -82,6 +83,17 @@ function createSimpleTask(){
     let iconCheck = createTask("i", "bi bi-check2", undefined, checkmark);
     let taskName = createTask("div", "taskName", undefined, labelTask);
     let valueTask = createTask("span", undefined, {nameTask: inputSimpleTask.value}, taskName);
+
+    // Check task
+    let icon = checkmark.querySelector('i');
+    valueTask.onclick = ()=> {
+        icon.classList.toggle("active");
+        taskName.classList.toggle("checked");
+    }
+    checkmark.onclick = ()=> {
+        icon.classList.toggle("active");
+        taskName.classList.toggle("checked");
+    }
 
     let management = createTask("div", "management", undefined, taskContainer);
     let btnEdit = createTask("button", undefined, undefined, management);
