@@ -10,6 +10,10 @@ const simpleTaskModal = document.querySelector(".simpleTask-modal");
 const inputSimpleTask = document.querySelector(".input-container input");
 const btnSimpleTask = document.querySelector(".input-container button");
 const taskSubtasksModal = document.querySelector(".taskSubtasks-modal");
+const taskSubtasksContainer = document.querySelector(".taskSubtasks-inputs");
+const labelMainTask = document.querySelector(".taskSubtasks-inputs label");
+const inputMainTask = document.querySelector(".taskSubtasks-inputs input");
+const btnMainTask = document.querySelector(".taskSubtasks-inputs button");
 
 // Modal
 
@@ -42,6 +46,7 @@ inputSimpleTask.addEventListener("keydown", (e) => {
     if(e.key === 'Enter') createSimpleTask();
 });
 
+btnMainTask.addEventListener("click", createMainTask);
 allModal.forEach(modal => {
     modal.addEventListener("click", (e) => {
         let posModal = modal.getBoundingClientRect();
@@ -65,15 +70,20 @@ allModal.forEach(modal => {
 
 // Function to create task
 function createTask(element, className, attributes = {}, parentElement, subtask = false){
+
     let el = document.createElement(element);
     if (className) el.classList.add(...className.split(" "));
     for (let attr in attributes){
         if(attr === 'nameTask') el.textContent = attributes[attr];
         else el.setAttribute(attr, attributes[attr]);
     }
+
+    if(subtask){
+        console.log("contém subtarefa");
+        // taskSubtasksModal.close();
+    }
     return parentElement.appendChild(el);
 }
-
 
 // Function to create simple task
 function createSimpleTask(){
@@ -103,4 +113,27 @@ function createSimpleTask(){
 
     inputSimpleTask.value = '';
     simpleTaskModal.close();
+}
+
+
+// Function to create task with subtasks
+function createMainTask(){
+    let taskContainer = createTask("article", "task-container main", undefined, firstColumn, true);
+    // taskContainer.style.setProperty("display", "none");
+    let mainTask = createTask("header", "main-task", undefined, taskContainer);
+    let taskNameContainer = createTask("section", "task-name-container", undefined, mainTask);
+    let nameMainTask = createTask("h3", undefined, {nameTask: inputMainTask.value}, taskNameContainer);
+    labelMainTask.classList.add("defined-name");
+    labelMainTask.textContent = inputMainTask.value;
+    // taskSubtasksContainer.classList.add("active");
+    taskSubtasksModal.classList.add("active");
+    let triangle = createTask("div", "triangle", undefined, taskNameContainer);
+
+    let management = createTask("div", "management", undefined, mainTask);
+    let btnEdit = createTask("button", undefined, undefined, management);
+    let imgEdit = createTask("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEdit);
+    let btnDelete = createTask("button", undefined, undefined, management);
+    let imgDelete = createTask("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDelete);
+
+    let progress = createTask("div", "progress", undefined, mainTask);
 }

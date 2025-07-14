@@ -20,7 +20,8 @@ body{
     --background-primary: #040404; /*Cor principal*/
     --text-primary: #FFFFFF; /*Cor principal das letras*/
     --error: #DF0D0D; /*Cor de erro: lixeira e armazenamento cheio*/
-    --cta-primary: #ED7600; /*Cor do botão p/ criar tarefa principal*/
+    --cta-primary: #E55000; /*Cor do botão p/ criar tarefa principal*/
+    --cta-border: #BD4200; /*Cor da borda do botão da tarefa principal*/
     --task-completed: rgba(71, 196, 49, 0.6); /*Tarefa concluída*/
     --checked: #258601; /**/
     --button-create-task: #2CD70A; /*Cor do botão de criar tarefa*/
@@ -263,12 +264,21 @@ dialog.fadeOut{
 }
 
 /*Modal de tarefa com subtarefas*/
+.taskSubtasks-modal{
+    height: 110px;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+.taskSubtasks-modal.active{
+    height: 100%;
+}
 .taskSubtasks-inputs{
     position: relative;
     width: 80%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    transition: height 0.3s ease;
 }
 .taskSubtasks-inputs label{
     display: flex;
@@ -277,6 +287,27 @@ dialog.fadeOut{
 }
 
 /*Ativação*/
+.taskSubtasks-inputs .defined-name{
+    margin-top: 5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border: 1px solid #524d4d;
+    border-radius: 2px;
+    padding: 10px;
+    cursor: pointer;
+}
+.taskSubtasks-inputs .defined-name::before{
+    position: absolute;
+    font-size: 0.7em;
+    color: #524d4d;
+    top: -10px;
+    left: 0;
+    transform: translateY(-50%);
+    content: "Nome da tarefa principal:"
+}
+
 .nameSubtask-container{
     display: none;
 }
@@ -363,8 +394,9 @@ dialog.fadeOut{
 
     /* in Modal */
     .subtask-list-inModal{
-        min-height: 300px;
-        max-height: 300px;
+        margin-top: -10px;
+        min-height: 270px;
+        max-height: 270px;
         overflow-y: auto;
         font-size: 1.2em;
     }
@@ -409,6 +441,27 @@ dialog.fadeOut{
         transform: translateY(-50%);
         right: 10px;
         color: red;
+    }
+    .createMainTask{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 30px;
+    }
+    .createMainTask button{
+        color: #FFF;
+        border: 2px solid var(--cta-border);
+        border-radius: 6px;
+        background-color: var(--cta-primary);
+        padding: 4px 12px;
+        font-size: 1.4em;
+        font-weight: 300;
+        font-family: 'Roboto', sans-serif;
+        cursor: pointer;
+        transition: background .2s ease;
+    }
+    .createMainTask button:hover{
+        background-color: #BD4200;
     }
 
 /*Conteúdos*/
@@ -558,7 +611,7 @@ dialog.fadeOut{
 
 .subtasks-list{
     overflow: hidden;
-    height: 0;
+    height: 100%;
 }
 /*Ideia*/
 /* .subtask-container:nth-child(2){
