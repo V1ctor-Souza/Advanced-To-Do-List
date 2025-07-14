@@ -307,13 +307,6 @@ dialog.fadeOut{
     transform: translateY(-50%);
     content: "Nome da tarefa principal:"
 }
-
-.nameSubtask-container{
-    display: none;
-}
-.taskSubtasks-inputs.active .nameSubtask-container{
-    display: block;
-}
 /*--------*/
 .taskSubtasks-inputs .btn-addSubtask{
     display: flex;
@@ -449,6 +442,7 @@ dialog.fadeOut{
         margin-top: 30px;
     }
     .createMainTask button{
+        display: none;
         color: #FFF;
         border: 2px solid var(--cta-border);
         border-radius: 6px;

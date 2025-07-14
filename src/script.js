@@ -14,6 +14,15 @@ const taskSubtasksContainer = document.querySelector(".taskSubtasks-inputs");
 const labelMainTask = document.querySelector(".taskSubtasks-inputs label");
 const inputMainTask = document.querySelector(".taskSubtasks-inputs input");
 const btnMainTask = document.querySelector(".taskSubtasks-inputs button");
+const inputSubtask = document.querySelector(".nameSubtask-container input");
+const btnSubtask = document.querySelector(".btn-addSubtask");
+const btncreateMainTask = document.querySelector(".createMainTask button");
+
+/*modal*/
+const subtaskinModal = document.querySelector(".subtask-list-inModal");
+
+let subtasksList;
+let listSubtasks = [];
 
 // Modal
 
@@ -125,7 +134,6 @@ function createMainTask(){
     let nameMainTask = createTask("h3", undefined, {nameTask: inputMainTask.value}, taskNameContainer);
     labelMainTask.classList.add("defined-name");
     labelMainTask.textContent = inputMainTask.value;
-    // taskSubtasksContainer.classList.add("active");
     taskSubtasksModal.classList.add("active");
     let triangle = createTask("div", "triangle", undefined, taskNameContainer);
 
@@ -136,4 +144,46 @@ function createMainTask(){
     let imgDelete = createTask("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDelete);
 
     let progress = createTask("div", "progress", undefined, mainTask);
+
+    subtasksList = createTask("section", "subtasks-list", undefined, taskContainer);
+
+    btnSubtask.addEventListener("click", () => {
+        let paragraph = createTask("p", undefined, undefined, subtaskinModal);
+        let handle = createTask("span", "handle", undefined, paragraph);
+        let iconHandle = createTask("i", "bi bi-arrows-move", undefined, handle);
+        let nameSubTask = createTask("span", "nameSubTask", {nameTask: inputSubtask.value}, paragraph); 
+        listSubtasks.push(inputSubtask.value);
+        inputSubtask.value = "";
+        let deleteTask = createTask("span", "delete", undefined, paragraph);
+        let iconDelete = createTask("i", "bi bi-x-circle-fill", undefined, deleteTask);
+
+        let minSubtask = subtaskinModal.childElementCount;
+        if(minSubtask === 2){
+            btncreateMainTask.style.setProperty("display", "block");
+        } else{
+            console.log("não atingiu o número mínimo de subtarefas");
+        }
+    });
+}
+
+btncreateMainTask.addEventListener("click", () => {
+    for(let i = 0; i < listSubtasks.length; i++){
+        sendingMainTask(listSubtasks[i]);
+    }
+    taskSubtasksModal.close();
+});
+
+function sendingMainTask(nameSubtask){
+    let subtaskContainer = createTask("article", "subtask-container", undefined, subtasksList);
+    let subtask = createTask("label", "subtask", undefined, subtaskContainer);
+    let checkmark = createTask("span", "checkmark", undefined, subtask);
+    let iconCheck = createTask("i", "bi bi-check2", undefined, checkmark);
+
+    let taskName = createTask("span", "taskName", {nameTask: nameSubtask}, subtask);
+
+    let managementSubtask = createTask("div", "management", undefined, subtaskContainer);
+    let btnEditSubtask = createTask("button", undefined, undefined, managementSubtask);
+    let imgEditSubtask = createTask("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEditSubtask);
+    let btnDeleteSubtask = createTask("button", undefined, undefined, managementSubtask);
+    let imgDeleteSubtask = createTask("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDeleteSubtask);
 }
