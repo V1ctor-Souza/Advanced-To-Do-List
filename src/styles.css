@@ -606,6 +606,8 @@ dialog.fadeOut{
 .subtasks-list{
     overflow: hidden;
     height: 100%;
+    margin-left: -10px;
+    /* border: 1px solid red; */
 }
 /*Ideia*/
 /* .subtask-container:nth-child(2){
@@ -620,4 +622,8 @@ dialog.fadeOut{
     align-items: center;
     gap: 10px;
     cursor: pointer;
+    width: 75%;
+}
+.subtask-container .subtask .taskName{
+    overflow-wrap: break-word;
 }
