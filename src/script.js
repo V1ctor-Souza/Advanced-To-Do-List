@@ -20,6 +20,9 @@ const btncreateMainTask = document.querySelector(".createMainTask button");
 
 /*modal*/
 const subtaskinModal = document.querySelector(".subtask-list-inModal");
+let minSubtask;
+
+let definedName;
 
 let subtasksList;
 let listSubtasks = [];
@@ -56,6 +59,8 @@ inputSimpleTask.addEventListener("keydown", (e) => {
 });
 
 btnMainTask.addEventListener("click", createMainTask);
+
+
 allModal.forEach(modal => {
     modal.addEventListener("click", (e) => {
         let posModal = modal.getBoundingClientRect();
@@ -89,7 +94,6 @@ function createTask(element, className, attributes = {}, parentElement, subtask 
 
     if(subtask){
         console.log("contém subtarefa");
-        // taskSubtasksModal.close();
     }
     return parentElement.appendChild(el);
 }
@@ -132,9 +136,12 @@ function createMainTask(){
     let mainTask = createTask("header", "main-task", undefined, taskContainer);
     let taskNameContainer = createTask("section", "task-name-container", undefined, mainTask);
     let nameMainTask = createTask("h3", undefined, {nameTask: inputMainTask.value}, taskNameContainer);
-    labelMainTask.classList.add("defined-name");
-    labelMainTask.textContent = inputMainTask.value;
+
+    definedName = createTask("div", "defined-name", {nameTask: inputMainTask.value}, labelMainTask);
+    inputMainTask.style.setProperty("display", "none");
+    btnMainTask.style.setProperty("display", "none");
     taskSubtasksModal.classList.add("active");
+
     let triangle = createTask("div", "triangle", undefined, taskNameContainer);
 
     let management = createTask("div", "management", undefined, mainTask);
@@ -142,35 +149,40 @@ function createMainTask(){
     let imgEdit = createTask("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEdit);
     let btnDelete = createTask("button", undefined, undefined, management);
     let imgDelete = createTask("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDelete);
-
     let progress = createTask("div", "progress", undefined, mainTask);
 
     subtasksList = createTask("section", "subtasks-list", undefined, taskContainer);
-
-    btnSubtask.addEventListener("click", () => {
-        let paragraph = createTask("p", undefined, undefined, subtaskinModal);
-        let handle = createTask("span", "handle", undefined, paragraph);
-        let iconHandle = createTask("i", "bi bi-arrows-move", undefined, handle);
-        let nameSubTask = createTask("span", "nameSubTask", {nameTask: inputSubtask.value}, paragraph); 
-        listSubtasks.push(inputSubtask.value);
-        inputSubtask.value = "";
-        let deleteTask = createTask("span", "delete", undefined, paragraph);
-        let iconDelete = createTask("i", "bi bi-x-circle-fill", undefined, deleteTask);
-
-        let minSubtask = subtaskinModal.childElementCount;
-        if(minSubtask === 2){
-            btncreateMainTask.style.setProperty("display", "block");
-        } else{
-            console.log("não atingiu o número mínimo de subtarefas");
-        }
-    });
 }
+
+btnSubtask.addEventListener("click", () => {
+    let paragraph = createTask("p", undefined, undefined, subtaskinModal);
+    let handle = createTask("span", "handle", undefined, paragraph);
+    let iconHandle = createTask("i", "bi bi-arrows-move", undefined, handle);
+    let nameSubTask = createTask("span", "nameSubTask", {nameTask: inputSubtask.value}, paragraph); 
+    listSubtasks.push(inputSubtask.value);
+    inputSubtask.value = "";
+    let deleteTask = createTask("span", "delete", undefined, paragraph);
+    let iconDelete = createTask("i", "bi bi-x-circle-fill", undefined, deleteTask);
+
+
+    minSubtask = subtaskinModal.childElementCount;
+        if(minSubtask >= 2){
+            btncreateMainTask.style.setProperty("display", "block");
+        } else return;
+    });
 
 btncreateMainTask.addEventListener("click", () => {
     for(let i = 0; i < listSubtasks.length; i++){
         sendingMainTask(listSubtasks[i]);
     }
     taskSubtasksModal.close();
+    listSubtasks = [];
+    btncreateMainTask.style.removeProperty("display");
+    inputMainTask.style.removeProperty("display");
+    btnMainTask.style.removeProperty("display");
+    taskSubtasksModal.classList.remove("active");
+    subtaskinModal.innerHTML = "";
+    definedName.remove();
 });
 
 function sendingMainTask(nameSubtask){
@@ -178,9 +190,7 @@ function sendingMainTask(nameSubtask){
     let subtask = createTask("label", "subtask", undefined, subtaskContainer);
     let checkmark = createTask("span", "checkmark", undefined, subtask);
     let iconCheck = createTask("i", "bi bi-check2", undefined, checkmark);
-
     let taskName = createTask("span", "taskName", {nameTask: nameSubtask}, subtask);
-
     let managementSubtask = createTask("div", "management", undefined, subtaskContainer);
     let btnEditSubtask = createTask("button", undefined, undefined, managementSubtask);
     let imgEditSubtask = createTask("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEditSubtask);

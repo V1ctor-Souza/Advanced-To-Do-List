@@ -297,6 +297,7 @@ dialog.fadeOut{
     border-radius: 2px;
     padding: 10px;
     cursor: pointer;
+    width: 100%;
 }
 .taskSubtasks-inputs .defined-name::before{
     position: absolute;
@@ -607,7 +608,7 @@ dialog.fadeOut{
     overflow: hidden;
     height: 100%;
     margin-left: -10px;
-    /* border: 1px solid red; */
+    margin-top: 4px;
 }
 /*Ideia*/
 /* .subtask-container:nth-child(2){
