@@ -1,20 +1,20 @@
-const mainContainer = document.querySelector(".main-container");
-const firstColumn = document.querySelector(".column:first-child");
-const taskSubtasksContainer = document.querySelector(".taskSubtasks-inputs");
-const labelMainTask = document.querySelector(".taskSubtasks-inputs label");
-const inputMainTask = document.querySelector(".taskSubtasks-inputs input");
-const inputSubtask = document.querySelector(".nameSubtask-container input");
-const btnSubtask = document.querySelector(".btn-addSubtask");
-const btncreateMainTask = document.querySelector(".createMainTask button");
+// Checking for the existence of a simple task
+window.addEventListener("DOMContentLoaded", () => {
+    if(localStorage.getItem("listSimplesTasks")){
+        tasks[0].push(...JSON.parse(localStorage.getItem("listSimplesTasks")));
 
-/*modal*/
-const subtaskinModal = document.querySelector(".subtask-list-inModal");
+        tasks[0].forEach(tarefa => {
+            createSimpleTask(tarefa, false);
+        });
+    } else return console.log('não existe');
+});
+
 
 let definedName;
 let subtasksList;
 let listSubtasks = [];
 
-let task = [
+let tasks = [
     simplesTasks = [],
     mainTasks = [],
 ];

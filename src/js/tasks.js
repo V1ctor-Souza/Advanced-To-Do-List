@@ -1,14 +1,30 @@
+/* Global variables */
+const firstColumn = document.querySelector(".column:first-child");
+const labelMainTask = document.querySelector(".taskSubtasks-inputs label");
+const inputMainTask = document.querySelector(".taskSubtasks-inputs input");
+const inputSubtask = document.querySelector(".nameSubtask-container input");
+const btnSubtask = document.querySelector(".btn-addSubtask");
+const btncreateMainTask = document.querySelector(".createMainTask button");
+const subtaskinModal = document.querySelector(".subtask-list-inModal");
+
+
 // Simples tasks creation
 const btnSimpleTask = document.querySelector(".input-container button");
 const inputSimpleTask = document.querySelector(".input-container input");
 
-function createSimpleTask(){
+function createSimpleTask(nameTask, addStorage = true){
     let taskContainer = createStructure("article", "task-container", undefined, firstColumn);
     let labelTask = createStructure("label", "task", undefined, taskContainer);
     let checkmark = createStructure("span", "checkmark", undefined, labelTask);
     let iconCheck = createStructure("i", "bi bi-check2", undefined, checkmark);
     let taskName = createStructure("div", "taskName", undefined, labelTask);
-    let valueTask = createStructure("span", undefined, {nameTask: inputSimpleTask.value}, taskName);
+    let valueTask = createStructure("span", undefined, {textContent: nameTask}, taskName);
+
+    // Adding and storing
+    if(addStorage){
+        tasks[0].push(nameTask);
+        localStorage.setItem("listSimplesTasks", JSON.stringify(tasks[0]));
+    }
 
     // Check task
     let icon = checkmark.querySelector('i');
@@ -31,10 +47,23 @@ function createSimpleTask(){
     simpleTaskModal.close();
 }
 
-btnSimpleTask.addEventListener("click", createSimpleTask);
-inputSimpleTask.addEventListener("keydown", (e) => {
-    if(e.key === 'Enter') createSimpleTask();
+btnSimpleTask.addEventListener("click", () => {
+    if(inputSimpleTask.value){
+        createSimpleTask(inputSimpleTask.value);
+        inputSimpleTask.style.removeProperty("border");
+    } else{
+        inputSimpleTask.style.setProperty("border", "1px solid red");
+    }
 });
+inputSimpleTask.addEventListener("keydown", (e) => {
+    if(e.key === 'Enter' && inputSimpleTask.value){
+        createSimpleTask(inputSimpleTask.value);
+        inputSimpleTask.style.removeProperty("border");
+    } else{
+        inputSimpleTask.style.setProperty("border", "1px solid red");
+    }
+});
+
 
 
 // Main tasks creation
@@ -46,9 +75,9 @@ function createMainTask(){
     // taskContainer.style.setProperty("display", "none");
     let mainTask = createStructure("header", "main-task", undefined, taskContainer);
     let taskNameContainer = createStructure("section", "task-name-container", undefined, mainTask);
-    let nameMainTask = createStructure("h3", undefined, {nameTask: inputMainTask.value}, taskNameContainer);
+    let nameMainTask = createStructure("h3", undefined, {textContent: inputMainTask.value}, taskNameContainer);
 
-    definedName = createStructure("div", "defined-name", {nameTask: inputMainTask.value}, labelMainTask);
+    definedName = createStructure("div", "defined-name", {textContent: inputMainTask.value}, labelMainTask);
     inputMainTask.value = '';
     inputMainTask.style.setProperty("display", "none");
     btnMainTask.style.setProperty("display", "none");
@@ -71,7 +100,7 @@ btnSubtask.addEventListener("click", () => {
     let paragraph = createStructure("p", undefined, undefined, subtaskinModal);
     let handle = createStructure("span", "handle", undefined, paragraph);
     let iconHandle = createStructure("i", "bi bi-arrows-move", undefined, handle);
-    let nameSubTask = createStructure("span", "nameSubTask", {nameTask: inputSubtask.value}, paragraph); 
+    let nameSubTask = createStructure("span", "nameSubTask", {textContent: inputSubtask.value}, paragraph); 
     listSubtasks.push(inputSubtask.value);
     inputSubtask.value = "";
     let deleteTask = createStructure("span", "delete", undefined, paragraph);
@@ -89,7 +118,7 @@ function sendingMainTask(nameSubtask){
     let subtask = createStructure("label", "subtask", undefined, subtaskContainer);
     let checkmark = createStructure("span", "checkmark", undefined, subtask);
     let iconCheck = createStructure("i", "bi bi-check2", undefined, checkmark);
-    let taskName = createStructure("span", "taskName", {nameTask: nameSubtask}, subtask);
+    let taskName = createStructure("span", "taskName", {textContent: nameSubtask}, subtask);
     let managementSubtask = createStructure("div", "management", undefined, subtaskContainer);
     let btnEditSubtask = createStructure("button", undefined, undefined, managementSubtask);
     let imgEditSubtask = createStructure("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEditSubtask);
