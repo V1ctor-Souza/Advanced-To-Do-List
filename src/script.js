@@ -1,35 +1,33 @@
 // Criação de tarefa simples e tarefa com subtarefas
-const btnCreateTasks = document.querySelector(".btn-createTasks");
+
 const mainContainer = document.querySelector(".main-container");
-let allModal = document.querySelectorAll("dialog");
-const mainModal = document.querySelector(".main-modal");
-const btnCreateST = mainModal.querySelector(".btn-createSimpleTask");
-const btnCreateTWS = mainModal.querySelector(".btn-createTWS");
 const firstColumn = document.querySelector(".column:first-child");
-const simpleTaskModal = document.querySelector(".simpleTask-modal");
-const inputSimpleTask = document.querySelector(".input-container input");
-const btnSimpleTask = document.querySelector(".input-container button");
-const taskSubtasksModal = document.querySelector(".taskSubtasks-modal");
 const taskSubtasksContainer = document.querySelector(".taskSubtasks-inputs");
 const labelMainTask = document.querySelector(".taskSubtasks-inputs label");
 const inputMainTask = document.querySelector(".taskSubtasks-inputs input");
-const btnMainTask = document.querySelector(".taskSubtasks-inputs button");
 const inputSubtask = document.querySelector(".nameSubtask-container input");
 const btnSubtask = document.querySelector(".btn-addSubtask");
 const btncreateMainTask = document.querySelector(".createMainTask button");
 
 /*modal*/
 const subtaskinModal = document.querySelector(".subtask-list-inModal");
-let minSubtask;
+
 
 let definedName;
-
 let subtasksList;
 let listSubtasks = [];
 
+let task = [
+    simplesTasks = [],
+    mainTasks = [],
+];
+
 // Modal
 
-// show main Modal
+/* Create task and main modal */
+const btnCreateTasks = document.querySelector(".btn-createTasks");
+const mainModal = document.querySelector(".main-modal");
+
 btnCreateTasks.addEventListener("click", () => {
     btnCreateTasks.blur();
     mainModal.showModal();
@@ -37,7 +35,10 @@ btnCreateTasks.addEventListener("click", () => {
 });
 
 
-// show simple task modal
+// Create simpleTask
+const btnCreateST = mainModal.querySelector(".btn-createSimpleTask");
+const simpleTaskModal = document.querySelector(".simpleTask-modal");
+
 btnCreateST.addEventListener("click", () => {
     mainModal.close();
     mainModal.classList.remove("slideDown");
@@ -45,21 +46,34 @@ btnCreateST.addEventListener("click", () => {
 });
 
 
-// show task with subtasks modal
+// Create task with subtasks
+const btnCreateTWS = mainModal.querySelector(".btn-createTWS");
+const taskSubtasksModal = document.querySelector(".taskSubtasks-modal");
+
 btnCreateTWS.addEventListener("click", () => {
     mainModal.close();
     mainModal.classList.remove("slideDown");
     taskSubtasksModal.showModal();
 });
 
-// button to create simple task
+
+// button to create simple task and input
+const btnSimpleTask = document.querySelector(".input-container button");
+const inputSimpleTask = document.querySelector(".input-container input");
+
 btnSimpleTask.addEventListener("click", createSimpleTask);
 inputSimpleTask.addEventListener("keydown", (e) => {
     if(e.key === 'Enter') createSimpleTask();
 });
 
+// button to create main task and input
+const btnMainTask = document.querySelector(".taskSubtasks-inputs button");
+
 btnMainTask.addEventListener("click", createMainTask);
 
+
+/* select all <dialog> */
+let allModal = document.querySelectorAll("dialog");
 
 allModal.forEach(modal => {
     modal.addEventListener("click", (e) => {
@@ -79,10 +93,9 @@ allModal.forEach(modal => {
     });
 });
 
-// Functions
+// All functions
 
-
-// Function to create task
+// Function to create task (main function to create tasks)
 function createTask(element, className, attributes = {}, parentElement, subtask = false){
 
     let el = document.createElement(element);
@@ -138,6 +151,7 @@ function createMainTask(){
     let nameMainTask = createTask("h3", undefined, {nameTask: inputMainTask.value}, taskNameContainer);
 
     definedName = createTask("div", "defined-name", {nameTask: inputMainTask.value}, labelMainTask);
+    inputMainTask.value = '';
     inputMainTask.style.setProperty("display", "none");
     btnMainTask.style.setProperty("display", "none");
     taskSubtasksModal.classList.add("active");
@@ -154,6 +168,8 @@ function createMainTask(){
     subtasksList = createTask("section", "subtasks-list", undefined, taskContainer);
 }
 
+
+/* Event to create visual subtasks */
 btnSubtask.addEventListener("click", () => {
     let paragraph = createTask("p", undefined, undefined, subtaskinModal);
     let handle = createTask("span", "handle", undefined, paragraph);
@@ -164,13 +180,14 @@ btnSubtask.addEventListener("click", () => {
     let deleteTask = createTask("span", "delete", undefined, paragraph);
     let iconDelete = createTask("i", "bi bi-x-circle-fill", undefined, deleteTask);
 
-
-    minSubtask = subtaskinModal.childElementCount;
+    let minSubtask = subtaskinModal.childElementCount;
         if(minSubtask >= 2){
             btncreateMainTask.style.setProperty("display", "block");
         } else return;
     });
 
+
+/* Event to create default main task structure*/
 btncreateMainTask.addEventListener("click", () => {
     for(let i = 0; i < listSubtasks.length; i++){
         sendingMainTask(listSubtasks[i]);
@@ -185,6 +202,8 @@ btncreateMainTask.addEventListener("click", () => {
     definedName.remove();
 });
 
+
+/* Function to send subtasks to the main task */
 function sendingMainTask(nameSubtask){
     let subtaskContainer = createTask("article", "subtask-container", undefined, subtasksList);
     let subtask = createTask("label", "subtask", undefined, subtaskContainer);
