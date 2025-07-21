@@ -18,19 +18,3 @@ let task = [
     simplesTasks = [],
     mainTasks = [],
 ];
-
-// Function to create task (main function to create tasks)
-function createTask(element, className, attributes = {}, parentElement, subtask = false){
-
-    let el = document.createElement(element);
-    if (className) el.classList.add(...className.split(" "));
-    for (let attr in attributes){
-        if(attr === 'nameTask') el.textContent = attributes[attr];
-        else el.setAttribute(attr, attributes[attr]);
-    }
-
-    if(subtask){
-        console.log("contém subtarefa");
-    }
-    return parentElement.appendChild(el);
-}

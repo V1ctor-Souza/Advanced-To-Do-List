@@ -3,12 +3,12 @@ const btnSimpleTask = document.querySelector(".input-container button");
 const inputSimpleTask = document.querySelector(".input-container input");
 
 function createSimpleTask(){
-    let taskContainer = createTask("article", "task-container", undefined, firstColumn);
-    let labelTask = createTask("label", "task", undefined, taskContainer);
-    let checkmark = createTask("span", "checkmark", undefined, labelTask);
-    let iconCheck = createTask("i", "bi bi-check2", undefined, checkmark);
-    let taskName = createTask("div", "taskName", undefined, labelTask);
-    let valueTask = createTask("span", undefined, {nameTask: inputSimpleTask.value}, taskName);
+    let taskContainer = createStructure("article", "task-container", undefined, firstColumn);
+    let labelTask = createStructure("label", "task", undefined, taskContainer);
+    let checkmark = createStructure("span", "checkmark", undefined, labelTask);
+    let iconCheck = createStructure("i", "bi bi-check2", undefined, checkmark);
+    let taskName = createStructure("div", "taskName", undefined, labelTask);
+    let valueTask = createStructure("span", undefined, {nameTask: inputSimpleTask.value}, taskName);
 
     // Check task
     let icon = checkmark.querySelector('i');
@@ -21,11 +21,11 @@ function createSimpleTask(){
         taskName.classList.toggle("checked");
     }
 
-    let management = createTask("div", "management", undefined, taskContainer);
-    let btnEdit = createTask("button", undefined, undefined, management);
-    let imgEdit = createTask("img", undefined, {src: "assets/edit.png", alt: "imagem de editar tarefa"}, btnEdit);
-    let btnDelete = createTask("button", undefined, undefined, management);
-    let imgDelete = createTask("img", undefined, {src: "assets/delete.png", alt: "imagem de excluir tarefa"}, btnDelete);
+    let management = createStructure("div", "management", undefined, taskContainer);
+    let btnEdit = createStructure("button", undefined, undefined, management);
+    let imgEdit = createStructure("img", undefined, {src: "assets/edit.png", alt: "imagem de editar tarefa"}, btnEdit);
+    let btnDelete = createStructure("button", undefined, undefined, management);
+    let imgDelete = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de excluir tarefa"}, btnDelete);
 
     inputSimpleTask.value = '';
     simpleTaskModal.close();
@@ -42,40 +42,40 @@ const btnMainTask = document.querySelector(".taskSubtasks-inputs button");
 
 // Function to create standard structure off the main task
 function createMainTask(){
-    let taskContainer = createTask("article", "task-container main", undefined, firstColumn, true);
+    let taskContainer = createStructure("article", "task-container main", undefined, firstColumn, true);
     // taskContainer.style.setProperty("display", "none");
-    let mainTask = createTask("header", "main-task", undefined, taskContainer);
-    let taskNameContainer = createTask("section", "task-name-container", undefined, mainTask);
-    let nameMainTask = createTask("h3", undefined, {nameTask: inputMainTask.value}, taskNameContainer);
+    let mainTask = createStructure("header", "main-task", undefined, taskContainer);
+    let taskNameContainer = createStructure("section", "task-name-container", undefined, mainTask);
+    let nameMainTask = createStructure("h3", undefined, {nameTask: inputMainTask.value}, taskNameContainer);
 
-    definedName = createTask("div", "defined-name", {nameTask: inputMainTask.value}, labelMainTask);
+    definedName = createStructure("div", "defined-name", {nameTask: inputMainTask.value}, labelMainTask);
     inputMainTask.value = '';
     inputMainTask.style.setProperty("display", "none");
     btnMainTask.style.setProperty("display", "none");
     taskSubtasksModal.classList.add("active");
 
-    let triangle = createTask("div", "triangle", undefined, taskNameContainer);
+    let triangle = createStructure("div", "triangle", undefined, taskNameContainer);
 
-    let management = createTask("div", "management", undefined, mainTask);
-    let btnEdit = createTask("button", undefined, undefined, management);
-    let imgEdit = createTask("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEdit);
-    let btnDelete = createTask("button", undefined, undefined, management);
-    let imgDelete = createTask("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDelete);
-    let progress = createTask("div", "progress", undefined, mainTask);
+    let management = createStructure("div", "management", undefined, mainTask);
+    let btnEdit = createStructure("button", undefined, undefined, management);
+    let imgEdit = createStructure("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEdit);
+    let btnDelete = createStructure("button", undefined, undefined, management);
+    let imgDelete = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDelete);
+    let progress = createStructure("div", "progress", undefined, mainTask);
 
-    subtasksList = createTask("section", "subtasks-list", undefined, taskContainer);
+    subtasksList = createStructure("section", "subtasks-list", undefined, taskContainer);
 }
 
 // Event to create visual subtasks in modal
 btnSubtask.addEventListener("click", () => {
-    let paragraph = createTask("p", undefined, undefined, subtaskinModal);
-    let handle = createTask("span", "handle", undefined, paragraph);
-    let iconHandle = createTask("i", "bi bi-arrows-move", undefined, handle);
-    let nameSubTask = createTask("span", "nameSubTask", {nameTask: inputSubtask.value}, paragraph); 
+    let paragraph = createStructure("p", undefined, undefined, subtaskinModal);
+    let handle = createStructure("span", "handle", undefined, paragraph);
+    let iconHandle = createStructure("i", "bi bi-arrows-move", undefined, handle);
+    let nameSubTask = createStructure("span", "nameSubTask", {nameTask: inputSubtask.value}, paragraph); 
     listSubtasks.push(inputSubtask.value);
     inputSubtask.value = "";
-    let deleteTask = createTask("span", "delete", undefined, paragraph);
-    let iconDelete = createTask("i", "bi bi-x-circle-fill", undefined, deleteTask);
+    let deleteTask = createStructure("span", "delete", undefined, paragraph);
+    let iconDelete = createStructure("i", "bi bi-x-circle-fill", undefined, deleteTask);
 
     let minSubtask = subtaskinModal.childElementCount;
         if(minSubtask >= 2){
@@ -85,16 +85,16 @@ btnSubtask.addEventListener("click", () => {
 
 /* Function to send subtasks to the main task */
 function sendingMainTask(nameSubtask){
-    let subtaskContainer = createTask("article", "subtask-container", undefined, subtasksList);
-    let subtask = createTask("label", "subtask", undefined, subtaskContainer);
-    let checkmark = createTask("span", "checkmark", undefined, subtask);
-    let iconCheck = createTask("i", "bi bi-check2", undefined, checkmark);
-    let taskName = createTask("span", "taskName", {nameTask: nameSubtask}, subtask);
-    let managementSubtask = createTask("div", "management", undefined, subtaskContainer);
-    let btnEditSubtask = createTask("button", undefined, undefined, managementSubtask);
-    let imgEditSubtask = createTask("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEditSubtask);
-    let btnDeleteSubtask = createTask("button", undefined, undefined, managementSubtask);
-    let imgDeleteSubtask = createTask("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDeleteSubtask);
+    let subtaskContainer = createStructure("article", "subtask-container", undefined, subtasksList);
+    let subtask = createStructure("label", "subtask", undefined, subtaskContainer);
+    let checkmark = createStructure("span", "checkmark", undefined, subtask);
+    let iconCheck = createStructure("i", "bi bi-check2", undefined, checkmark);
+    let taskName = createStructure("span", "taskName", {nameTask: nameSubtask}, subtask);
+    let managementSubtask = createStructure("div", "management", undefined, subtaskContainer);
+    let btnEditSubtask = createStructure("button", undefined, undefined, managementSubtask);
+    let imgEditSubtask = createStructure("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEditSubtask);
+    let btnDeleteSubtask = createStructure("button", undefined, undefined, managementSubtask);
+    let imgDeleteSubtask = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDeleteSubtask);
 }
 
 /* Event for creating a task with subtasks*/
