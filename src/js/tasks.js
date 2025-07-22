@@ -69,6 +69,20 @@ function createSimpleTask(nameTask, addStorage = true){
             editModal.close();
         }
     });
+
+    btnDelete.addEventListener("click", () => {
+        let allTaskName = document.querySelectorAll(".taskName");
+        let arrayTaskName = Array.from(allTaskName);
+        let indexTask = arrayTaskName.indexOf(taskName);
+
+        taskContainer.remove();
+        tasks[0].splice(indexTask, 1);
+        localStorage.setItem("listSimplesTasks", JSON.stringify(tasks[0]));
+
+        let totalPendingTasks = firstColumn.childElementCount - 1;
+        taskCount(totalPendingTasks);
+        
+    });
     
     inputSimpleTask.value = '';
     simpleTaskModal.close();
