@@ -308,7 +308,60 @@ dialog.fadeOut{
     transform: translateY(-50%);
     content: "Nome da tarefa principal:"
 }
-/*--------*/
+
+/*Modal edit*/
+.editModal{
+    width: 30%;
+    text-align: center;
+    font-size: 1.2em;
+}
+.editModal header{
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    margin-bottom: 20px;
+}
+.editModal label{
+    position: relative;
+}
+.editModal h2{
+    margin-left: -10px;
+}
+
+.editModal p{
+    margin-bottom: 8px;
+}
+.editModal input{
+    font-size: 0.9em;
+    padding-left: 32px;
+    height: 30px;
+}
+.editModal input:focus{
+    box-shadow: 0 0 0 2px #4ade80;
+    outline: none;
+}
+.editModal i{
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #666;
+}
+.editModal .btnEdit{
+    background-color: var(--button-create-task);
+    color: #FFF;
+    border: none;
+    border-radius: 4px;
+    padding: 4.5px 16px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.editModal .btnEdit:hover{
+    background-color: #258601;
+}
+/*------------*/
 .taskSubtasks-inputs .btn-addSubtask{
     display: flex;
     align-items: center;

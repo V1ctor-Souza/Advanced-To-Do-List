@@ -56,11 +56,13 @@ btnSimpleTask.addEventListener("click", () => {
     }
 });
 inputSimpleTask.addEventListener("keydown", (e) => {
-    if(e.key === 'Enter' && inputSimpleTask.value){
-        createSimpleTask(inputSimpleTask.value);
-        inputSimpleTask.style.removeProperty("border");
-    } else{
-        inputSimpleTask.style.setProperty("border", "1px solid red");
+    if(e.key === 'Enter'){
+        if(inputSimpleTask.value){
+            createSimpleTask(inputSimpleTask.value);
+            inputSimpleTask.style.removeProperty("border");
+        } else{
+            inputSimpleTask.style.setProperty("border", "1px solid red");
+        }
     }
 });
 
