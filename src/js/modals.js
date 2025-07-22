@@ -49,3 +49,8 @@ btnCreateTWS.addEventListener("click", () => {
     mainModal.classList.remove("slideDown");
     taskSubtasksModal.showModal();
 });
+
+/* Modal to edit task */
+const editModal = document.querySelector(".editModal");
+const inputEditModal = editModal.querySelector("input");
+const btnEditTask = editModal.querySelector(".btnEdit");

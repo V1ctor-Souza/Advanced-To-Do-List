@@ -1,4 +1,5 @@
 /* Global variables */
+let taskBeingEdited;
 const firstColumn = document.querySelector(".column:first-child");
 const labelMainTask = document.querySelector(".taskSubtasks-inputs label");
 const inputMainTask = document.querySelector(".taskSubtasks-inputs input");
@@ -43,6 +44,32 @@ function createSimpleTask(nameTask, addStorage = true){
     let btnDelete = createStructure("button", undefined, undefined, management);
     let imgDelete = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de excluir tarefa"}, btnDelete);
 
+    btnEdit.addEventListener("click", (e) => {
+        taskBeingEdited = taskName;
+        inputEditModal.placeholder = nameTask;
+        // valueTask.style.setProperty("background", 'red');
+        editModal.showModal();
+    }); 
+
+    btnEditTask.addEventListener("click", () => {
+        if(inputEditModal.value){
+            if(taskBeingEdited){
+                let allTaskName = document.querySelectorAll(".taskName");
+                let arrayTaskName = Array.from(allTaskName);
+                let indexTask = arrayTaskName.indexOf(taskBeingEdited);
+
+                taskBeingEdited.textContent = inputEditModal.value;
+                tasks[0][indexTask] = inputEditModal.value;
+                localStorage.setItem("listSimplesTasks", JSON.stringify(tasks[0]));
+                taskBeingEdited = null;
+                editModal.close();
+                inputEditModal.value = '';
+            }
+        } else{
+            editModal.close();
+        }
+    });
+    
     inputSimpleTask.value = '';
     simpleTaskModal.close();
 }
@@ -50,6 +77,10 @@ function createSimpleTask(nameTask, addStorage = true){
 btnSimpleTask.addEventListener("click", () => {
     if(inputSimpleTask.value){
         createSimpleTask(inputSimpleTask.value);
+
+        let totalPendingTasks = firstColumn.childElementCount - 1;
+        taskCount(totalPendingTasks);
+    
         inputSimpleTask.style.removeProperty("border");
     } else{
         inputSimpleTask.style.setProperty("border", "1px solid red");
@@ -144,3 +175,11 @@ btncreateMainTask.addEventListener("click", () => {
 });
 
 btnMainTask.addEventListener("click", createMainTask);
+
+function taskCount(value){
+    let element = value;
+
+    if(element === 1) pendingTasks.textContent = 
+    `Tarefa pendente (${value})`;
+    else pendingTasks.textContent = `Tarefas pendentes (${value})`;
+}
