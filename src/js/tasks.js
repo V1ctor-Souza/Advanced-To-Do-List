@@ -1,7 +1,8 @@
 /* Global variables */
 let taskBeingEdited;
+let progress;
 const firstColumn = document.querySelector(".column:first-child");
-const labelMainTask = document.querySelector(".taskSubtasks-inputs label");
+const labelMainTask = document.querySelector(".taskSubtasks-inputs label"); 
 const inputMainTask = document.querySelector(".taskSubtasks-inputs input");
 const inputSubtask = document.querySelector(".nameSubtask-container input");
 const btnSubtask = document.querySelector(".btn-addSubtask");
@@ -47,7 +48,6 @@ function createSimpleTask(nameTask, addStorage = true){
     btnEdit.addEventListener("click", (e) => {
         taskBeingEdited = taskName;
         inputEditModal.placeholder = nameTask;
-        // valueTask.style.setProperty("background", 'red');
         editModal.showModal();
     }); 
 
@@ -137,9 +137,23 @@ function createMainTask(){
     let imgEdit = createStructure("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEdit);
     let btnDelete = createStructure("button", undefined, undefined, management);
     let imgDelete = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDelete);
-    let progress = createStructure("div", "progress", undefined, mainTask);
+    progress = createStructure("div", "progress", {textContent: "0%"}, mainTask);
 
     subtasksList = createStructure("section", "subtasks-list", undefined, taskContainer);
+
+    taskNameContainer.addEventListener("click", () => {
+        if(subtasksList.style.height){
+            subtasksList.style.removeProperty("height");
+            triangle.classList.remove("expand");
+            management.style.removeProperty("display");
+            progress.style.removeProperty("display");
+        } else{
+            subtasksList.style.setProperty("height", subtasksList.scrollHeight + "px");
+            triangle.classList.add("expand");
+            management.style.setProperty("display", "none");
+            progress.style.setProperty("display", "block");
+        }
+    });
 }
 
 // Event to create visual subtasks in modal
@@ -171,6 +185,15 @@ function sendingMainTask(nameSubtask){
     let imgEditSubtask = createStructure("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEditSubtask);
     let btnDeleteSubtask = createStructure("button", undefined, undefined, managementSubtask);
     let imgDeleteSubtask = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDeleteSubtask);
+
+    taskName.onclick = ()=> {
+        iconCheck.classList.toggle("active");
+        taskName.classList.toggle("checked");
+    }
+    checkmark.onclick = ()=> {
+        iconCheck.classList.toggle("active");
+        taskName.classList.toggle("checked");
+    }
 }
 
 /* Event for creating a task with subtasks*/
@@ -178,6 +201,31 @@ btncreateMainTask.addEventListener("click", () => {
     for(let i = 0; i < listSubtasks.length; i++){
         sendingMainTask(listSubtasks[i]);
     }
+
+    /* System porcentage */
+    let allSubtasks = subtasksList.querySelectorAll(".subtask");
+    porcentageSubtask = 100 / allSubtasks.length;
+
+    for (let i = 0; i < allSubtasks.length; i++){
+        allSubtasks[i].setAttribute("data-value", porcentageSubtask);
+    };
+    
+    allSubtasks.forEach(subtask => {
+        subtask.addEventListener("click", () => {
+        let total = 0;
+
+            allSubtasks.forEach(sub => {
+                if(sub.querySelector(".checked")){
+                    total += Number(subtask.dataset.value);
+                    console.log(total);
+                };
+            });
+
+            let current = Number(progress.textContent.replace("%", "")) || 0;
+            animatePercentage(current, Math.round(total));
+        });
+    });
+
     taskSubtasksModal.close();
     listSubtasks = [];
     btncreateMainTask.style.removeProperty("display");
@@ -186,14 +234,35 @@ btncreateMainTask.addEventListener("click", () => {
     taskSubtasksModal.classList.remove("active");
     subtaskinModal.innerHTML = "";
     definedName.remove();
+
+
 });
 
 btnMainTask.addEventListener("click", createMainTask);
 
+
+// Task counter
 function taskCount(value){
     let element = value;
 
     if(element === 1) pendingTasks.textContent = 
     `Tarefa pendente (${value})`;
     else pendingTasks.textContent = `Tarefas pendentes (${value})`;
+}
+
+
+// Functions responsible for progress animation
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function animatePercentage(from, to) {
+    if (from === to) return;
+
+    const step = from < to ? 1 : -1;
+
+    for (let i = from; i !== to + step; i += step) {
+        progress.textContent = i + "%";
+        await delay(20);
+    }
 }

@@ -17,6 +17,7 @@ window.addEventListener("DOMContentLoaded", () => {
 let definedName;
 let subtasksList;
 let listSubtasks = [];
+let porcentageSubtask = 0;
 
 let tasks = [
     simplesTasks = [],
