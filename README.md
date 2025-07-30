@@ -54,9 +54,12 @@ Esse sistema permite exportar o histórico geral das tarefas em formato PDF.
 **Status** : Em desenvolvimento
  * [x] Criar estrutura inicial do projeto
  * [x] Configurar repositório e README
- * [ ] Finalizar layout (HTML + CSS)
- * [ ] Desenvolver sistema de tarefas simples
- * [ ] Desenvolver sistema de subtarefas
+ * [x] Finalizar layout (HTML + CSS)
+ * [x] Desenvolver sistema de tarefas simples
+ * [x] Desenvolver sistema de subtarefas
+ * [x] Salvar tarefas simples em Storage
+ * [ ] Salvar tarefas principais em Storage
+ * [ ] Adicionar sistema de Drag and Drop
  * [ ] Implementar Filtro de Tarefas Inteligente
  * [ ] Integrar animações visuais (ex: lixeira, copo de água)
  * [ ] Criar histórico geral unificado
