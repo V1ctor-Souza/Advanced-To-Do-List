@@ -9,8 +9,15 @@ window.addEventListener("DOMContentLoaded", () => {
         });
         let totalPendingTasks = firstColumn.childElementCount - 1;
         taskCount(totalPendingTasks);
+    }
 
-    } else return;
+    if(localStorage.getItem("listMainTasks")){
+        tasks[1].push(...JSON.parse(localStorage.getItem("listMainTasks")));
+
+        tasks[1].forEach(tarefa => {
+            createMainTask(tarefa, false);
+        });
+    }
 });
 
 
@@ -23,3 +30,17 @@ let tasks = [
     simplesTasks = [],
     mainTasks = [],
 ];
+
+
+/*
+
+  mainTasks = [
+    Academia: [""],
+    Treino: [""],
+    Academia: [""],
+    Treino: [""],
+    Academia: [""],
+    Treino: [""],
+  ]
+
+*/

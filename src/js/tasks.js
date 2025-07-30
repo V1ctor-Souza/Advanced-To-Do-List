@@ -1,6 +1,7 @@
 /* Global variables */
 let taskBeingEdited;
 let progress;
+let nameMainTask;
 const firstColumn = document.querySelector(".column:first-child");
 const labelMainTask = document.querySelector(".taskSubtasks-inputs label"); 
 const inputMainTask = document.querySelector(".taskSubtasks-inputs input");
@@ -117,12 +118,19 @@ inputSimpleTask.addEventListener("keydown", (e) => {
 const btnMainTask = document.querySelector(".taskSubtasks-inputs button");
 
 // Function to create standard structure off the main task
-function createMainTask(){
+function createMainTask(nameMT){
     let taskContainer = createStructure("article", "task-container main", undefined, firstColumn, true);
     // taskContainer.style.setProperty("display", "none");
     let mainTask = createStructure("header", "main-task", undefined, taskContainer);
     let taskNameContainer = createStructure("section", "task-name-container", undefined, mainTask);
-    let nameMainTask = createStructure("h3", undefined, {textContent: inputMainTask.value}, taskNameContainer);
+    let nameMainTask = createStructure("h3", undefined, {textContent: nameMT}, taskNameContainer);
+
+    // PAREI AQUI
+    tasks[1].push(nameMT);
+
+    let allTaskContainer = document.querySelectorAll(".main");
+    let arrayTaskContainer = Array.from(allTaskContainer);
+    let indexTaskContainer = arrayTaskContainer.indexOf(nameMT);
 
     definedName = createStructure("div", "defined-name", {textContent: inputMainTask.value}, labelMainTask);
     inputMainTask.value = '';
@@ -211,6 +219,8 @@ btncreateMainTask.addEventListener("click", () => {
     };
     
     allSubtasks.forEach(subtask => {
+        let nameMainTask = subtask.closest(".task-container").querySelector(".main-task h3");
+
         subtask.addEventListener("click", () => {
         let total = 0;
 
@@ -220,9 +230,14 @@ btncreateMainTask.addEventListener("click", () => {
                     console.log(total);
                 };
             });
-
             let current = Number(progress.textContent.replace("%", "")) || 0;
             animatePercentage(current, Math.round(total));
+
+            if(total === 100){  
+                nameMainTask.classList.add("completed");
+            } else{
+                nameMainTask.classList.remove("completed");
+            }
         });
     });
 
@@ -234,11 +249,11 @@ btncreateMainTask.addEventListener("click", () => {
     taskSubtasksModal.classList.remove("active");
     subtaskinModal.innerHTML = "";
     definedName.remove();
-
-
 });
 
-btnMainTask.addEventListener("click", createMainTask);
+btnMainTask.addEventListener("click", () => {
+    createMainTask(inputMainTask.value);
+})
 
 
 // Task counter

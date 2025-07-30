@@ -626,6 +626,11 @@ dialog.fadeOut{
     .main-task h3{
         font-size: 1.1em;
     }
+    .main-task h3.completed{
+        text-decoration: line-through;
+        text-decoration-thickness: 4px;
+        text-decoration-color: #fff;
+    }
 
     .main-task .triangle{
         width: 0;
