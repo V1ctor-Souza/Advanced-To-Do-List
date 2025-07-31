@@ -181,28 +181,7 @@ btnSubtask.addEventListener("click", () => {
         } else return;
 });
 
-/* Function to send subtasks to the main task */
-function sendingMainTask(nameSubtask){
-    let subtaskContainer = createStructure("article", "subtask-container", undefined, subtasksList);
-    let subtask = createStructure("label", "subtask", undefined, subtaskContainer);
-    let checkmark = createStructure("span", "checkmark", undefined, subtask);
-    let iconCheck = createStructure("i", "bi bi-check2", undefined, checkmark);
-    let taskName = createStructure("span", "taskName", {textContent: nameSubtask}, subtask);
-    let managementSubtask = createStructure("div", "management", undefined, subtaskContainer);
-    let btnEditSubtask = createStructure("button", undefined, undefined, managementSubtask);
-    let imgEditSubtask = createStructure("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEditSubtask);
-    let btnDeleteSubtask = createStructure("button", undefined, undefined, managementSubtask);
-    let imgDeleteSubtask = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDeleteSubtask);
 
-    taskName.onclick = ()=> {
-        iconCheck.classList.toggle("active");
-        taskName.classList.toggle("checked");
-    }
-    checkmark.onclick = ()=> {
-        iconCheck.classList.toggle("active");
-        taskName.classList.toggle("checked");
-    }
-}
 
 /* Event for creating a task with subtasks*/
 btncreateMainTask.addEventListener("click", () => {
@@ -265,12 +244,10 @@ function taskCount(value){
     else pendingTasks.textContent = `Tarefas pendentes (${value})`;
 }
 
-
 // Functions responsible for progress animation
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
 async function animatePercentage(from, to) {
     if (from === to) return;
 

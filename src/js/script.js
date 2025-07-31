@@ -26,21 +26,10 @@ let subtasksList;
 let listSubtasks = [];
 let porcentageSubtask = 0;
 
-let tasks = [
-    simplesTasks = [],
-    mainTasks = [],
-];
+
+let tasks = {
+    simples: [],
+    mains: []
+}
 
 
-/*
-
-  mainTasks = [
-    Academia: [""],
-    Treino: [""],
-    Academia: [""],
-    Treino: [""],
-    Academia: [""],
-    Treino: [""],
-  ]
-
-*/
