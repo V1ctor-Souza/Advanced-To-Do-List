@@ -125,7 +125,6 @@ inputSimpleTask.addEventListener("keydown", (e) => {
 const btnMainTask = document.querySelector(".taskSubtasks-inputs button");
 const inputMainTask = document.querySelector(".taskSubtasks-inputs input");
 
-
 btnMainTask.addEventListener("click", () => {
     if(inputMainTask.value){
         nameMainCurrent = inputMainTask.value;
@@ -171,116 +170,152 @@ function createVisualSubtasks(nameSubtask){
     let iconDelete = createStructure("i", "bi bi-x-circle-fill", undefined, deleteTask);
 }
 
+
+// Event to create main task with subtasks
+btncreateMainTask.addEventListener("click", () => {
+    let subtasksCurrent = JSON.parse(localStorage.getItem("subtasksCurrent"));
+
+    // sending main task with subtasks
+    tasks.mains.push({
+        nameMain: nameMainCurrent,
+        subtasks: [...subtasksCurrent],
+        progress: "",
+    });
+    localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+    indexCurrentMain = tasks.mains.length - 1;
+    localStorage.setItem("indexCurrentMain", indexCurrentMain);
+    createMainTask(nameMainCurrent, tasks.mains[indexCurrentMain].subtasks);
+});
+
+
 // Function to create standard structure off the main task
-function createMainTask(nameMT){
-    let taskContainer = createStructure("article", "task-container main", undefined, firstColumn, true);
-    // taskContainer.style.setProperty("display", "none");
+function createMainTask(nameMain, subtasks){
+    let taskContainer = createStructure("article", "task-container main", undefined, firstColumn);
     let mainTask = createStructure("header", "main-task", undefined, taskContainer);
     let taskNameContainer = createStructure("section", "task-name-container", undefined, mainTask);
-    let nameMainTask = createStructure("h3", undefined, {textContent: nameMT}, taskNameContainer);
-
-    // PAREI AQUI
-    tasks[1].push(nameMT);
-
-    let allTaskContainer = document.querySelectorAll(".main");
-    let arrayTaskContainer = Array.from(allTaskContainer);
-    let indexTaskContainer = arrayTaskContainer.indexOf(nameMT);
-
-    definedName = createStructure("div", "defined-name", {textContent: inputMainTask.value}, labelMainTask);
-    inputMainTask.value = '';
-    inputMainTask.style.setProperty("display", "none");
-    btnMainTask.style.setProperty("display", "none");
-    taskSubtasksModal.classList.add("active");
-
+    let nameMainTask = createStructure("h3", undefined, {textContent: nameMain}, taskNameContainer);
     let triangle = createStructure("div", "triangle", undefined, taskNameContainer);
+
+    taskNameContainer.addEventListener("click", () => {
+        localSubtasksList.style.setProperty("height", localSubtasksList.scrollHeight + "px");
+        triangle.classList.add("expand");
+    });
+    // let allTaskContainer = document.querySelectorAll(".main");
+    // let arrayTaskContainer = Array.from(allTaskContainer);
+    // let indexTaskContainer = arrayTaskContainer.indexOf(nameMT);
+
+    // inputMainTask.value = '';
+    // inputMainTask.style.setProperty("display", "none");
+    // btnMainTask.style.setProperty("display", "none");
+    // taskSubtasksModal.classList.add("active");
+
+    
 
     let management = createStructure("div", "management", undefined, mainTask);
     let btnEdit = createStructure("button", undefined, undefined, management);
     let imgEdit = createStructure("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEdit);
     let btnDelete = createStructure("button", undefined, undefined, management);
     let imgDelete = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDelete);
-    progress = createStructure("div", "progress", {textContent: "0%"}, mainTask);
+    // progress = createStructure("div", "progress", {textContent: "0%"}, mainTask);
 
-    subtasksList = createStructure("section", "subtasks-list", undefined, taskContainer);
+    let localSubtasksList = createStructure("section", "subtasks-list", undefined, taskContainer);
 
-    taskNameContainer.addEventListener("click", () => {
-        if(subtasksList.style.height){
-            subtasksList.style.removeProperty("height");
-            triangle.classList.remove("expand");
-            management.style.removeProperty("display");
-            progress.style.removeProperty("display");
-        } else{
-            subtasksList.style.setProperty("height", subtasksList.scrollHeight + "px");
-            triangle.classList.add("expand");
-            management.style.setProperty("display", "none");
-            progress.style.setProperty("display", "block");
-        }
+    subtasks.forEach(subtask => {
+        sendingSubtasks(subtask, localSubtasksList);
     });
+
+    // taskNameContainer.addEventListener("click", () => {
+    //     if(subtasksList.style.height){
+    //         subtasksList.style.removeProperty("height");
+    //         triangle.classList.remove("expand");
+    //         management.style.removeProperty("display");
+    //         progress.style.removeProperty("display");
+    //     } else{
+    //         subtasksList.style.setProperty("height", subtasksList.scrollHeight + "px");
+    //         triangle.classList.add("expand");
+    //         management.style.setProperty("display", "none");
+    //         progress.style.setProperty("display", "block");
+    //     }
+    // });
+}
+
+function sendingSubtasks(nameSubtask, targetSubtaskList){
+    let subtaskContainer = createStructure("article", "subtask-container", undefined, targetSubtaskList);
+    let subtask = createStructure("label", "subtask", undefined, subtaskContainer);
+    let checkmark = createStructure("span", "checkmark", undefined, subtask);
+    let iconCheck = createStructure("i", "bi bi-check2", undefined, checkmark);
+    let taskName = createStructure("span", "taskName", {textContent: nameSubtask}, subtask);
+    let managementSubtask = createStructure("div", "management", undefined, subtaskContainer);
+    let btnEditSubtask = createStructure("button", undefined, undefined, managementSubtask);
+    let imgEditSubtask = createStructure("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEditSubtask);
+    let btnDeleteSubtask = createStructure("button", undefined, undefined, managementSubtask);
+    let imgDeleteSubtask = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDeleteSubtask);
+
+    taskName.onclick = ()=> {
+        iconCheck.classList.toggle("active");
+        taskName.classList.toggle("checked");
+    }
+    checkmark.onclick = ()=> {
+        iconCheck.classList.toggle("active");
+        taskName.classList.toggle("checked");
+    }
 }
 
 
-// btnSubtask.addEventListener("click", () => {
-//     let paragraph = createStructure("p", undefined, undefined, subtaskinModal);
-//     let handle = createStructure("span", "handle", undefined, paragraph);
-//     let iconHandle = createStructure("i", "bi bi-arrows-move", undefined, handle);
-//     let nameSubTask = createStructure("span", "nameSubTask", {textContent: inputSubtask.value}, paragraph);
-//     listSubtasks.push(inputSubtask.value);
-//     inputSubtask.value = "";
-//     let deleteTask = createStructure("span", "delete", undefined, paragraph);
-//     let iconDelete = createStructure("i", "bi bi-x-circle-fill", undefined, deleteTask);
-// });
 
 // !!!!!!!!!!!!!!!!!!!
 
 /* Event for creating a task with subtasks*/
-btncreateMainTask.addEventListener("click", () => {
-    for(let i = 0; i < listSubtasks.length; i++){
-        sendingMainTask(listSubtasks[i]);
-    }
+// btncreateMainTask.addEventListener("click", () => {
+//     for(let i = 0; i < listSubtasks.length; i++){
+//         sendingMainTask(listSubtasks[i]);
+//     }
 
-    /* System porcentage */
-    let allSubtasks = subtasksList.querySelectorAll(".subtask");
-    porcentageSubtask = 100 / allSubtasks.length;
+//     /* System porcentage */
+//     let allSubtasks = subtasksList.querySelectorAll(".subtask");
+//     porcentageSubtask = 100 / allSubtasks.length;
 
-    for (let i = 0; i < allSubtasks.length; i++){
-        allSubtasks[i].setAttribute("data-value", porcentageSubtask);
-    };
+//     for (let i = 0; i < allSubtasks.length; i++){
+//         allSubtasks[i].setAttribute("data-value", porcentageSubtask);
+//     };
 
-    allSubtasks.forEach(subtask => {
-        let nameMainTask = subtask.closest(".task-container").querySelector(".main-task h3");
+//     allSubtasks.forEach(subtask => {
+//         let nameMainTask = subtask.closest(".task-container").querySelector(".main-task h3");
 
-        subtask.addEventListener("click", () => {
-        let total = 0;
+//         subtask.addEventListener("click", () => {
+//         let total = 0;
 
-            allSubtasks.forEach(sub => {
-                if(sub.querySelector(".checked")){
-                    total += Number(subtask.dataset.value);
-                    console.log(total);
-                };
-            });
-            let current = Number(progress.textContent.replace("%", "")) || 0;
-            animatePercentage(current, Math.round(total));
+//             allSubtasks.forEach(sub => {
+//                 if(sub.querySelector(".checked")){
+//                     total += Number(subtask.dataset.value);
+//                     console.log(total);
+//                 };
+//             });
+//             let current = Number(progress.textContent.replace("%", "")) || 0;
+//             animatePercentage(current, Math.round(total));
 
-            if(total === 100){
-                nameMainTask.classList.add("completed");
-            } else{
-                nameMainTask.classList.remove("completed");
-            }
-        });
-    });
+//             if(total === 100){
+//                 nameMainTask.classList.add("completed");
+//             } else{
+//                 nameMainTask.classList.remove("completed");
+//             }
+//         });
+//     });
 
-    taskSubtasksModal.close();
-    listSubtasks = [];
-    btncreateMainTask.style.removeProperty("display");
-    inputMainTask.style.removeProperty("display");
-    btnMainTask.style.removeProperty("display");
-    taskSubtasksModal.classList.remove("active");
-    subtaskinModal.innerHTML = "";
-    definedName.remove();
-});
+//     taskSubtasksModal.close();
+//     listSubtasks = [];
+//     btncreateMainTask.style.removeProperty("display");
+//     inputMainTask.style.removeProperty("display");
+//     btnMainTask.style.removeProperty("display");
+//     taskSubtasksModal.classList.remove("active");
+//     subtaskinModal.innerHTML = "";
+//     definedName.remove();
+// });
 
 
 // Task counter
+
+
 function taskCount(value){
     let element = value;
 

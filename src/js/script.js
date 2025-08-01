@@ -30,6 +30,35 @@ window.addEventListener("DOMContentLoaded", () => {
         minSubtask >= 2 ? btncreateMainTask.style.setProperty("display", "block") : btncreateMainTask.style.removeProperty("display");
     }
 
+    /* creating all main tasks */
+    if(localStorage.getItem("mainTasks")){
+        // let indexCurrentMain = localStorage.getItem("indexCurrentMain");
+        // console.log("index" + indexCurrentMain);
+
+        tasks.mains.push(...JSON.parse(localStorage.getItem("mainTasks")));
+
+        tasks.mains.forEach(task => {
+            createMainTask(task.nameMain, task.subtasks);
+        });
+    }
+
+    /*
+    
+    tasks = {
+    
+        simples = [],
+        mains = [
+        
+        0    {nameMain: "Tarefa principal", subtaks: ["S1", "S2"]};
+        1    {nameMain: "Tarefa principal", subtaks: ["S1", "S2"]};
+        2    {nameMain: "Tarefa principal", subtaks: ["S1", "S2"]};
+
+        ]
+    
+    }
+    
+    */
+
     // indexCurrentMain = JSON.parse(localStorage.getItem("indexCurrentMain"));
     
     // if(localStorage.getItem("mainTasks")){
