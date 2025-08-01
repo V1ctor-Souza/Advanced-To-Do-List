@@ -11,13 +11,32 @@ window.addEventListener("DOMContentLoaded", () => {
         taskCount(totalPendingTasks);
     }
 
-    if(localStorage.getItem("listMainTasks")){
-        tasks[1].push(...JSON.parse(localStorage.getItem("listMainTasks")));
-
-        tasks[1].forEach(tarefa => {
-            createMainTask(tarefa, false);
-        });
+    /* checking if there is a main task waiting for subtasks*/
+    if(localStorage.getItem("nameMainCurrent")){
+        nameMainCurrent = localStorage.getItem("nameMainCurrent");
+        inputMainTask.value = localStorage.getItem("nameMainCurrent");
+        taskSubtasksModal.classList.add("active");
     }
+    
+    /* checking if there are subtasks created*/
+    if(localStorage.getItem("subtasksCurrent")){
+        subtasksCurrent.push(...JSON.parse(localStorage.getItem("subtasksCurrent")));
+
+        subtasksCurrent.forEach(subtask => {
+            createVisualSubtasks(subtask);
+        });
+
+        let minSubtask = localStorage.getItem("minSubtask");
+        minSubtask >= 2 ? btncreateMainTask.style.setProperty("display", "block") : btncreateMainTask.style.removeProperty("display");
+    }
+
+    // indexCurrentMain = JSON.parse(localStorage.getItem("indexCurrentMain"));
+    
+    // if(localStorage.getItem("mainTasks")){
+    //     tasks.mains.push(...JSON.parse(localStorage.getItem("mainTasks")));
+
+    //     mainTaskInModal(tasks.mains[indexCurrentMain].nameMain, tasks.mains[indexCurrentMain].subtasks);
+    // };
 });
 
 
@@ -25,11 +44,5 @@ let definedName;
 let subtasksList;
 let listSubtasks = [];
 let porcentageSubtask = 0;
-
-
-let tasks = {
-    simples: [],
-    mains: []
-}
 
 

@@ -1,12 +1,19 @@
+let tasks = {
+    simples: [],
+    mains: []
+}
+
 /* Global variables */
+let nameMainCurrent;
+let subtasksCurrent = [];
 let taskBeingEdited;
 let progress;
-let nameMainTask;
+let indexCurrentMain;
+
+
+// let nameMainTask;
 const firstColumn = document.querySelector(".column:first-child");
-const labelMainTask = document.querySelector(".taskSubtasks-inputs label"); 
-const inputMainTask = document.querySelector(".taskSubtasks-inputs input");
-const inputSubtask = document.querySelector(".nameSubtask-container input");
-const btnSubtask = document.querySelector(".btn-addSubtask");
+const labelMainTask = document.querySelector(".taskSubtasks-inputs label");
 const btncreateMainTask = document.querySelector(".createMainTask button");
 const subtaskinModal = document.querySelector(".subtask-list-inModal");
 
@@ -50,7 +57,7 @@ function createSimpleTask(nameTask, addStorage = true){
         taskBeingEdited = taskName;
         inputEditModal.placeholder = nameTask;
         editModal.showModal();
-    }); 
+    });
 
     btnEditTask.addEventListener("click", () => {
         if(inputEditModal.value){
@@ -82,9 +89,9 @@ function createSimpleTask(nameTask, addStorage = true){
 
         let totalPendingTasks = firstColumn.childElementCount - 1;
         taskCount(totalPendingTasks);
-        
+
     });
-    
+
     inputSimpleTask.value = '';
     simpleTaskModal.close();
 }
@@ -95,7 +102,7 @@ btnSimpleTask.addEventListener("click", () => {
 
         let totalPendingTasks = firstColumn.childElementCount - 1;
         taskCount(totalPendingTasks);
-    
+
         inputSimpleTask.style.removeProperty("border");
     } else{
         inputSimpleTask.style.setProperty("border", "1px solid red");
@@ -116,6 +123,53 @@ inputSimpleTask.addEventListener("keydown", (e) => {
 
 // Main tasks creation
 const btnMainTask = document.querySelector(".taskSubtasks-inputs button");
+const inputMainTask = document.querySelector(".taskSubtasks-inputs input");
+
+
+btnMainTask.addEventListener("click", () => {
+    if(inputMainTask.value){
+        nameMainCurrent = inputMainTask.value;
+
+        /* storing name of current main task  */
+        localStorage.setItem("nameMainCurrent", nameMainCurrent);
+
+        inputMainTask.style.removeProperty("border");
+        taskSubtasksModal.classList.add("active");
+    } else{
+        inputMainTask.style.setProperty("border", "1px solid red");
+    }
+});
+
+// Subtasks
+const btnSubtask = document.querySelector(".btn-addSubtask");
+const inputSubtask = document.querySelector(".nameSubtask-container input");
+
+btnSubtask.addEventListener("click", () => {
+    if(inputSubtask.value){
+       subtasksCurrent.push(inputSubtask.value);
+       localStorage.setItem("subtasksCurrent", JSON.stringify(subtasksCurrent));
+       createVisualSubtasks(inputSubtask.value);
+    } else{
+        inputSubtask.style.setProperty("border", "1px solid red");
+    }
+
+    let minSubtask = subtaskinModal.childElementCount;
+    localStorage.setItem("minSubtask", minSubtask);
+    if(minSubtask >= 2){
+        btncreateMainTask.style.setProperty("display", "block");
+    }
+});
+
+// Function to create visual subtasks in modal
+function createVisualSubtasks(nameSubtask){
+     let paragraph = createStructure("p", undefined, undefined, subtaskinModal);
+    let handle = createStructure("span", "handle", undefined, paragraph);
+    let iconHandle = createStructure("i", "bi bi-arrows-move", undefined, handle);
+    let nameSubTask = createStructure("span", "nameSubTask", {textContent: nameSubtask}, paragraph);
+    inputSubtask.value = "";
+    let deleteTask = createStructure("span", "delete", undefined, paragraph);
+    let iconDelete = createStructure("i", "bi bi-x-circle-fill", undefined, deleteTask);
+}
 
 // Function to create standard structure off the main task
 function createMainTask(nameMT){
@@ -164,24 +218,19 @@ function createMainTask(nameMT){
     });
 }
 
-// Event to create visual subtasks in modal
-btnSubtask.addEventListener("click", () => {
-    let paragraph = createStructure("p", undefined, undefined, subtaskinModal);
-    let handle = createStructure("span", "handle", undefined, paragraph);
-    let iconHandle = createStructure("i", "bi bi-arrows-move", undefined, handle);
-    let nameSubTask = createStructure("span", "nameSubTask", {textContent: inputSubtask.value}, paragraph); 
-    listSubtasks.push(inputSubtask.value);
-    inputSubtask.value = "";
-    let deleteTask = createStructure("span", "delete", undefined, paragraph);
-    let iconDelete = createStructure("i", "bi bi-x-circle-fill", undefined, deleteTask);
 
-    let minSubtask = subtaskinModal.childElementCount;
-        if(minSubtask >= 2){
-            btncreateMainTask.style.setProperty("display", "block");
-        } else return;
-});
+// btnSubtask.addEventListener("click", () => {
+//     let paragraph = createStructure("p", undefined, undefined, subtaskinModal);
+//     let handle = createStructure("span", "handle", undefined, paragraph);
+//     let iconHandle = createStructure("i", "bi bi-arrows-move", undefined, handle);
+//     let nameSubTask = createStructure("span", "nameSubTask", {textContent: inputSubtask.value}, paragraph);
+//     listSubtasks.push(inputSubtask.value);
+//     inputSubtask.value = "";
+//     let deleteTask = createStructure("span", "delete", undefined, paragraph);
+//     let iconDelete = createStructure("i", "bi bi-x-circle-fill", undefined, deleteTask);
+// });
 
-
+// !!!!!!!!!!!!!!!!!!!
 
 /* Event for creating a task with subtasks*/
 btncreateMainTask.addEventListener("click", () => {
@@ -196,7 +245,7 @@ btncreateMainTask.addEventListener("click", () => {
     for (let i = 0; i < allSubtasks.length; i++){
         allSubtasks[i].setAttribute("data-value", porcentageSubtask);
     };
-    
+
     allSubtasks.forEach(subtask => {
         let nameMainTask = subtask.closest(".task-container").querySelector(".main-task h3");
 
@@ -212,7 +261,7 @@ btncreateMainTask.addEventListener("click", () => {
             let current = Number(progress.textContent.replace("%", "")) || 0;
             animatePercentage(current, Math.round(total));
 
-            if(total === 100){  
+            if(total === 100){
                 nameMainTask.classList.add("completed");
             } else{
                 nameMainTask.classList.remove("completed");
@@ -230,16 +279,12 @@ btncreateMainTask.addEventListener("click", () => {
     definedName.remove();
 });
 
-btnMainTask.addEventListener("click", () => {
-    createMainTask(inputMainTask.value);
-})
-
 
 // Task counter
 function taskCount(value){
     let element = value;
 
-    if(element === 1) pendingTasks.textContent = 
+    if(element === 1) pendingTasks.textContent =
     `Tarefa pendente (${value})`;
     else pendingTasks.textContent = `Tarefas pendentes (${value})`;
 }
