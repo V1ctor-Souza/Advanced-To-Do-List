@@ -32,9 +32,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
     /* creating all main tasks */
     if(localStorage.getItem("mainTasks")){
-        // let indexCurrentMain = localStorage.getItem("indexCurrentMain");
-        // console.log("index" + indexCurrentMain);
-
         tasks.mains.push(...JSON.parse(localStorage.getItem("mainTasks")));
 
         tasks.mains.forEach(task => {

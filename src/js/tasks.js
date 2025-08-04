@@ -7,7 +7,6 @@ let tasks = {
 let nameMainCurrent;
 let subtasksCurrent = [];
 let taskBeingEdited;
-let progress;
 let indexCurrentMain;
 
 
@@ -170,7 +169,6 @@ function createVisualSubtasks(nameSubtask){
     let iconDelete = createStructure("i", "bi bi-x-circle-fill", undefined, deleteTask);
 }
 
-
 // Event to create main task with subtasks
 btncreateMainTask.addEventListener("click", () => {
     let subtasksCurrent = JSON.parse(localStorage.getItem("subtasksCurrent"));
@@ -187,7 +185,6 @@ btncreateMainTask.addEventListener("click", () => {
     createMainTask(nameMainCurrent, tasks.mains[indexCurrentMain].subtasks);
 });
 
-
 // Function to create standard structure off the main task
 function createMainTask(nameMain, subtasks){
     let taskContainer = createStructure("article", "task-container main", undefined, firstColumn);
@@ -196,47 +193,66 @@ function createMainTask(nameMain, subtasks){
     let nameMainTask = createStructure("h3", undefined, {textContent: nameMain}, taskNameContainer);
     let triangle = createStructure("div", "triangle", undefined, taskNameContainer);
 
-    taskNameContainer.addEventListener("click", () => {
-        localSubtasksList.style.setProperty("height", localSubtasksList.scrollHeight + "px");
-        triangle.classList.add("expand");
-    });
-    // let allTaskContainer = document.querySelectorAll(".main");
-    // let arrayTaskContainer = Array.from(allTaskContainer);
-    // let indexTaskContainer = arrayTaskContainer.indexOf(nameMT);
-
-    // inputMainTask.value = '';
-    // inputMainTask.style.setProperty("display", "none");
-    // btnMainTask.style.setProperty("display", "none");
-    // taskSubtasksModal.classList.add("active");
-
-    
-
     let management = createStructure("div", "management", undefined, mainTask);
     let btnEdit = createStructure("button", undefined, undefined, management);
     let imgEdit = createStructure("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEdit);
     let btnDelete = createStructure("button", undefined, undefined, management);
     let imgDelete = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDelete);
-    // progress = createStructure("div", "progress", {textContent: "0%"}, mainTask);
-
+    let progress = createStructure("div", "progress", {textContent: "0%"}, mainTask);
     let localSubtasksList = createStructure("section", "subtasks-list", undefined, taskContainer);
+
+    let visualConclusion = createStructure("div", "visual-conclusion", undefined, taskContainer);
+    
+
+    taskNameContainer.addEventListener("click", () => {
+        if(localSubtasksList.style.height){
+            localSubtasksList.style.removeProperty("height");
+            triangle.classList.remove("expand");
+            management.style.removeProperty("display");
+            progress.style.removeProperty("display");
+        } else{
+            localSubtasksList.style.setProperty("height", localSubtasksList.scrollHeight + "px");
+            triangle.classList.add("expand");
+            management.style.setProperty("display", "none");
+            progress.style.setProperty("display", "block");
+        } 
+    });
 
     subtasks.forEach(subtask => {
         sendingSubtasks(subtask, localSubtasksList);
     });
 
-    // taskNameContainer.addEventListener("click", () => {
-    //     if(subtasksList.style.height){
-    //         subtasksList.style.removeProperty("height");
-    //         triangle.classList.remove("expand");
-    //         management.style.removeProperty("display");
-    //         progress.style.removeProperty("display");
-    //     } else{
-    //         subtasksList.style.setProperty("height", subtasksList.scrollHeight + "px");
-    //         triangle.classList.add("expand");
-    //         management.style.setProperty("display", "none");
-    //         progress.style.setProperty("display", "block");
-    //     }
-    // });
+    // Percentage system 
+    let allSubtaks = localSubtasksList.querySelectorAll(".subtask");
+    let porcentageSubtask = 100 / allSubtaks.length;
+
+    for (let i = 0; i < allSubtaks.length; i++){
+        allSubtaks[i].setAttribute("data-value", porcentageSubtask);
+    }
+
+    allSubtaks.forEach(subtask => {
+        let nameMainTask = subtask.closest(".task-container").querySelector(".main-task h3");
+
+        subtask.addEventListener("click", () => {
+            let total = 0;
+
+            allSubtaks.forEach(sub => {
+                if(sub.querySelector(".checked")){
+                    total += Number(sub.dataset.value);
+                }
+            });
+            let current = Number(progress.textContent.replace("%", "")) || 0;
+            animatePercentage(current, Math.round(total), progress);
+
+            if(total >= 99){
+                nameMainTask.classList.add("completed");
+            } else{
+                nameMainTask.classList.remove("completed");
+            }
+
+            visualConclusion.style.setProperty("width", total + "%");
+        });
+    });
 }
 
 function sendingSubtasks(nameSubtask, targetSubtaskList){
@@ -262,60 +278,7 @@ function sendingSubtasks(nameSubtask, targetSubtaskList){
 }
 
 
-
-// !!!!!!!!!!!!!!!!!!!
-
-/* Event for creating a task with subtasks*/
-// btncreateMainTask.addEventListener("click", () => {
-//     for(let i = 0; i < listSubtasks.length; i++){
-//         sendingMainTask(listSubtasks[i]);
-//     }
-
-//     /* System porcentage */
-//     let allSubtasks = subtasksList.querySelectorAll(".subtask");
-//     porcentageSubtask = 100 / allSubtasks.length;
-
-//     for (let i = 0; i < allSubtasks.length; i++){
-//         allSubtasks[i].setAttribute("data-value", porcentageSubtask);
-//     };
-
-//     allSubtasks.forEach(subtask => {
-//         let nameMainTask = subtask.closest(".task-container").querySelector(".main-task h3");
-
-//         subtask.addEventListener("click", () => {
-//         let total = 0;
-
-//             allSubtasks.forEach(sub => {
-//                 if(sub.querySelector(".checked")){
-//                     total += Number(subtask.dataset.value);
-//                     console.log(total);
-//                 };
-//             });
-//             let current = Number(progress.textContent.replace("%", "")) || 0;
-//             animatePercentage(current, Math.round(total));
-
-//             if(total === 100){
-//                 nameMainTask.classList.add("completed");
-//             } else{
-//                 nameMainTask.classList.remove("completed");
-//             }
-//         });
-//     });
-
-//     taskSubtasksModal.close();
-//     listSubtasks = [];
-//     btncreateMainTask.style.removeProperty("display");
-//     inputMainTask.style.removeProperty("display");
-//     btnMainTask.style.removeProperty("display");
-//     taskSubtasksModal.classList.remove("active");
-//     subtaskinModal.innerHTML = "";
-//     definedName.remove();
-// });
-
-
 // Task counter
-
-
 function taskCount(value){
     let element = value;
 
@@ -328,7 +291,7 @@ function taskCount(value){
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-async function animatePercentage(from, to) {
+async function animatePercentage(from, to, progress) {
     if (from === to) return;
 
     const step = from < to ? 1 : -1;
