@@ -1,10 +1,10 @@
 const pendingTasks = firstColumn.querySelector(".task-status");
 // Checking for the existence of a simple task
 window.addEventListener("DOMContentLoaded", () => {
-    if(localStorage.getItem("listSimplesTasks")){
-        tasks[0].push(...JSON.parse(localStorage.getItem("listSimplesTasks")));
+    if(localStorage.getItem("simplesTasks")){
+        tasks.simples.push(...JSON.parse(localStorage.getItem("simplesTasks")));
 
-        tasks[0].forEach(tarefa => {
+        tasks.simples.forEach(tarefa => {
             createSimpleTask(tarefa, false);
         });
         let totalPendingTasks = firstColumn.childElementCount - 1;

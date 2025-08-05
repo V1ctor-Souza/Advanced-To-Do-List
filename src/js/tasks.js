@@ -31,8 +31,8 @@ function createSimpleTask(nameTask, addStorage = true){
 
     // Adding and storing
     if(addStorage){
-        tasks[0].push(nameTask);
-        localStorage.setItem("listSimplesTasks", JSON.stringify(tasks[0]));
+        tasks.simples.push(nameTask);
+        localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
     }
 
     // Check task
@@ -52,7 +52,7 @@ function createSimpleTask(nameTask, addStorage = true){
     let btnDelete = createStructure("button", undefined, undefined, management);
     let imgDelete = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de excluir tarefa"}, btnDelete);
 
-    btnEdit.addEventListener("click", (e) => {
+    btnEdit.addEventListener("click", () => {
         taskBeingEdited = taskName;
         inputEditModal.placeholder = nameTask;
         editModal.showModal();
@@ -66,8 +66,8 @@ function createSimpleTask(nameTask, addStorage = true){
                 let indexTask = arrayTaskName.indexOf(taskBeingEdited);
 
                 taskBeingEdited.textContent = inputEditModal.value;
-                tasks[0][indexTask] = inputEditModal.value;
-                localStorage.setItem("listSimplesTasks", JSON.stringify(tasks[0]));
+                tasks.simples[indexTask] = inputEditModal.value;
+                localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
                 taskBeingEdited = null;
                 editModal.close();
                 inputEditModal.value = '';
@@ -83,8 +83,8 @@ function createSimpleTask(nameTask, addStorage = true){
         let indexTask = arrayTaskName.indexOf(taskName);
 
         taskContainer.remove();
-        tasks[0].splice(indexTask, 1);
-        localStorage.setItem("listSimplesTasks", JSON.stringify(tasks[0]));
+        tasks.simples.splice(indexTask, 1);
+        localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
 
         let totalPendingTasks = firstColumn.childElementCount - 1;
         taskCount(totalPendingTasks);
