@@ -10,7 +10,6 @@ let taskBeingEdited;
 let indexCurrentMain;
 
 
-// let nameMainTask;
 const firstColumn = document.querySelector(".column:first-child");
 const labelMainTask = document.querySelector(".taskSubtasks-inputs label");
 const btncreateMainTask = document.querySelector(".createMainTask button");
@@ -53,7 +52,8 @@ function createSimpleTask(nameTask, addStorage = true){
     let imgDelete = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de excluir tarefa"}, btnDelete);
 
     btnEdit.addEventListener("click", () => {
-        taskBeingEdited = taskName;
+        taskBeingEdited = valueTask;
+        console.log(valueTask);
         inputEditModal.placeholder = nameTask;
         editModal.showModal();
     });
@@ -61,7 +61,7 @@ function createSimpleTask(nameTask, addStorage = true){
     btnEditTask.addEventListener("click", () => {
         if(inputEditModal.value){
             if(taskBeingEdited){
-                let allTaskName = document.querySelectorAll(".taskName");
+                let allTaskName = document.querySelectorAll(".taskName span");
                 let arrayTaskName = Array.from(allTaskName);
                 let indexTask = arrayTaskName.indexOf(taskBeingEdited);
 
