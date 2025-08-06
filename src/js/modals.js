@@ -54,3 +54,11 @@ btnCreateTWS.addEventListener("click", () => {
 const editModal = document.querySelector(".editModal");
 const inputEditModal = editModal.querySelector("input");
 const btnEditTask = editModal.querySelector(".btnEdit");
+
+
+/* Modal to confirmation delete */
+const deleteConfirmation = document.querySelector(".delete-confirmation");
+const btnCancelModal = document.querySelector(".container-buttons .btn-cancel");
+const btnConfirmModal = document.querySelector(".container-buttons .btn-confirm")
+const nameMainModal = deleteConfirmation.querySelector(".name-main");
+const totalSubtaskModal = deleteConfirmation.querySelector(".total-subtasks");

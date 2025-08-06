@@ -53,7 +53,6 @@ function createSimpleTask(nameTask, addStorage = true){
 
     btnEdit.addEventListener("click", () => {
         taskBeingEdited = valueTask;
-        console.log(valueTask);
         inputEditModal.placeholder = nameTask;
         editModal.showModal();
     });
@@ -184,13 +183,16 @@ btncreateMainTask.addEventListener("click", () => {
     for (let i = 0; i < subtasksCurrent.length; i++){
         tasks.mains[indexCurrentMain].subtasks.push({nameSubtask: subtasksCurrent[i], completed: false});
     }
-
     localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
     createMainTask(nameMainCurrent, tasks.mains[indexCurrentMain].subtasks);
     localStorage.removeItem("nameMainCurrent");
     localStorage.removeItem("subtasksCurrent");
-
+    
+    taskSubtasksModal.classList.remove("active");
+    inputMainTask.value = '';
+    subtaskinModal.innerHTML = '';
     taskSubtasksModal.close();
+    subtasksCurrent = [];
 });
 
 // Function to create standard structure off the main task
@@ -210,7 +212,56 @@ function createMainTask(nameMain, subtasks){
     let localSubtasksList = createStructure("section", "subtasks-list", undefined, taskContainer);
 
     let visualConclusion = createStructure("div", "visual-conclusion", undefined, taskContainer);
+
+    /*Edit main task*/
+    btnEdit.addEventListener("click", () => {
+        taskBeingEdited = nameMainTask;
+        inputEditModal.placeholder = nameMainTask.textContent;
+        editModal.showModal();
+    });
     
+    btnEditTask.addEventListener("click", () => {
+        if(inputEditModal.value){
+            let allNameMainTask = document.querySelectorAll(".main h3");
+            let arrayNameMainTask = Array.from(allNameMainTask);  
+            let indexTask = arrayNameMainTask.indexOf(taskBeingEdited);
+
+            arrayNameMainTask[indexTask].textContent = inputEditModal.value;
+            tasks.mains[indexTask].nameMain = inputEditModal.value;
+            localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+
+            inputEditModal.value = '';
+            editModal.close();
+        } else editModal.close();
+    });
+    // --------------------------------------------------------
+
+    /* Delete main task */ 
+    btnDelete.addEventListener("click", () => {
+        deleteConfirmation.showModal();
+        nameMainModal.textContent = nameMainTask.textContent;
+        totalSubtaskModal.textContent = localSubtasksList.childElementCount;
+    });
+    
+    btnCancelModal.addEventListener("click", () => deleteConfirmation.close());
+
+    btnConfirmModal.addEventListener("click", (e) => {
+        console.log(taskContainer);
+        // let allNameMainTask = document.querySelectorAll(".main");
+        // let arrayNameMainTask = Array.from(allNameMainTask);
+        // let indexMainTask = arrayNameMainTask.indexOf(taskContainer);
+
+        // let allMainTask = document.querySelectorAll(".main");
+        // let arrayAllMainTask = Array.from(allMainTask);
+        // let indexMainTask = arrayAllMainTask.indexOf(taskContainer);
+
+
+        // taskContainer.remove();
+        // tasks.mains.splice(indexMainTask, 1);
+        // localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+        // deleteConfirmation.close();
+    });
+
     taskNameContainer.addEventListener("click", () => {
         if(localSubtasksList.style.height){
             localSubtasksList.style.removeProperty("height");
@@ -224,6 +275,7 @@ function createMainTask(nameMain, subtasks){
             progress.style.setProperty("display", "block");
         } 
     });
+    // --------------------------------------------------------
 
     subtasks.forEach(subtask => {
         sendingSubtasks(subtask.nameSubtask, localSubtasksList);

@@ -104,6 +104,20 @@
             <button class="btnEdit">Editar</button>
         </dialog>
 
+
+        <dialog class="delete-confirmation">
+            <section class="text-container">
+                <h3>Excluir tarefa?</h3>
+                <p>Você tem certeza que deseja excluir <strong class="name-main"></strong> e as <span class="total-subtasks"></span> subtarefas?</p>
+            </section>
+
+            <section class="container-buttons">
+                <button class="btn-cancel">Cancelar</button>
+                <button class="btn-confirm">Excluir tarefa</button>
+            </section>  
+        </dialog>
+
+
     <main id="main-container">
         <section class="column">
             <h2 class="task-status">Tarefas pendentes (0)</h2>
@@ -115,8 +129,8 @@
     </main>
 
     <script src="src/js/utils.js"></script>
-    <script src="src/js/tasks.js"></script>
     <script src="src/js/modals.js"></script>
+    <script src="src/js/tasks.js"></script>
     <script src="src/js/script.js"></script>
 </body>
 </html>
