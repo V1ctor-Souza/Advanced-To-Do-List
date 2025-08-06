@@ -173,16 +173,24 @@ function createVisualSubtasks(nameSubtask){
 btncreateMainTask.addEventListener("click", () => {
     let subtasksCurrent = JSON.parse(localStorage.getItem("subtasksCurrent"));
 
-    // sending main task with subtasks
     tasks.mains.push({
         nameMain: nameMainCurrent,
-        subtasks: [...subtasksCurrent],
-        progress: "",
+        subtasks: [],
+        progress: ""
     });
-    localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
     indexCurrentMain = tasks.mains.length - 1;
     localStorage.setItem("indexCurrentMain", indexCurrentMain);
+
+    for (let i = 0; i < subtasksCurrent.length; i++){
+        tasks.mains[indexCurrentMain].subtasks.push({nameSubtask: subtasksCurrent[i], completed: false});
+    }
+
+    localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
     createMainTask(nameMainCurrent, tasks.mains[indexCurrentMain].subtasks);
+    localStorage.removeItem("nameMainCurrent");
+    localStorage.removeItem("subtasksCurrent");
+
+    taskSubtasksModal.close();
 });
 
 // Function to create standard structure off the main task
@@ -203,7 +211,6 @@ function createMainTask(nameMain, subtasks){
 
     let visualConclusion = createStructure("div", "visual-conclusion", undefined, taskContainer);
     
-
     taskNameContainer.addEventListener("click", () => {
         if(localSubtasksList.style.height){
             localSubtasksList.style.removeProperty("height");
@@ -219,7 +226,7 @@ function createMainTask(nameMain, subtasks){
     });
 
     subtasks.forEach(subtask => {
-        sendingSubtasks(subtask, localSubtasksList);
+        sendingSubtasks(subtask.nameSubtask, localSubtasksList);
     });
 
     // Percentage system 
