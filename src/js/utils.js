@@ -12,21 +12,32 @@ function createStructure(element, className, attributes = {}, parentElement){
 
 
 // Function to find the current index of the task being edited and store it with a new value
-function currentIndex(allElement, localElement){
+function currentIndex(allElement, localElement, action = {}){
     let allElements = document.querySelectorAll(allElement);
-    console.log(allElements);
     let arrayAllElement = Array.from(allElements);
-    console.log(arrayAllElement);
     let index = arrayAllElement.indexOf(localElement);
-    console.log(index);
 
     let currentEl = localElement;
+
+    if(action.type === 'edit'){
     currentEl.textContent = inputEditModal.value;
-    if(currentEl.tagName === 'SPAN'){
-        tasks.simples[index] = inputEditModal.value;
-        localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
-    } else if(currentEl.tagName === 'H3'){
-         tasks.mains[index].nameMain = inputEditModal.value;
-         localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+        if(currentEl.tagName === 'SPAN'){
+            tasks.simples[index] = inputEditModal.value;
+            localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
+        } else if(currentEl.tagName === "H3"){
+            tasks.mains[index].nameMain = inputEditModal.value;
+            localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+        }
+    } else if(action.type === 'delete'){
+        if(currentEl.tagName === 'DIV'){
+            let parentElement =  currentEl.closest('article');
+            parentElement.remove();
+            tasks.simples.splice(index, 1);
+            localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
+        } else if(currentEl.tagName ==='ARTICLE'){
+            currentEl.remove();
+            tasks.mains.splice(index, 1);
+            localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+        }
     }
 }

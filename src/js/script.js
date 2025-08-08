@@ -7,7 +7,6 @@ window.addEventListener("DOMContentLoaded", () => {
         tasks.simples.forEach(tarefa => {
             createSimpleTask(tarefa, false);
         });
-        let totalPendingTasks = firstColumn.childElementCount - 1;
         taskCount(totalPendingTasks);
     }
 
@@ -37,32 +36,8 @@ window.addEventListener("DOMContentLoaded", () => {
         tasks.mains.forEach(task => {
             createMainTask(task.nameMain, task.subtasks);
         });
+        taskCount(firstColumn.childElementCount - 1);
     }
-
-    /*
-    
-    tasks = {
-    
-        simples = [],
-        mains = [
-        
-        0    {nameMain: "Tarefa principal", subtaks: ["S1", "S2"]};
-        1    {nameMain: "Tarefa principal", subtaks: ["S1", "S2"]};
-        2    {nameMain: "Tarefa principal", subtaks: ["S1", "S2"]};
-
-        ]
-    
-    }
-    
-    */
-
-    // indexCurrentMain = JSON.parse(localStorage.getItem("indexCurrentMain"));
-    
-    // if(localStorage.getItem("mainTasks")){
-    //     tasks.mains.push(...JSON.parse(localStorage.getItem("mainTasks")));
-
-    //     mainTaskInModal(tasks.mains[indexCurrentMain].nameMain, tasks.mains[indexCurrentMain].subtasks);
-    // };
 });
 
 

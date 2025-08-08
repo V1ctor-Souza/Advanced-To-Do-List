@@ -58,9 +58,9 @@ const btnEditTask = editModal.querySelector(".btnEdit");
 btnEditTask.addEventListener("click", () => {
     if(inputEditModal.value){
         if(taskBeingEdited.tagName === 'SPAN'){
-            currentIndex(".taskName span", taskBeingEdited);
+            currentIndex(".taskName span", taskBeingEdited, {type: 'edit'});
         } else if(taskBeingEdited.tagName === "H3"){
-            currentIndex(".main h3", taskBeingEdited);
+            currentIndex(".main h3", taskBeingEdited, {type: 'edit'});
         }
     }
     taskBeingEdited = null;
@@ -76,3 +76,13 @@ const btnCancelModal = document.querySelector(".container-buttons .btn-cancel");
 const btnConfirmModal = document.querySelector(".container-buttons .btn-confirm")
 const nameMainModal = deleteConfirmation.querySelector(".name-main");
 const totalSubtaskModal = deleteConfirmation.querySelector(".total-subtasks");
+
+
+btnCancelModal.addEventListener("click", () => deleteConfirmation.close());
+
+btnConfirmModal.addEventListener("click", () => {
+    currentIndex(".main", taskBeingDeleted, {type: 'delete'});
+    deleteConfirmation.close();
+    taskBeingDeleted = null;
+    taskCount(firstColumn.childElementCount - 1);
+});

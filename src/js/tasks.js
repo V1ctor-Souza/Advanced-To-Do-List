@@ -7,6 +7,7 @@ let tasks = {
 let nameMainCurrent;
 let subtasksCurrent = [];
 let taskBeingEdited;
+let taskBeingDeleted;
 let indexCurrentMain;
 
 
@@ -15,6 +16,8 @@ const labelMainTask = document.querySelector(".taskSubtasks-inputs label");
 const btncreateMainTask = document.querySelector(".createMainTask button");
 const subtaskinModal = document.querySelector(".subtask-list-inModal");
 
+// total pending tasks
+let totalPendingTasks = firstColumn.childElementCount - 1; 
 
 // Simples tasks creation
 const btnSimpleTask = document.querySelector(".input-container button");
@@ -57,39 +60,9 @@ function createSimpleTask(nameTask, addStorage = true){
         editModal.showModal();
     });
 
-
-    /* !!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-    // btnEditTask.addEventListener("click", () => {
-    //     if(inputEditModal.value){
-    //         if(taskBeingEdited){
-    //             let allTaskName = document.querySelectorAll(".taskName span");
-    //             let arrayTaskName = Array.from(allTaskName);
-    //             let indexTask = arrayTaskName.indexOf(taskBeingEdited);
-
-    //             taskBeingEdited.textContent = inputEditModal.value;
-    //             tasks.simples[indexTask] = inputEditModal.value;
-    //             localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
-    //             taskBeingEdited = null;
-    //             editModal.close();
-    //             inputEditModal.value = '';
-    //         }
-    //     } else{
-    //         editModal.close();
-    //     }
-    // });
-
     btnDelete.addEventListener("click", () => {
-        let allTaskName = document.querySelectorAll(".taskName");
-        let arrayTaskName = Array.from(allTaskName);
-        let indexTask = arrayTaskName.indexOf(taskName);
-
-        taskContainer.remove();
-        tasks.simples.splice(indexTask, 1);
-        localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
-
-        let totalPendingTasks = firstColumn.childElementCount - 1;
-        taskCount(totalPendingTasks);
-
+        currentIndex(".taskName", taskName, {type: "delete"});
+        taskCount(firstColumn.childElementCount - 1);
     });
 
     inputSimpleTask.value = '';
@@ -99,9 +72,7 @@ function createSimpleTask(nameTask, addStorage = true){
 btnSimpleTask.addEventListener("click", () => {
     if(inputSimpleTask.value){
         createSimpleTask(inputSimpleTask.value);
-
-        let totalPendingTasks = firstColumn.childElementCount - 1;
-        taskCount(totalPendingTasks);
+        taskCount(firstColumn.childElementCount - 1);
 
         inputSimpleTask.style.removeProperty("border");
     } else{
@@ -161,7 +132,7 @@ btnSubtask.addEventListener("click", () => {
 
 // Function to create visual subtasks in modal
 function createVisualSubtasks(nameSubtask){
-     let paragraph = createStructure("p", undefined, undefined, subtaskinModal);
+    let paragraph = createStructure("p", undefined, undefined, subtaskinModal);
     let handle = createStructure("span", "handle", undefined, paragraph);
     let iconHandle = createStructure("i", "bi bi-arrows-move", undefined, handle);
     let nameSubTask = createStructure("span", "nameSubTask", {textContent: nameSubtask}, paragraph);
@@ -172,7 +143,7 @@ function createVisualSubtasks(nameSubtask){
 
 // Event to create main task with subtasks
 btncreateMainTask.addEventListener("click", () => {
-    let subtasksCurrent = JSON.parse(localStorage.getItem("subtasksCurrent"));
+    subtasksCurrent = JSON.parse(localStorage.getItem("subtasksCurrent"));
 
     tasks.mains.push({
         nameMain: nameMainCurrent,
@@ -180,21 +151,24 @@ btncreateMainTask.addEventListener("click", () => {
         progress: ""
     });
     indexCurrentMain = tasks.mains.length - 1;
-    localStorage.setItem("indexCurrentMain", indexCurrentMain);
 
     for (let i = 0; i < subtasksCurrent.length; i++){
         tasks.mains[indexCurrentMain].subtasks.push({nameSubtask: subtasksCurrent[i], completed: false});
     }
     localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
     createMainTask(nameMainCurrent, tasks.mains[indexCurrentMain].subtasks);
+    taskCount(firstColumn.childElementCount - 1);
+
     localStorage.removeItem("nameMainCurrent");
-    localStorage.removeItem("subtasksCurrent");
-    
+    localStorage.removeItem("minSubtask");
     taskSubtasksModal.classList.remove("active");
     inputMainTask.value = '';
     subtaskinModal.innerHTML = '';
     taskSubtasksModal.close();
+    subtasksCurrent.length = 0;
+    localStorage.removeItem("subtasksCurrent");
     subtasksCurrent = [];
+    btncreateMainTask.style.removeProperty("display");
 });
 
 // Function to create standard structure off the main task
@@ -215,56 +189,19 @@ function createMainTask(nameMain, subtasks){
 
     let visualConclusion = createStructure("div", "visual-conclusion", undefined, taskContainer);
 
-    /*Edit main task*/
+    /* Edit main task */
     btnEdit.addEventListener("click", () => {
         taskBeingEdited = nameMainTask;
-        console.log(taskBeingEdited);
         inputEditModal.placeholder = nameMainTask.textContent;
         editModal.showModal();
     });
-    
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // btnEditTask.addEventListener("click", () => {
-    //     if(inputEditModal.value){
-    //         let allNameMainTask = document.querySelectorAll(".main h3");
-    //         let arrayNameMainTask = Array.from(allNameMainTask);  
-    //         let indexTask = arrayNameMainTask.indexOf(taskBeingEdited);
-
-    //         arrayNameMainTask[indexTask].textContent = inputEditModal.value;
-            // tasks.mains[indexTask].nameMain = inputEditModal.value;
-            // localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
-
-    //         inputEditModal.value = '';
-    //         editModal.close();
-    //     } else editModal.close();
-    // });
-    
-    // --------------------------------------------------------
 
     /* Delete main task */ 
     btnDelete.addEventListener("click", () => {
+        taskBeingDeleted = taskContainer;
         deleteConfirmation.showModal();
         nameMainModal.textContent = nameMainTask.textContent;
         totalSubtaskModal.textContent = localSubtasksList.childElementCount;
-    });
-    
-    btnCancelModal.addEventListener("click", () => deleteConfirmation.close());
-
-    btnConfirmModal.addEventListener("click", (e) => {
-        console.log(taskContainer);
-        // let allNameMainTask = document.querySelectorAll(".main");
-        // let arrayNameMainTask = Array.from(allNameMainTask);
-        // let indexMainTask = arrayNameMainTask.indexOf(taskContainer);
-
-        // let allMainTask = document.querySelectorAll(".main");
-        // let arrayAllMainTask = Array.from(allMainTask);
-        // let indexMainTask = arrayAllMainTask.indexOf(taskContainer);
-
-
-        // taskContainer.remove();
-        // tasks.mains.splice(indexMainTask, 1);
-        // localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
-        // deleteConfirmation.close();
     });
 
     taskNameContainer.addEventListener("click", () => {
