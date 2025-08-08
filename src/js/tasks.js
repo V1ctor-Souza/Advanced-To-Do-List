@@ -57,24 +57,26 @@ function createSimpleTask(nameTask, addStorage = true){
         editModal.showModal();
     });
 
-    btnEditTask.addEventListener("click", () => {
-        if(inputEditModal.value){
-            if(taskBeingEdited){
-                let allTaskName = document.querySelectorAll(".taskName span");
-                let arrayTaskName = Array.from(allTaskName);
-                let indexTask = arrayTaskName.indexOf(taskBeingEdited);
 
-                taskBeingEdited.textContent = inputEditModal.value;
-                tasks.simples[indexTask] = inputEditModal.value;
-                localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
-                taskBeingEdited = null;
-                editModal.close();
-                inputEditModal.value = '';
-            }
-        } else{
-            editModal.close();
-        }
-    });
+    /* !!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+    // btnEditTask.addEventListener("click", () => {
+    //     if(inputEditModal.value){
+    //         if(taskBeingEdited){
+    //             let allTaskName = document.querySelectorAll(".taskName span");
+    //             let arrayTaskName = Array.from(allTaskName);
+    //             let indexTask = arrayTaskName.indexOf(taskBeingEdited);
+
+    //             taskBeingEdited.textContent = inputEditModal.value;
+    //             tasks.simples[indexTask] = inputEditModal.value;
+    //             localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
+    //             taskBeingEdited = null;
+    //             editModal.close();
+    //             inputEditModal.value = '';
+    //         }
+    //     } else{
+    //         editModal.close();
+    //     }
+    // });
 
     btnDelete.addEventListener("click", () => {
         let allTaskName = document.querySelectorAll(".taskName");
@@ -216,24 +218,27 @@ function createMainTask(nameMain, subtasks){
     /*Edit main task*/
     btnEdit.addEventListener("click", () => {
         taskBeingEdited = nameMainTask;
+        console.log(taskBeingEdited);
         inputEditModal.placeholder = nameMainTask.textContent;
         editModal.showModal();
     });
     
-    btnEditTask.addEventListener("click", () => {
-        if(inputEditModal.value){
-            let allNameMainTask = document.querySelectorAll(".main h3");
-            let arrayNameMainTask = Array.from(allNameMainTask);  
-            let indexTask = arrayNameMainTask.indexOf(taskBeingEdited);
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // btnEditTask.addEventListener("click", () => {
+    //     if(inputEditModal.value){
+    //         let allNameMainTask = document.querySelectorAll(".main h3");
+    //         let arrayNameMainTask = Array.from(allNameMainTask);  
+    //         let indexTask = arrayNameMainTask.indexOf(taskBeingEdited);
 
-            arrayNameMainTask[indexTask].textContent = inputEditModal.value;
-            tasks.mains[indexTask].nameMain = inputEditModal.value;
-            localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+    //         arrayNameMainTask[indexTask].textContent = inputEditModal.value;
+            // tasks.mains[indexTask].nameMain = inputEditModal.value;
+            // localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
 
-            inputEditModal.value = '';
-            editModal.close();
-        } else editModal.close();
-    });
+    //         inputEditModal.value = '';
+    //         editModal.close();
+    //     } else editModal.close();
+    // });
+    
     // --------------------------------------------------------
 
     /* Delete main task */ 

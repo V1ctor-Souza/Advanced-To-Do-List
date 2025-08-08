@@ -55,6 +55,20 @@ const editModal = document.querySelector(".editModal");
 const inputEditModal = editModal.querySelector("input");
 const btnEditTask = editModal.querySelector(".btnEdit");
 
+btnEditTask.addEventListener("click", () => {
+    if(inputEditModal.value){
+        if(taskBeingEdited.tagName === 'SPAN'){
+            currentIndex(".taskName span", taskBeingEdited);
+        } else if(taskBeingEdited.tagName === "H3"){
+            currentIndex(".main h3", taskBeingEdited);
+        }
+    }
+    taskBeingEdited = null;
+    editModal.close();
+    inputEditModal.value = '';
+    console.log("chegou até aqui");
+});
+
 
 /* Modal to confirmation delete */
 const deleteConfirmation = document.querySelector(".delete-confirmation");
