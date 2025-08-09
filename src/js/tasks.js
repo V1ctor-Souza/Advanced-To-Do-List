@@ -276,8 +276,46 @@ function sendingSubtasks(nameSubtask, targetSubtaskList){
         iconCheck.classList.toggle("active");
         taskName.classList.toggle("checked");
     }
+
+    btnEditSubtask.addEventListener("click", (e) => {
+        taskBeingEdited = e.target.closest("article").querySelector(".subtask");
+        indexCurrentMain = subtaskContainer.closest("article.task-container.main");
+        editModal.showModal();
+        inputEditModal.placeholder = taskBeingEdited.textContent;
+    });
+
+    btnDeleteSubtask.addEventListener("click", (e) => {
+        taskBeingDeleted = e.target.closest("article");
+        let currentSubtaskList = taskBeingDeleted.closest("section");
+        let currentMain = currentSubtaskList.closest("article");
+        let allSubtasksContainer = currentSubtaskList.querySelectorAll(".subtask-container");
+
+        findSubtask(document.querySelectorAll(".main"), currentMain, allSubtasksContainer, taskBeingDeleted, {type: 'delete'});
+
+        let currentTriangle = currentSubtaskList.closest("article").querySelector(".triangle");
+        targetSubtaskList.style.removeProperty("height");
+        currentTriangle.classList.remove("expand");
+    });
 }
 
+
+// Function to find subtask position
+function findSubtask(element, currentElement, subtaskElement, currentSubtask, type = {}){
+    let allElement = Array.from(element);
+    let i = allElement.indexOf(currentElement);
+
+    let allSubtasks = Array.from(subtaskElement);
+    let indexSubtask = allSubtasks.indexOf(currentSubtask);
+
+    if(type.type === 'edit'){
+        tasks.mains[i].subtasks[indexSubtask].nameSubtask = inputEditModal.value;
+        localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+    } else if(type.type === 'delete'){
+        currentSubtask.remove();
+        tasks.mains[i].subtasks.splice(indexSubtask, 1);
+        localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+    }
+}
 
 // Task counter
 function taskCount(value){

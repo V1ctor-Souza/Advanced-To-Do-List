@@ -19,14 +19,19 @@ function currentIndex(allElement, localElement, action = {}){
 
     let currentEl = localElement;
 
+
     if(action.type === 'edit'){
-    currentEl.textContent = inputEditModal.value;
         if(currentEl.tagName === 'SPAN'){
+            currentEl.textContent = inputEditModal.value;
             tasks.simples[index] = inputEditModal.value;
             localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
         } else if(currentEl.tagName === "H3"){
+            currentEl.textContent = inputEditModal.value;
             tasks.mains[index].nameMain = inputEditModal.value;
             localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+        } else if(currentEl.tagName === "LABEL"){
+            currentEl.querySelector('.taskName').textContent = inputEditModal.value;
+            findSubtask(document.querySelectorAll(".main"), indexCurrentMain, indexCurrentMain.querySelectorAll(".subtask"), taskBeingEdited, {type: 'edit'});
         }
     } else if(action.type === 'delete'){
         if(currentEl.tagName === 'DIV'){

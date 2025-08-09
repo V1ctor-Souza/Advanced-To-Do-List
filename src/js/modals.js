@@ -61,6 +61,8 @@ btnEditTask.addEventListener("click", () => {
             currentIndex(".taskName span", taskBeingEdited, {type: 'edit'});
         } else if(taskBeingEdited.tagName === "H3"){
             currentIndex(".main h3", taskBeingEdited, {type: 'edit'});
+        } else if(taskBeingEdited.tagName === "LABEL"){
+            currentIndex(".subtask", taskBeingEdited, {type: 'edit'});
         }
     }
     taskBeingEdited = null;
