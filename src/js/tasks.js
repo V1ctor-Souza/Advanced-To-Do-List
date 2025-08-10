@@ -295,6 +295,17 @@ function sendingSubtasks(nameSubtask, targetSubtaskList){
         let currentTriangle = currentSubtaskList.closest("article").querySelector(".triangle");
         targetSubtaskList.style.removeProperty("height");
         currentTriangle.classList.remove("expand");
+
+        let totalSubtasks = currentSubtaskList.childElementCount;
+        if(totalSubtasks < 2){
+            createSimpleTask(currentMain.querySelector("h3").textContent, true);
+            let arrayMain = Array.from(document.querySelectorAll(".main"));
+            let index = arrayMain.indexOf(currentMain);
+            tasks.mains.splice(index, 1);
+            localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+            currentMain.remove();
+        }
+        taskBeingDeleted = null;
     });
 }
 

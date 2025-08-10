@@ -68,7 +68,6 @@ btnEditTask.addEventListener("click", () => {
     taskBeingEdited = null;
     editModal.close();
     inputEditModal.value = '';
-    console.log("chegou até aqui");
 });
 
 
