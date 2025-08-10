@@ -62,7 +62,7 @@ Esse sistema permite exportar o histórico geral das tarefas em formato PDF.
  * [x] Editar e deletar tarefa simples de DOM e Storage
  * [x] Editar e deletar tarefa principal de DOM e Storage
  * [x] Editar e deletar subtarefas de DOM e Storage
- * [ ] Sistema de transformar tarefa principal em tarefa simples
+ * [x] Sistema de transformar tarefa principal em tarefa simples
  * [ ] Enviar tarefas concluídas para coluna de Tarefas Concluídas
  * [ ] Salvar tarefas e subtarefas concluídas em Storage
  * [ ] Adicionar sistema de Drag and Drop
