@@ -590,6 +590,8 @@ dialog.fadeOut{
 
 /* Task container */
 .task-container{
+    position: relative;
+    z-index: 1;
     margin-top: 18px;
     height: max-content;
     width: 80%;
@@ -603,7 +605,7 @@ dialog.fadeOut{
     /* cursor: grab; */
 
     .task{
-        min-width: 80%;
+        /* min-width: 80%; */
         max-width: max-content;
         overflow: hidden;
         cursor: grab;

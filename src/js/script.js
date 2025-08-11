@@ -9,7 +9,7 @@ window.addEventListener("DOMContentLoaded", () => {
         });
         taskCount(totalPendingTasks);
     }
-
+    
     /* checking if there is a main task waiting for subtasks*/
     if(localStorage.getItem("nameMainCurrent")){
         nameMainCurrent = localStorage.getItem("nameMainCurrent");
@@ -38,6 +38,25 @@ window.addEventListener("DOMContentLoaded", () => {
         });
         taskCount(firstColumn.childElementCount - 1);
     }
+
+    /* checking if subtasks completed */
+    let allMains = document.querySelectorAll(".main");
+    tasks.mains.forEach((task, mainIndex) => {
+        task.subtasks.forEach((subtask, subIndex) => {
+            let completedSubtask = tasks.mains[mainIndex].subtasks[subIndex].completed;
+
+            if(completedSubtask){
+                let currentSubtask = allMains[mainIndex].querySelectorAll(".subtask")
+                let currentIcon = currentSubtask[subIndex].querySelector("i");
+                let currentTaskName = currentSubtask[subIndex].querySelector(".taskName");
+
+                currentIcon.classList.add("active");
+                currentTaskName.classList.add("checked");
+            } else{
+                console.log("não existe");
+            }
+        });
+    });
 });
 
 

@@ -15,6 +15,7 @@ const firstColumn = document.querySelector(".column:first-child");
 const labelMainTask = document.querySelector(".taskSubtasks-inputs label");
 const btncreateMainTask = document.querySelector(".createMainTask button");
 const subtaskinModal = document.querySelector(".subtask-list-inModal");
+const completedTaskColumn = document.querySelector(".column:last-child");
 
 // total pending tasks
 let totalPendingTasks = firstColumn.childElementCount - 1; 
@@ -31,21 +32,12 @@ function createSimpleTask(nameTask, addStorage = true){
     let taskName = createStructure("div", "taskName", undefined, labelTask);
     let valueTask = createStructure("span", undefined, {textContent: nameTask}, taskName);
 
+    let visualConclusion = createStructure("div", "visual-conclusion", undefined, taskContainer);
+
     // Adding and storing
     if(addStorage){
         tasks.simples.push(nameTask);
         localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
-    }
-
-    // Check task
-    let icon = checkmark.querySelector('i');
-    valueTask.onclick = ()=> {
-        icon.classList.toggle("active");
-        taskName.classList.toggle("checked");
-    }
-    checkmark.onclick = ()=> {
-        icon.classList.toggle("active");
-        taskName.classList.toggle("checked");
     }
 
     let management = createStructure("div", "management", undefined, taskContainer);
@@ -53,6 +45,34 @@ function createSimpleTask(nameTask, addStorage = true){
     let imgEdit = createStructure("img", undefined, {src: "assets/edit.png", alt: "imagem de editar tarefa"}, btnEdit);
     let btnDelete = createStructure("button", undefined, undefined, management);
     let imgDelete = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de excluir tarefa"}, btnDelete);
+
+    // Check task
+    let icon = checkmark.querySelector('i');
+    valueTask.onclick = ()=> {
+        icon.classList.toggle("active");
+        taskName.classList.toggle("checked");
+        if(icon.classList.contains("active")){
+            visualConclusion.style.setProperty("width", "100%");
+            btnEdit.style.setProperty("display", "none");
+            completedTaskColumn.appendChild(taskContainer);
+        } else{
+            visualConclusion.style.removeProperty("width");
+            btnEdit.style.removeProperty("display");
+            firstColumn.appendChild(taskContainer);
+        }
+    }
+    checkmark.onclick = ()=> {
+        icon.classList.toggle("active");
+        taskName.classList.toggle("checked");
+
+        if(icon.classList.contains("active")){
+            visualConclusion.style.setProperty("width", "100%");
+            btnEdit.style.setProperty("display", "none");
+        } else{
+            visualConclusion.style.removeProperty("width");
+            btnEdit.style.removeProperty("display");
+        }
+    }
 
     btnEdit.addEventListener("click", () => {
         taskBeingEdited = valueTask;
@@ -268,14 +288,73 @@ function sendingSubtasks(nameSubtask, targetSubtaskList){
     let btnDeleteSubtask = createStructure("button", undefined, undefined, managementSubtask);
     let imgDeleteSubtask = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDeleteSubtask);
 
-    taskName.onclick = ()=> {
+    taskName.onclick = (e)=> {
+        iconCheck.classList.toggle("active");
+        taskName.classList.toggle("checked");
+
+        // find main index
+        let allMains = Array.from(document.querySelectorAll(".main"));
+        let currentMain = e.target.parentElement.parentElement.parentElement.parentElement;
+        let indexMain = allMains.indexOf(currentMain);
+        // console.log(indexMain);
+
+        // find subtask index
+        let allSubtasks = Array.from(currentMain.querySelectorAll('.subtask'));
+        let currentSubtask = e.target.parentElement;
+        let indexSubtask = allSubtasks.indexOf(currentSubtask);
+        // console.log(indexSubtask);
+
+        // selecting icon and task name current
+        let currentIcon = allSubtasks[indexSubtask].querySelector("i");
+        let currentTaskName = allSubtasks[indexSubtask].querySelector(".taskName");
+
+        if(taskName.classList.contains("checked")){
+            tasks.mains[indexMain].subtasks[indexSubtask].completed = true;
+            console.log(tasks.mains[indexMain].subtasks[indexSubtask].completed);
+
+            localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+        } else{
+             tasks.mains[indexMain].subtasks[indexSubtask].completed = false;
+            console.log(tasks.mains[indexMain].subtasks[indexSubtask].completed);
+            
+            localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+        }
+
+        // let currentSubtaskContainer = e.target.closest("article");
+        // let currentSubtaskList = currentSubtaskContainer.closest("section");
+        // let currentMain = currentSubtaskList.closest("article");
+        // let allSubtasksContainer = currentSubtaskList.querySelectorAll(".subtask-container");
+        // let currentSubtask = e.target.closest("article");
+
+        // if(iconCheck.classList.contains("active")){
+        //     findSubtask(document.querySelectorAll(".main"), currentMain, allSubtasksContainer, currentSubtask, {type: 'completed'});
+        // } else{
+        //     findSubtask(document.querySelectorAll(".main"), currentMain, allSubtasksContainer, currentSubtask, {type: 'uncompleted'});
+        // }
+    }
+
+    checkmark.onclick = (e)=> {
         iconCheck.classList.toggle("active");
         taskName.classList.toggle("checked");
     }
-    checkmark.onclick = ()=> {
-        iconCheck.classList.toggle("active");
-        taskName.classList.toggle("checked");
-    }
+    // checkmark.onclick = (e)=> {
+    //     iconCheck.classList.toggle("active");
+    //     taskName.classList.toggle("checked");
+
+    //     let currentSubtaskContainer = e.target.closest("article");
+    //     let currentSubtaskList = currentSubtaskContainer.closest("section");
+    //     let currentMain = currentSubtaskList.closest("article");
+    //     let allSubtasksContainer = currentSubtaskList.querySelectorAll(".subtask-container");
+    //     let currentSubtask = e.target.closest("article");
+
+    //     if(iconCheck.classList.contains("active")){
+    //         findSubtask(document.querySelectorAll(".main"), currentMain, allSubtasksContainer, currentSubtask, {type: 'completed'});
+    //         console.log("contém");
+    //     } else{
+    //         findSubtask(document.querySelectorAll(".main"), currentMain, allSubtasksContainer, currentSubtask, {type: 'uncompleted'});
+    //         console.log("não contém");
+    //     }
+    // }
 
     btnEditSubtask.addEventListener("click", (e) => {
         taskBeingEdited = e.target.closest("article").querySelector(".subtask");
@@ -326,6 +405,14 @@ function findSubtask(element, currentElement, subtaskElement, currentSubtask, ty
         tasks.mains[i].subtasks.splice(indexSubtask, 1);
         localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
     }
+    // else if(type.type === 'completed'){
+    //     tasks.mains[i].subtasks[indexSubtask].completed = true;
+    //     localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+    // } else if(type.type === 'uncompleted'){
+    //     tasks.mains[i].subtasks[indexSubtask].completed = false;
+    //     localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+    //     console.log(tasks.mains[i]);
+    // }
 }
 
 // Task counter
