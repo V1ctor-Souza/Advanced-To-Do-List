@@ -39,21 +39,45 @@ window.addEventListener("DOMContentLoaded", () => {
         taskCount(firstColumn.childElementCount - 1);
     }
 
+
+    // tasks.mains[0].progress = "";
+    // localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+
     /* checking if subtasks completed */
     let allMains = document.querySelectorAll(".main");
     tasks.mains.forEach((task, mainIndex) => {
+        let allSubtasks = allMains[mainIndex].querySelectorAll(".subtask");
+        let currentProgress = allMains[mainIndex].querySelector(".progress");
+        let currentVisualConclusion = allMains[mainIndex].querySelector(".visual-conclusion");
+
+
+        // checking if main task is completed
+        if(tasks.mains[mainIndex].progress === 100){
+            let currentH3 = allMains[mainIndex].querySelector("h3");
+            let management = allMains[mainIndex].querySelector(".management");
+            management.style.display = "none";
+            currentProgress.style.display = "block";
+            currentProgress.style.color = "blue";
+            currentH3.classList.add("completed");
+        }
+
         task.subtasks.forEach((subtask, subIndex) => {
             let completedSubtask = tasks.mains[mainIndex].subtasks[subIndex].completed;
-
+        
             if(completedSubtask){
-                let currentSubtask = allMains[mainIndex].querySelectorAll(".subtask")
-                let currentIcon = currentSubtask[subIndex].querySelector("i");
-                let currentTaskName = currentSubtask[subIndex].querySelector(".taskName");
+                let managementSubtask = allSubtasks[subIndex].parentElement.querySelector(".management");
+                managementSubtask.style.display = "none";
+                let currentIcon = allSubtasks[subIndex].querySelector("i");
+                let currentTaskName = allSubtasks[subIndex].querySelector(".taskName");
 
                 currentIcon.classList.add("active");
                 currentTaskName.classList.add("checked");
+
+                currentVisualConclusion.style.width = tasks.mains[mainIndex].progress + "%";
+                currentProgress.textContent = tasks.mains[mainIndex].progress + "%";
             } else{
-                console.log("não existe");
+                let managementSubtask = allSubtasks[subIndex].parentElement.querySelector(".management");
+                managementSubtask.style.removeProperty = "display";
             }
         });
     });

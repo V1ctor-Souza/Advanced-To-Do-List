@@ -45,4 +45,6 @@ function currentIndex(allElement, localElement, action = {}){
             localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
         }
     }
+
+    return index;
 }
