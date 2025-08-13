@@ -6,6 +6,7 @@ let tasks = {
 /* Global variables */
 let nameMainCurrent;
 let subtasksCurrent = [];
+let taskCompleted = [];
 let taskBeingEdited;
 let taskBeingDeleted;
 let indexCurrentMain;
@@ -47,30 +48,40 @@ function createSimpleTask(nameTask, addStorage = true){
     let imgDelete = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de excluir tarefa"}, btnDelete);
 
     // Check task
-    let icon = checkmark.querySelector('i');
-    valueTask.onclick = ()=> {
-        icon.classList.toggle("active");
-        taskName.classList.toggle("checked");
-        if(icon.classList.contains("active")){
-            visualConclusion.style.setProperty("width", "100%");
-            btnEdit.style.setProperty("display", "none");
-            completedTaskColumn.appendChild(taskContainer);
-        } else{
-            visualConclusion.style.removeProperty("width");
-            btnEdit.style.removeProperty("display");
-            firstColumn.appendChild(taskContainer);
-        }
-    }
-    checkmark.onclick = ()=> {
-        icon.classList.toggle("active");
+    labelTask.onclick = () => {
+        iconCheck.classList.toggle("active");
         taskName.classList.toggle("checked");
 
-        if(icon.classList.contains("active")){
+        let completedColumn =  completedTaskColumn.querySelectorAll(".task-container");
+        let pendingColumn = firstColumn.querySelectorAll(".task-container");
+
+        let allTasks = [...completedColumn, ...pendingColumn];
+        let indexTask = allTasks.indexOf(taskContainer);
+
+        if(taskName.classList.contains("checked")){
+
+            // visual effects
             visualConclusion.style.setProperty("width", "100%");
             btnEdit.style.setProperty("display", "none");
+
+            taskCompleted.push(indexTask);
+            localStorage.setItem("tasksCompleted", JSON.stringify(taskCompleted));
+            console.log(taskCompleted);
+
+            setTimeout(() => {
+                completedTaskColumn.appendChild(allTasks[indexTask]);
+            }, 800);
         } else{
             visualConclusion.style.removeProperty("width");
             btnEdit.style.removeProperty("display");
+
+            taskCompleted.splice(indexTask, 1);
+            localStorage.setItem("tasksCompleted", JSON.stringify(taskCompleted));
+            console.log(taskCompleted);
+
+            setTimeout(() => {
+                firstColumn.appendChild(allTasks[indexTask]);
+            }, 800);
         }
     }
 

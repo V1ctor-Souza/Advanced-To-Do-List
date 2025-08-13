@@ -36,7 +36,7 @@ body{
 .checkmark{
         position: relative;
         display: inline-block;
-        width: 16px; height: 16px;
+        min-width: 16px; min-height: 16px;
         border: 2px solid var(--text-primary);
         margin-right: -4px;
         cursor: pointer;
@@ -605,7 +605,8 @@ dialog.fadeOut{
     /* cursor: grab; */
 
     .task{
-        /* min-width: 80%; */
+        display: flex;
+        /* border: 1px solid red; */
         max-width: max-content;
         overflow: hidden;
         cursor: grab;

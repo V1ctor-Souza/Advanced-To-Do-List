@@ -39,9 +39,21 @@ window.addEventListener("DOMContentLoaded", () => {
         taskCount(firstColumn.childElementCount - 1);
     }
 
+    /* checking if simple task completed */
+    if(localStorage.getItem("tasksCompleted")){
+        let completedColumn =  completedTaskColumn.querySelectorAll(".task-container");
+        let pendingColumn = firstColumn.querySelectorAll(".task-container");
+        let allTasks = [...completedColumn, ...pendingColumn];
 
-    // tasks.mains[0].progress = "";
-    // localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+        taskCompleted.push(...JSON.parse(localStorage.getItem("tasksCompleted")));
+
+        taskCompleted.forEach(i => {
+            let icon = allTasks[i].querySelector("i").classList.add("active");
+            let taskName = allTasks[i].querySelector(".taskName").classList.add("checked");
+            let visualConclusion = allTasks[i].querySelector(".visual-conclusion").style.width = "100%";
+            completedTaskColumn.appendChild(allTasks[i]);
+        });
+    }
 
     /* checking if subtasks completed */
     let allMains = document.querySelectorAll(".main");
@@ -60,7 +72,6 @@ window.addEventListener("DOMContentLoaded", () => {
             currentProgress.style.color = "blue";
             currentH3.classList.add("completed");
         }
-
         task.subtasks.forEach((subtask, subIndex) => {
             let completedSubtask = tasks.mains[mainIndex].subtasks[subIndex].completed;
         
