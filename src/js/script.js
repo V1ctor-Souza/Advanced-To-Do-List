@@ -68,10 +68,10 @@ window.addEventListener("DOMContentLoaded", () => {
             let currentH3 = allMains[mainIndex].querySelector("h3");
             let management = allMains[mainIndex].querySelector(".management");
             management.style.display = "none";
-            currentProgress.style.display = "block";
-            currentProgress.style.color = "blue";
+            currentProgress.classList.add("completed");
             currentH3.classList.add("completed");
         }
+        
         task.subtasks.forEach((subtask, subIndex) => {
             let completedSubtask = tasks.mains[mainIndex].subtasks[subIndex].completed;
         

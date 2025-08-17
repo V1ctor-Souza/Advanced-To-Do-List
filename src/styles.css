@@ -704,6 +704,10 @@ dialog.fadeOut{
         font-weight: 600;
         color: var(--button-create-task);
     }
+    .progress.completed{
+        display: block;
+        color: blue;
+    }
     
     .taskName{
         display: inline;

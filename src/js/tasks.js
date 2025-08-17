@@ -264,6 +264,7 @@ function createMainTask(nameMain, subtasks){
 
     allSubtaks.forEach(subtask => {
         let nameMainTask = subtask.closest(".task-container").querySelector(".main-task h3");
+        let progressTask = subtask.closest(".task-container").querySelector(".progress"); 
 
         subtask.addEventListener("click", () => {
             let total = 0;
@@ -281,8 +282,10 @@ function createMainTask(nameMain, subtasks){
 
             if(total >= 99){
                 nameMainTask.classList.add("completed");
+                progressTask.classList.add("completed");
             } else{
-                nameMainTask.classList.remove("completed");
+                nameMainTask.classList.remove("completed"); 
+                progressTask.classList.remove("completed");
             }
 
             visualConclusion.style.setProperty("width", total + "%");
@@ -302,31 +305,34 @@ function sendingSubtasks(nameSubtask, targetSubtaskList){
     let btnDeleteSubtask = createStructure("button", undefined, undefined, managementSubtask);
     let imgDeleteSubtask = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de remoção"}, btnDeleteSubtask);
 
-    subtask.style.border = "1px solid red";
-
     subtask.onclick = (e) => {
         iconCheck.classList.toggle("active");
         taskName.classList.toggle("checked");
 
-        // find main index
-        let allMains = Array.from(document.querySelectorAll(".main"));
+        // find main task
         let currentMain = e.target.parentElement.parentElement.parentElement.parentElement;
-        let indexMain = allMains.indexOf(currentMain);
-
-        // find subtask index
-        let allSubtasks = Array.from(currentMain.querySelectorAll('.subtask'));
+        
+        // find subtask
         let currentSubtask = e.target.parentElement;
-        let indexSubtask = allSubtasks.indexOf(currentSubtask);
+
+        // capturing the current index of the main task and the index of the subtask
+        let { parentIndex, subtaskIndex } = findSubtask(
+            document.querySelectorAll(".main"),
+            currentMain,
+            currentMain.querySelectorAll('.subtask'),
+            currentSubtask
+        );
 
         // current management
-        let managementSubtask = allSubtasks[indexSubtask].parentElement.querySelector(".management");
+        let allSubtaks = currentMain.querySelectorAll('.subtask');
+        let managementSubtask = allSubtaks[subtaskIndex].parentElement.querySelector(".management");
 
         if(taskName.classList.contains("checked")){
-            tasks.mains[indexMain].subtasks[indexSubtask].completed = true;
+            tasks.mains[parentIndex].subtasks[subtaskIndex].completed = true;
             managementSubtask.style.display = "none";
             localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
         } else{
-            tasks.mains[indexMain].subtasks[indexSubtask].completed = false;
+            tasks.mains[parentIndex].subtasks[subtaskIndex].completed = false;
             managementSubtask.style.display = "flex";
             localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
         }
@@ -381,6 +387,8 @@ function findSubtask(element, currentElement, subtaskElement, currentSubtask, ty
         tasks.mains[i].subtasks.splice(indexSubtask, 1);
         localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
     }
+
+    return { parentIndex: i, subtaskIndex: indexSubtask };
 }
 
 // Task counter
