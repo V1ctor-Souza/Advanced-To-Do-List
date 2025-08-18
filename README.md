@@ -64,15 +64,18 @@ Esse sistema permite exportar o histórico geral das tarefas em formato PDF.
  * [x] Editar e deletar subtarefas de DOM e Storage
  * [x] Sistema de transformar tarefa principal em tarefa simples
  * [x] Salvar tarefas e subtarefas concluídas em Storage
+ * [x] Enviar tarefas simples concluídas para coluna de "Tarefas Concluídas"
+ * [ ] Enviar tarefas principais concluídas par coluna de "Tarefas Concluídas"
+ * [ ] Atualizar contador de tarefas pendentes e tarefas concluídas
  * [ ] Criar aviso para recarregar página após excluir uma subtarefa
- * [ ] Enviar tarefas concluídas para coluna de Tarefas Concluídas
  * [ ] Adicionar sistema de Drag and Drop
+ * [ ] Salvar posicionamento de tarefas
+ * [ ] Integrar animações visuais (modais, tarefas sendo movidas, copo de água)
+ * [ ] Adicionar responsividade
  * [ ] Implementar Filtro de Tarefas Inteligente
- * [ ] Integrar animações visuais (ex: lixeira, copo de água)
+ * [ ] Adicionar acessibidade e realizar teste com NVDA
  * [ ] Criar histórico geral unificado
  * [ ] Adicionar exportação do histórico em PDF
- * [ ] Adicionar responsividade
- * [ ] Adicionar acessibidade e realizar teste com NVDA
  * [ ] Criar testes finais e revisar documentação
  * [ ] Associar Wireframe do Figma no README
  * [ ] Associar plugins do Figma no README
