@@ -6,12 +6,13 @@ let tasks = {
 /* Global variables */
 let nameMainCurrent;
 let subtasksCurrent = [];
-let taskCompleted = [];
+let tasksCompleted = [];
 let taskBeingEdited;
 let taskBeingDeleted;
 let indexCurrentMain;
 
 
+const columns = document.querySelectorAll(".column");
 const firstColumn = document.querySelector(".column:first-child");
 const labelMainTask = document.querySelector(".taskSubtasks-inputs label");
 const btncreateMainTask = document.querySelector(".createMainTask button");
@@ -25,8 +26,8 @@ let totalPendingTasks = firstColumn.childElementCount - 1;
 const btnSimpleTask = document.querySelector(".input-container button");
 const inputSimpleTask = document.querySelector(".input-container input");
 
-function createSimpleTask(nameTask, addStorage = true){
-    let taskContainer = createStructure("article", "task-container", undefined, firstColumn);
+function createSimpleTask(columnTask, nameTask, addStorage = true){
+    let taskContainer = createStructure("article", "task-container", undefined, columnTask);
     let labelTask = createStructure("label", "task", undefined, taskContainer);
     let checkmark = createStructure("span", "checkmark", undefined, labelTask);
     let iconCheck = createStructure("i", "bi bi-check2", undefined, checkmark);
@@ -35,9 +36,11 @@ function createSimpleTask(nameTask, addStorage = true){
 
     let visualConclusion = createStructure("div", "visual-conclusion", undefined, taskContainer);
 
+    let indexColumn = currentIndex(".column", taskContainer.parentElement);
+
     // Adding and storing
     if(addStorage){
-        tasks.simples.push(nameTask);
+        tasks.simples.push({column: indexColumn, nameTask: nameTask});
         localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
     }
 
@@ -47,43 +50,67 @@ function createSimpleTask(nameTask, addStorage = true){
     let btnDelete = createStructure("button", undefined, undefined, management);
     let imgDelete = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de excluir tarefa"}, btnDelete);
 
-    // Check task
-    labelTask.onclick = () => {
+
+    labelTask.addEventListener("click", () => {
         iconCheck.classList.toggle("active");
         taskName.classList.toggle("checked");
 
-        let completedColumn =  completedTaskColumn.querySelectorAll(".task-container");
-        let pendingColumn = firstColumn.querySelectorAll(".task-container");
-
-        let allTasks = [...completedColumn, ...pendingColumn];
-        let indexTask = allTasks.indexOf(taskContainer);
+        let index = currentIndex(".task-container", taskContainer);
+        console.log(index);
 
         if(taskName.classList.contains("checked")){
-
-            // visual effects
             visualConclusion.style.setProperty("width", "100%");
-            btnEdit.style.setProperty("display", "none");
+            btnEdit.style.display = "none";
+            tasks.simples[index].column = 1;
+            tasksCompleted.push(tasks.simples[index]);
+            tasks.simples.splice(index, 1); 
 
-            taskCompleted.push(indexTask);
-            localStorage.setItem("tasksCompleted", JSON.stringify(taskCompleted));
-            console.log(taskCompleted);
+            localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
+            localStorage.setItem("tasksCompleted", JSON.stringify(tasksCompleted));
+
+            // security
+            let disablingTasks = document.querySelectorAll(".task-container");
+
+            disablingTasks.forEach(task => {
+                task.style.setProperty("pointer-events", "none");
+            });
 
             setTimeout(() => {
-                completedTaskColumn.appendChild(allTasks[indexTask]);
+                columns[1].appendChild(taskContainer);
+
+                disablingTasks.forEach(task => {
+                    task.style.removeProperty("pointer-events");
+                });
             }, 800);
         } else{
             visualConclusion.style.removeProperty("width");
             btnEdit.style.removeProperty("display");
+            let EltasksCompleted = Array.from(completedTaskColumn.querySelectorAll(".task-container"));
+            let indexTask = EltasksCompleted.indexOf(taskContainer);
+            tasksCompleted[indexTask].column = 0;
+            console.log(indexTask);
+            tasks.simples.push(tasksCompleted[indexTask]);
+            tasksCompleted.splice(indexTask, 1); 
 
-            taskCompleted.splice(indexTask, 1);
-            localStorage.setItem("tasksCompleted", JSON.stringify(taskCompleted));
-            console.log(taskCompleted);
+            // security
+            let disablingTasks = document.querySelectorAll(".task-container");
+
+            disablingTasks.forEach(task => {
+                task.style.setProperty("pointer-events", "none");
+            });
 
             setTimeout(() => {
-                firstColumn.appendChild(allTasks[indexTask]);
+                columns[0].appendChild(taskContainer);
+
+                disablingTasks.forEach(task => {
+                    task.style.removeProperty("pointer-events");
+                });
             }, 800);
+
+            localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
+            localStorage.setItem("tasksCompleted", JSON.stringify(tasksCompleted));
         }
-    }
+    });
 
     btnEdit.addEventListener("click", () => {
         taskBeingEdited = valueTask;
@@ -91,9 +118,22 @@ function createSimpleTask(nameTask, addStorage = true){
         editModal.showModal();
     });
 
-    btnDelete.addEventListener("click", () => {
-        currentIndex(".taskName", taskName, {type: "delete"});
-        taskCount(firstColumn.childElementCount - 1);
+    btnDelete.addEventListener("click", (e) => {
+        let currentColumn = e.target.parentElement.parentElement.parentElement.parentElement;
+        let allTasks = Array.from(currentColumn.querySelectorAll(".task-container"));
+        let index = allTasks.indexOf(taskContainer);
+
+        if(currentColumn === firstColumn){
+            tasks.simples.splice(index, 1);
+            localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
+            taskContainer.remove();
+        } else{
+            tasksCompleted.splice(index, 1);
+            localStorage.setItem("tasksCompleted", JSON.stringify(tasksCompleted));
+            taskContainer.remove();
+        }
+       
+        // taskCount(firstColumn.childElementCount - 1);
     });
 
     inputSimpleTask.value = '';
@@ -102,7 +142,7 @@ function createSimpleTask(nameTask, addStorage = true){
 
 btnSimpleTask.addEventListener("click", () => {
     if(inputSimpleTask.value){
-        createSimpleTask(inputSimpleTask.value);
+        createSimpleTask(columns[0], inputSimpleTask.value);
         taskCount(firstColumn.childElementCount - 1);
 
         inputSimpleTask.style.removeProperty("border");
@@ -236,11 +276,14 @@ function createMainTask(nameMain, subtasks){
     });
 
     taskNameContainer.addEventListener("click", () => {
+        let titleTask = localSubtasksList.parentElement.querySelector("h3");
         if(localSubtasksList.style.height){
             localSubtasksList.style.removeProperty("height");
             triangle.classList.remove("expand");
             management.style.removeProperty("display");
             progress.style.removeProperty("display");
+
+            if(titleTask.classList.contains("completed")) management.style.setProperty("display", "none");
         } else{
             localSubtasksList.style.setProperty("height", localSubtasksList.scrollHeight + "px");
             triangle.classList.add("expand");

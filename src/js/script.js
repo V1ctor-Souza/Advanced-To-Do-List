@@ -1,13 +1,32 @@
 const pendingTasks = firstColumn.querySelector(".task-status");
+
 // Checking for the existence of a simple task
 window.addEventListener("DOMContentLoaded", () => {
     if(localStorage.getItem("simplesTasks")){
         tasks.simples.push(...JSON.parse(localStorage.getItem("simplesTasks")));
 
-        tasks.simples.forEach(tarefa => {
-            createSimpleTask(tarefa, false);
+        tasks.simples.forEach(task => {
+            createSimpleTask(columns[task.column], task.nameTask, false);
         });
         taskCount(totalPendingTasks);
+    }
+
+    /* checking if simple task completed */
+    if(localStorage.getItem("tasksCompleted")){
+        tasksCompleted.push(...JSON.parse(localStorage.getItem("tasksCompleted")));
+
+         tasksCompleted.forEach(task => {
+            createSimpleTask(columns[task.column], task.nameTask, false);
+
+            let allTaskCompleted = columns[1].querySelectorAll(".task-container");
+
+            allTaskCompleted.forEach(task => {
+                let checkIcon = task.querySelector("i").classList.add("active");
+                let taskNameChecked = task.querySelector(".taskName").classList.add("checked");
+                let visualConclusion = task.querySelector(".visual-conclusion").style.setProperty("width", "100%");
+                let editManagement = task.querySelector(".management button:first-child").style.display = "none";
+            });
+         });
     }
     
     /* checking if there is a main task waiting for subtasks*/
@@ -37,22 +56,6 @@ window.addEventListener("DOMContentLoaded", () => {
             createMainTask(task.nameMain, task.subtasks);
         });
         taskCount(firstColumn.childElementCount - 1);
-    }
-
-    /* checking if simple task completed */
-    if(localStorage.getItem("tasksCompleted")){
-        let completedColumn =  completedTaskColumn.querySelectorAll(".task-container");
-        let pendingColumn = firstColumn.querySelectorAll(".task-container");
-        let allTasks = [...completedColumn, ...pendingColumn];
-
-        taskCompleted.push(...JSON.parse(localStorage.getItem("tasksCompleted")));
-
-        taskCompleted.forEach(i => {
-            let icon = allTasks[i].querySelector("i").classList.add("active");
-            let taskName = allTasks[i].querySelector(".taskName").classList.add("checked");
-            let visualConclusion = allTasks[i].querySelector(".visual-conclusion").style.width = "100%";
-            completedTaskColumn.appendChild(allTasks[i]);
-        });
     }
 
     /* checking if subtasks completed */
@@ -99,5 +102,3 @@ let definedName;
 let subtasksList;
 let listSubtasks = [];
 let porcentageSubtask = 0;
-
-
