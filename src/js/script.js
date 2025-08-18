@@ -28,6 +28,35 @@ window.addEventListener("DOMContentLoaded", () => {
             });
          });
     }
+
+    /* checking if main task completed */
+    if(localStorage.getItem("mainTasksCompleted")){
+        mainTasksCompleted.push(...JSON.parse(localStorage.getItem("mainTasksCompleted")));
+
+        mainTasksCompleted.forEach(task => {
+            createMainTask(columns[1], task.nameMain, task.subtasks);
+
+            let allMains = document.querySelectorAll(".main");
+            allMains.forEach(taskMain => {
+                let titleTask = taskMain.querySelector("h3").classList.add("completed");
+
+                taskMain.querySelector(".visual-conclusion").style.width = "100%";
+                let progress = taskMain.querySelector(".progress");
+                progress.textContent = "100%";
+                progress.style.display = "block";
+                progress.classList.add("completed");
+                taskMain.querySelector(".management").style.display = "none";
+
+                let subtasks = taskMain.querySelector(".subtasks-list").querySelectorAll(".subtask-container");
+                subtasks.forEach(sub => {
+                    let subIcon = sub.querySelector("i").classList.add("active");
+                    let subTaskName = sub.querySelector(".taskName").classList.add("checked");
+                    let subManagement = sub.querySelector(".management").style.display = "none";
+                    sub.style.pointerEvents = "none";
+                });
+            });
+        });
+    }
     
     /* checking if there is a main task waiting for subtasks*/
     if(localStorage.getItem("nameMainCurrent")){
@@ -53,7 +82,7 @@ window.addEventListener("DOMContentLoaded", () => {
         tasks.mains.push(...JSON.parse(localStorage.getItem("mainTasks")));
 
         tasks.mains.forEach(task => {
-            createMainTask(task.nameMain, task.subtasks);
+            createMainTask(columns[0], task.nameMain, task.subtasks);
         });
         taskCount(firstColumn.childElementCount - 1);
     }

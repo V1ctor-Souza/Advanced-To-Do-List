@@ -7,6 +7,7 @@ let tasks = {
 let nameMainCurrent;
 let subtasksCurrent = [];
 let tasksCompleted = [];
+let mainTasksCompleted = [];
 let taskBeingEdited;
 let taskBeingDeleted;
 let indexCurrentMain;
@@ -27,7 +28,7 @@ const btnSimpleTask = document.querySelector(".input-container button");
 const inputSimpleTask = document.querySelector(".input-container input");
 
 function createSimpleTask(columnTask, nameTask, addStorage = true){
-    let taskContainer = createStructure("article", "task-container", undefined, columnTask);
+    let taskContainer = createStructure("article", "task-container simples", undefined, columnTask);
     let labelTask = createStructure("label", "task", undefined, taskContainer);
     let checkmark = createStructure("span", "checkmark", undefined, labelTask);
     let iconCheck = createStructure("i", "bi bi-check2", undefined, checkmark);
@@ -55,8 +56,8 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
         iconCheck.classList.toggle("active");
         taskName.classList.toggle("checked");
 
-        let index = currentIndex(".task-container", taskContainer);
-        console.log(index);
+        let index = currentIndex(".simples", taskContainer);
+        console.log("índice atual " + index);
 
         if(taskName.classList.contains("checked")){
             visualConclusion.style.setProperty("width", "100%");
@@ -85,7 +86,7 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
         } else{
             visualConclusion.style.removeProperty("width");
             btnEdit.style.removeProperty("display");
-            let EltasksCompleted = Array.from(completedTaskColumn.querySelectorAll(".task-container"));
+            let EltasksCompleted = Array.from(completedTaskColumn.querySelectorAll(".simples"));
             let indexTask = EltasksCompleted.indexOf(taskContainer);
             tasksCompleted[indexTask].column = 0;
             console.log(indexTask);
@@ -227,7 +228,7 @@ btncreateMainTask.addEventListener("click", () => {
         tasks.mains[indexCurrentMain].subtasks.push({nameSubtask: subtasksCurrent[i], completed: false});
     }
     localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
-    createMainTask(nameMainCurrent, tasks.mains[indexCurrentMain].subtasks);
+    createMainTask(columns[0], nameMainCurrent, tasks.mains[indexCurrentMain].subtasks);
     taskCount(firstColumn.childElementCount - 1);
 
     localStorage.removeItem("nameMainCurrent");
@@ -243,8 +244,8 @@ btncreateMainTask.addEventListener("click", () => {
 });
 
 // Function to create standard structure off the main task
-function createMainTask(nameMain, subtasks){
-    let taskContainer = createStructure("article", "task-container main", undefined, firstColumn);
+function createMainTask(column, nameMain, subtasks){
+    let taskContainer = createStructure("article", "task-container main", undefined, column);
     let mainTask = createStructure("header", "main-task", undefined, taskContainer);
     let taskNameContainer = createStructure("section", "task-name-container", undefined, mainTask);
     let nameMainTask = createStructure("h3", undefined, {textContent: nameMain}, taskNameContainer);
@@ -323,14 +324,28 @@ function createMainTask(nameMain, subtasks){
             let current = Number(progress.textContent.replace("%", "")) || 0;
             animatePercentage(current, Math.round(total), progress);
 
-            if(total >= 99){
+            let index = currentIndex(".main", taskContainer);
+            
+            if(total >= 99){                
                 nameMainTask.classList.add("completed");
                 progressTask.classList.add("completed");
-            } else{
-                nameMainTask.classList.remove("completed"); 
-                progressTask.classList.remove("completed");
-            }
+                localSubtasksList.style.removeProperty("height");
+                triangle.classList.remove("expand");
 
+                mainTasksCompleted.push(tasks.mains[index]);
+                tasks.mains.splice(index, 1);
+
+                localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+                localStorage.setItem("mainTasksCompleted", JSON.stringify(mainTasksCompleted));
+
+                setTimeout(() => {
+                    columns[1].appendChild(taskContainer);
+                }, 800);
+
+                allSubtaks.forEach(subtask => {
+                    subtask.style.pointerEvents = "none";
+                });
+            }
             visualConclusion.style.setProperty("width", total + "%");
         });
     });
@@ -402,7 +417,7 @@ function sendingSubtasks(nameSubtask, targetSubtaskList){
 
         let totalSubtasks = currentSubtaskList.childElementCount;
         if(totalSubtasks < 2){
-            createSimpleTask(currentMain.querySelector("h3").textContent, true);
+            createSimpleTask(columns[0], currentMain.querySelector("h3").textContent, true);
             let arrayMain = Array.from(document.querySelectorAll(".main"));
             let index = arrayMain.indexOf(currentMain);
             tasks.mains.splice(index, 1);

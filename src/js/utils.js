@@ -23,7 +23,7 @@ function currentIndex(allElement, localElement, action = {}){
     if(action.type === 'edit'){
         if(currentEl.tagName === 'SPAN'){
             currentEl.textContent = inputEditModal.value;
-            tasks.simples[index] = inputEditModal.value;
+            tasks.simples[index].nameTask = inputEditModal.value;
             localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
         } else if(currentEl.tagName === "H3"){
             currentEl.textContent = inputEditModal.value;
