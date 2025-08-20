@@ -384,10 +384,12 @@ function sendingSubtasks(nameSubtask, targetSubtaskList){
         taskName.classList.toggle("checked");
 
         // find main task
-        let currentMain = e.target.parentElement.parentElement.parentElement.parentElement;
+        let currentMain = e.target.closest(".main");
+        console.log(currentMain);
         
         // find subtask
-        let currentSubtask = e.target.parentElement;
+        let currentSubtask = e.target.closest(".subtask");
+        console.log(currentSubtask);
 
         // capturing the current index of the main task and the index of the subtask
         let { parentIndex, subtaskIndex } = findSubtask(
