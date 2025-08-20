@@ -66,7 +66,7 @@ Esse sistema permite exportar o histórico geral das tarefas em formato PDF.
  * [x] Salvar tarefas e subtarefas concluídas em Storage
  * [x] Enviar tarefas simples concluídas para coluna de "Tarefas Concluídas"
  * [x] Enviar tarefas principais concluídas par coluna de "Tarefas Concluídas"
- * [ ] Atualizar contador de tarefas pendentes e tarefas concluídas
+ * [x] Atualizar contador de tarefas pendentes e tarefas concluídas
  * [ ] Criar aviso para recarregar página após excluir uma subtarefa
  * [ ] Adicionar sistema de Drag and Drop
  * [ ] Salvar posicionamento de tarefas
