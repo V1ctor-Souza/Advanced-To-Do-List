@@ -602,7 +602,7 @@ dialog.fadeOut{
     background-color: var(--background-task);
     border-radius: 6px;
     justify-content: space-between;
-    /* cursor: grab; */
+    cursor: grab;
 
     .task{
         display: flex;
