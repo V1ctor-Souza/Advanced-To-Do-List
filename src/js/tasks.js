@@ -20,8 +20,9 @@ const btncreateMainTask = document.querySelector(".createMainTask button");
 const subtaskinModal = document.querySelector(".subtask-list-inModal");
 const completedTaskColumn = document.querySelector(".column:last-child");
 
-// total pending tasks
-let totalPendingTasks = firstColumn.childElementCount - 1; 
+// title status
+const pendingTasks = firstColumn.querySelector(".task-status");
+const completedTasks = completedTaskColumn.querySelector(".task-status");
 
 // Simples tasks creation
 const btnSimpleTask = document.querySelector(".input-container button");
@@ -79,6 +80,10 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
             setTimeout(() => {
                 columns[1].appendChild(taskContainer);
 
+                taskCount(firstColumn.childElementCount - 1, pendingTasks, "Tarefa", "pendente");
+
+                taskCount(completedTaskColumn.childElementCount - 1, completedTasks, "Tarefa", "concluída");
+
                 disablingTasks.forEach(task => {
                     task.style.removeProperty("pointer-events");
                 });
@@ -102,6 +107,10 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
 
             setTimeout(() => {
                 columns[0].appendChild(taskContainer);
+
+                taskCount(firstColumn.childElementCount - 1, pendingTasks, "Tarefa", "pendente");
+
+                taskCount(completedTaskColumn.childElementCount - 1, completedTasks, "Tarefa", "concluída");
 
                 disablingTasks.forEach(task => {
                     task.style.removeProperty("pointer-events");
@@ -128,24 +137,25 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
             tasks.simples.splice(index, 1);
             localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
             taskContainer.remove();
+            taskCount(firstColumn.childElementCount - 1, pendingTasks, "Tarefa", "pendente");
         } else{
             tasksCompleted.splice(index, 1);
             localStorage.setItem("tasksCompleted", JSON.stringify(tasksCompleted));
             taskContainer.remove();
+            taskCount(completedTaskColumn.childElementCount - 1, completedTasks, "Tarefa", "concluída");
         }
-       
-        // taskCount(firstColumn.childElementCount - 1);
+        
     });
 
     inputSimpleTask.value = '';
     simpleTaskModal.close();
+
+    taskCount(firstColumn.childElementCount - 1, pendingTasks, "Tarefa", "pendente");
 }
 
 btnSimpleTask.addEventListener("click", () => {
     if(inputSimpleTask.value){
         createSimpleTask(columns[0], inputSimpleTask.value);
-        taskCount(firstColumn.childElementCount - 1);
-
         inputSimpleTask.style.removeProperty("border");
     } else{
         inputSimpleTask.style.setProperty("border", "1px solid red");
@@ -229,7 +239,6 @@ btncreateMainTask.addEventListener("click", () => {
     }
     localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
     createMainTask(columns[0], nameMainCurrent, tasks.mains[indexCurrentMain].subtasks);
-    taskCount(firstColumn.childElementCount - 1);
 
     localStorage.removeItem("nameMainCurrent");
     localStorage.removeItem("minSubtask");
@@ -261,6 +270,8 @@ function createMainTask(column, nameMain, subtasks){
 
     let visualConclusion = createStructure("div", "visual-conclusion", undefined, taskContainer);
 
+    // let titleTask = localSubtasksList.parentElement.querySelector("h3");
+
     /* Edit main task */
     btnEdit.addEventListener("click", () => {
         taskBeingEdited = nameMainTask;
@@ -271,20 +282,18 @@ function createMainTask(column, nameMain, subtasks){
     /* Delete main task */ 
     btnDelete.addEventListener("click", () => {
         taskBeingDeleted = taskContainer;
+        console.log(taskBeingDeleted);
         deleteConfirmation.showModal();
         nameMainModal.textContent = nameMainTask.textContent;
         totalSubtaskModal.textContent = localSubtasksList.childElementCount;
     });
 
     taskNameContainer.addEventListener("click", () => {
-        let titleTask = localSubtasksList.parentElement.querySelector("h3");
         if(localSubtasksList.style.height){
             localSubtasksList.style.removeProperty("height");
             triangle.classList.remove("expand");
             management.style.removeProperty("display");
             progress.style.removeProperty("display");
-
-            if(titleTask.classList.contains("completed")) management.style.setProperty("display", "none");
         } else{
             localSubtasksList.style.setProperty("height", localSubtasksList.scrollHeight + "px");
             triangle.classList.add("expand");
@@ -292,6 +301,10 @@ function createMainTask(column, nameMain, subtasks){
             progress.style.setProperty("display", "block");
         } 
     });
+
+     taskCount(firstColumn.childElementCount - 1, pendingTasks, "Tarefa", "pendente");
+
+     taskCount(completedTaskColumn.childElementCount - 1, completedTasks, "Tarefa", "concluída");
     // --------------------------------------------------------
 
     subtasks.forEach(subtask => {
@@ -340,6 +353,9 @@ function createMainTask(column, nameMain, subtasks){
 
                 setTimeout(() => {
                     columns[1].appendChild(taskContainer);
+
+                    taskCount(firstColumn.childElementCount - 1, pendingTasks, "Tarefa", "pendente");
+                    taskCount(completedTaskColumn.childElementCount - 1, completedTasks, "Tarefa", "concluída");
                 }, 800);
 
                 allSubtaks.forEach(subtask => {
@@ -450,12 +466,11 @@ function findSubtask(element, currentElement, subtaskElement, currentSubtask, ty
 }
 
 // Task counter
-function taskCount(value){
+function taskCount(value, type, firstTxt, secondTxt){
     let element = value;
 
-    if(element === 1) pendingTasks.textContent =
-    `Tarefa pendente (${value})`;
-    else pendingTasks.textContent = `Tarefas pendentes (${value})`;
+    if(element === 1) type.textContent = `${firstTxt} ${secondTxt} (${value})`;
+    else type.textContent = `${firstTxt}s ${secondTxt}s (${value})`;
 }
 
 // Functions responsible for progress animation

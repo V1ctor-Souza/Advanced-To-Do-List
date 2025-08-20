@@ -82,8 +82,28 @@ const totalSubtaskModal = deleteConfirmation.querySelector(".total-subtasks");
 btnCancelModal.addEventListener("click", () => deleteConfirmation.close());
 
 btnConfirmModal.addEventListener("click", () => {
-    currentIndex(".main", taskBeingDeleted, {type: 'delete'});
+    console.log(taskBeingDeleted);
+    if(completedTaskColumn.contains(taskBeingDeleted)){
+        // find current task index
+        let allTaskInCompleted = Array.from(completedTaskColumn.querySelectorAll(".main"));
+        let index = allTaskInCompleted.indexOf(taskBeingDeleted);
+
+        // delete current task
+        taskBeingDeleted.remove();
+        mainTasksCompleted.splice(index, 1);
+        localStorage.setItem("mainTasksCompleted", JSON.stringify(mainTasksCompleted));
+    } else{
+        // find current task index
+        let allTaskInPending = Array.from(firstColumn.querySelectorAll(".main"));
+        let index = allTaskInPending.indexOf(taskBeingDeleted);
+
+        // delete current task
+        taskBeingDeleted.remove();
+        tasks.mains.splice(index, 1);
+        localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+    }
     deleteConfirmation.close();
     taskBeingDeleted = null;
-    taskCount(firstColumn.childElementCount - 1);
+    taskCount(firstColumn.childElementCount - 1, pendingTasks, "Tarefa", "pendente");
+    taskCount(completedTaskColumn.childElementCount - 1, completedTasks, "Tarefa", "concluída");
 });

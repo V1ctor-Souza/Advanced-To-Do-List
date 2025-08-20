@@ -625,6 +625,16 @@ dialog.fadeOut{
         border: none;
         cursor: pointer;
     }
+    .management button:last-child.completed{
+        position: absolute;
+        right: 18%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+     .management button:last-child.completed img{
+        width: 70%;
+        height: 70%;
+    }
 
     /* Task name*/
     .taskName{

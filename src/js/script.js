@@ -1,4 +1,4 @@
-const pendingTasks = firstColumn.querySelector(".task-status");
+// const pendingTasks = firstColumn.querySelector(".task-status");
 
 // Checking for the existence of a simple task
 window.addEventListener("DOMContentLoaded", () => {
@@ -8,7 +8,6 @@ window.addEventListener("DOMContentLoaded", () => {
         tasks.simples.forEach(task => {
             createSimpleTask(columns[task.column], task.nameTask, false);
         });
-        taskCount(totalPendingTasks);
     }
 
     /* checking if simple task completed */
@@ -45,7 +44,11 @@ window.addEventListener("DOMContentLoaded", () => {
                 progress.textContent = "100%";
                 progress.style.display = "block";
                 progress.classList.add("completed");
-                taskMain.querySelector(".management").style.display = "none";
+                let mainTask = taskMain.querySelector(".main-task");
+                let currentManagement = taskMain.querySelector(".management");
+
+                let btnEdit = currentManagement.querySelector("button:first-child").style.display = "none";
+                let btnDelete = currentManagement.querySelector("button:last-child").classList.add("completed");
 
                 let subtasks = taskMain.querySelector(".subtasks-list").querySelectorAll(".subtask-container");
                 subtasks.forEach(sub => {
@@ -84,7 +87,7 @@ window.addEventListener("DOMContentLoaded", () => {
         tasks.mains.forEach(task => {
             createMainTask(columns[0], task.nameMain, task.subtasks);
         });
-        taskCount(firstColumn.childElementCount - 1);
+        // taskCount(firstColumn.childElementCount - 1);
     }
 
     /* checking if subtasks completed */

@@ -40,9 +40,22 @@ function currentIndex(allElement, localElement, action = {}){
             tasks.simples.splice(index, 1);
             localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
         } else if(currentEl.tagName ==='ARTICLE'){
-            currentEl.remove();
-            tasks.mains.splice(index, 1);
-            localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+            console.log("deletando");
+
+            // !!
+            if(completedTaskColumn.contains(currentEl)){
+                console.log(index);
+                currentEl.remove();
+                console.log(mainTasksCompleted[index]);
+                mainTasksCompleted.splice(index, 1);
+                localStorage.setItem("mainTasksCompleted", JSON.stringify(mainTasksCompleted));
+            } else{
+                currentEl.remove();
+                tasks.mains.splice(index, 1);
+                localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+            }
+
+            
         }
     }
 
