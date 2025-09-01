@@ -12,6 +12,13 @@ let taskBeingEdited;
 let taskBeingDeleted;
 let indexCurrentMain;
 
+// DOM position
+let idCounter = 0;
+let DOMPos = {
+    pending: [],
+    completed: [],
+}
+
 
 const columns = document.querySelectorAll(".column");
 const firstColumn = document.querySelector(".column:first-child");
@@ -36,6 +43,9 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
     let taskName = createStructure("div", "taskName", undefined, labelTask);
     let valueTask = createStructure("span", undefined, {textContent: nameTask}, taskName);
 
+    // add "data-index"
+    // taskContainer.setAttribute("data-id", idCounter++);
+
     let visualConclusion = createStructure("div", "visual-conclusion", undefined, taskContainer);
 
     let indexColumn = currentIndex(".column", taskContainer.parentElement);
@@ -53,12 +63,16 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
     let imgDelete = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de excluir tarefa"}, btnDelete);
 
 
+    let index = currentIndex(".simples", taskContainer);
+    tasks.simples[index].id = idCounter++;
+    taskContainer.setAttribute("data-id", tasks.simples[index].id);
+
+
     labelTask.addEventListener("click", () => {
         iconCheck.classList.toggle("active");
         taskName.classList.toggle("checked");
 
         let index = currentIndex(".simples", taskContainer);
-        console.log("índice atual " + index);
 
         if(taskName.classList.contains("checked")){
             visualConclusion.style.setProperty("width", "100%");
@@ -94,7 +108,6 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
             let EltasksCompleted = Array.from(completedTaskColumn.querySelectorAll(".simples"));
             let indexTask = EltasksCompleted.indexOf(taskContainer);
             tasksCompleted[indexTask].column = 0;
-            console.log(indexTask);
             tasks.simples.push(tasksCompleted[indexTask]);
             tasksCompleted.splice(indexTask, 1); 
 
@@ -228,6 +241,7 @@ btncreateMainTask.addEventListener("click", () => {
     subtasksCurrent = JSON.parse(localStorage.getItem("subtasksCurrent"));
 
     tasks.mains.push({
+        // id: idCounter++,
         nameMain: nameMainCurrent,
         subtasks: [],
         progress: ""
@@ -271,6 +285,13 @@ function createMainTask(column, nameMain, subtasks){
     let visualConclusion = createStructure("div", "visual-conclusion", undefined, taskContainer);
 
     // let titleTask = localSubtasksList.parentElement.querySelector("h3");
+    
+    let index = currentIndex(".main", taskContainer);
+
+    tasks.mains[index].id = idCounter++;
+    taskContainer.setAttribute("data-id", tasks.mains[index].id);
+    // add "data-index"
+    // taskContainer.setAttribute("data-index", idCounter++);
 
     /* Edit main task */
     btnEdit.addEventListener("click", () => {

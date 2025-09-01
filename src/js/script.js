@@ -1,5 +1,3 @@
-// const pendingTasks = firstColumn.querySelector(".task-status");
-
 // Checking for the existence of a simple task
 window.addEventListener("DOMContentLoaded", () => {
     if(localStorage.getItem("simplesTasks")){
@@ -127,6 +125,43 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+
+    /* checking the order of tasks in the DOM */
+    let allTasks = document.querySelectorAll(".task-container");
+    let ordemAtual = Array.from(allTasks).map(el => Number(el.dataset.id));
+    // console.log(ordemAtual);
+
+
+    // Valor atual dos arrays
+    // let allTasksPending = [...firstColumn.querySelectorAll(".task-container")];
+    // let orderTaskPending = allTasksPending.map(el => Number(el.dataset.index));
+    // DOMPos.pending.push(...orderTaskPending);
+    // console.log(DOMPos.pending);
+
+    // if(localStorage.getItem("DOMPosPending")){
+    //     DOMPos.pending = [];
+    //     DOMPos.pending.push(...JSON.parse(localStorage.getItem("DOMPosPending")));
+
+    //     DOMPos.pending.forEach(i => {
+    //         firstColumn.appendChild(allTasksPending[i]);
+    //         console.log('executando');
+    //     });
+    // };
+
+        
+
+    
+
+    
+
+    // orderTaskPending.forEach(i => {
+    //     firstColumn.appendChild(allTasksPending[i]);
+    // });
+
+    // allTasksPending.forEach((task, i) => {
+    //     console.log(task);
+    // });
 });
 
 
