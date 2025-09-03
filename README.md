@@ -67,9 +67,10 @@ Esse sistema permite exportar o histórico geral das tarefas em formato PDF.
  * [x] Enviar tarefas simples concluídas para coluna de "Tarefas Concluídas"
  * [x] Enviar tarefas principais concluídas par coluna de "Tarefas Concluídas"
  * [x] Atualizar contador de tarefas pendentes e tarefas concluídas
+ * [x] Adicionar sistema de Drag and Drop
+ * [ ] Salvar posicionamento de subtarefas em modal
+ * [ ] Adicionar Confirmação de Conclusão em drag and drop
  * [ ] Criar aviso para recarregar página após excluir uma subtarefa
- * [ ] Adicionar sistema de Drag and Drop
- * [ ] Salvar posicionamento de tarefas
  * [ ] Integrar animações visuais (modais, tarefas sendo movidas, copo de água)
  * [ ] Adicionar responsividade
  * [ ] Implementar Filtro de Tarefas Inteligente
