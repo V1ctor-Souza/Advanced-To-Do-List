@@ -12,13 +12,6 @@ let taskBeingEdited;
 let taskBeingDeleted;
 let indexCurrentMain;
 
-// DOM position
-let idCounter = 0;
-let DOMPos = {
-    pending: [],
-    completed: [],
-}
-
 
 const columns = document.querySelectorAll(".column");
 const firstColumn = document.querySelector(".column:first-child");
@@ -43,9 +36,6 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
     let taskName = createStructure("div", "taskName", undefined, labelTask);
     let valueTask = createStructure("span", undefined, {textContent: nameTask}, taskName);
 
-    // add "data-index"
-    // taskContainer.setAttribute("data-id", idCounter++);
-
     let visualConclusion = createStructure("div", "visual-conclusion", undefined, taskContainer);
 
     let indexColumn = currentIndex(".column", taskContainer.parentElement);
@@ -64,8 +54,6 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
 
 
     let index = currentIndex(".simples", taskContainer);
-    tasks.simples[index].id = idCounter++;
-    taskContainer.setAttribute("data-id", tasks.simples[index].id);
 
 
     labelTask.addEventListener("click", () => {
@@ -241,7 +229,6 @@ btncreateMainTask.addEventListener("click", () => {
     subtasksCurrent = JSON.parse(localStorage.getItem("subtasksCurrent"));
 
     tasks.mains.push({
-        // id: idCounter++,
         nameMain: nameMainCurrent,
         subtasks: [],
         progress: ""
@@ -283,15 +270,8 @@ function createMainTask(column, nameMain, subtasks){
     let localSubtasksList = createStructure("section", "subtasks-list", undefined, taskContainer);
 
     let visualConclusion = createStructure("div", "visual-conclusion", undefined, taskContainer);
-
-    // let titleTask = localSubtasksList.parentElement.querySelector("h3");
     
     let index = currentIndex(".main", taskContainer);
-
-    tasks.mains[index].id = idCounter++;
-    taskContainer.setAttribute("data-id", tasks.mains[index].id);
-    // add "data-index"
-    // taskContainer.setAttribute("data-index", idCounter++);
 
     /* Edit main task */
     btnEdit.addEventListener("click", () => {
