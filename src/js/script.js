@@ -75,6 +75,7 @@ window.addEventListener("DOMContentLoaded", () => {
         });
 
         let minSubtask = localStorage.getItem("minSubtask");
+        
         minSubtask >= 2 ? btncreateMainTask.style.setProperty("display", "block") : btncreateMainTask.style.removeProperty("display");
     }
 

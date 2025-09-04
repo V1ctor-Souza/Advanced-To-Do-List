@@ -222,6 +222,23 @@ function createVisualSubtasks(nameSubtask){
     inputSubtask.value = "";
     let deleteTask = createStructure("span", "delete", undefined, paragraph);
     let iconDelete = createStructure("i", "bi bi-x-circle-fill", undefined, deleteTask);
+
+    iconDelete.onclick = ()=> {
+        let allVisualSubtasks = [...subtaskinModal.querySelectorAll("p")];
+        let index = allVisualSubtasks.indexOf(paragraph);
+
+        paragraph.remove();
+        allVisualSubtasks.splice(index, 1);
+        subtasksCurrent.splice(index, 1);
+        localStorage.setItem("subtasksCurrent", JSON.stringify(subtasksCurrent));
+
+        let minSubtask = subtaskinModal.childElementCount;
+        localStorage.setItem("minSubtask", minSubtask);
+
+        if(allVisualSubtasks.length < 2){
+            btncreateMainTask.style.removeProperty("display");
+        }
+    };
 }
 
 // Event to create main task with subtasks
