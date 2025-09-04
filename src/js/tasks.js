@@ -207,6 +207,7 @@ btnSubtask.addEventListener("click", () => {
     }
 
     let minSubtask = subtaskinModal.childElementCount;
+    console.log(minSubtask);
     localStorage.setItem("minSubtask", minSubtask);
     if(minSubtask >= 2){
         btncreateMainTask.style.setProperty("display", "block");

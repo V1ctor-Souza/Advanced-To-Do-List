@@ -61,6 +61,9 @@ window.addEventListener("DOMContentLoaded", () => {
     
     /* checking if there is a main task waiting for subtasks*/
     if(localStorage.getItem("nameMainCurrent")){
+        
+        modalContinued.showModal();
+
         nameMainCurrent = localStorage.getItem("nameMainCurrent");
         inputMainTask.value = localStorage.getItem("nameMainCurrent");
         taskSubtasksModal.classList.add("active");

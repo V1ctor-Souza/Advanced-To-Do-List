@@ -107,3 +107,24 @@ btnConfirmModal.addEventListener("click", () => {
     taskCount(firstColumn.childElementCount - 1, pendingTasks, "Tarefa", "pendente");
     taskCount(completedTaskColumn.childElementCount - 1, completedTasks, "Tarefa", "concluída");
 });
+
+
+// Modal to continue task creation
+ const modalContinued = document.querySelector(".continued");
+ const cancelContinuation = modalContinued.querySelector(".btn-cancel");
+ const btnContinue = modalContinued.querySelector(".btn-confirm");
+const continueNameMainModal = modalContinued.querySelector(".name-main").textContent = localStorage.getItem("nameMainCurrent");
+const continueTotalSubtaskModal = modalContinued.querySelector(".total-subtasks");
+
+let minSubtask = subtaskinModal.childElementCount;
+console.log(minSubtask);
+
+setTimeout(() => {
+    if(subtasksCurrent.length === 0){
+        continueTotalSubtaskModal.textContent = "nenhuma subtarefa";
+    } else if(subtasksCurrent.length === 1){
+        continueTotalSubtaskModal.textContent = subtasksCurrent.length + " subtarefa";
+    } else{
+        continueTotalSubtaskModal.textContent = subtasksCurrent.length + " subtarefas";
+    }
+}, 300);
