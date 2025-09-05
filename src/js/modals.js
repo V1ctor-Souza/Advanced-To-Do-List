@@ -2,8 +2,10 @@
 let allModal = document.querySelectorAll("dialog");
 allModal.forEach(modal => {
     modal.addEventListener("click", (e) => {
-        let posModal = modal.getBoundingClientRect();
+        
+        if(modal.classList.contains("continued")) return;
 
+        let posModal = modal.getBoundingClientRect();
         let modalContainer =
         posModal.top <= e.clientY &&
         posModal.left <= e.clientX &&
@@ -117,7 +119,6 @@ const continueNameMainModal = modalContinued.querySelector(".name-main").textCon
 const continueTotalSubtaskModal = modalContinued.querySelector(".total-subtasks");
 
 let minSubtask = subtaskinModal.childElementCount;
-console.log(minSubtask);
 
 setTimeout(() => {
     if(subtasksCurrent.length === 0){
@@ -128,3 +129,17 @@ setTimeout(() => {
         continueTotalSubtaskModal.textContent = subtasksCurrent.length + " subtarefas";
     }
 }, 300);
+
+
+cancelContinuation.addEventListener("click", () => {
+    localStorage.removeItem("nameMainCurrent");
+    localStorage.removeItem("subtasksCurrent");
+    taskSubtasksModal.classList.remove("active");
+    inputMainTask.value = '';
+    modalContinued.close();
+});
+
+btnContinue.addEventListener("click", () => {
+    modalContinued.close();
+    taskSubtasksModal.showModal();
+});
