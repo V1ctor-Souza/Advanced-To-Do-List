@@ -11,6 +11,7 @@ let mainTasksCompleted = [];
 let taskBeingEdited;
 let taskBeingDeleted;
 let indexCurrentMain;
+let currentTask;
 
 
 const columns = document.querySelectorAll(".column");
@@ -51,10 +52,6 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
     let imgEdit = createStructure("img", undefined, {src: "assets/edit.png", alt: "imagem de editar tarefa"}, btnEdit);
     let btnDelete = createStructure("button", undefined, undefined, management);
     let imgDelete = createStructure("img", undefined, {src: "assets/delete.png", alt: "imagem de excluir tarefa"}, btnDelete);
-
-
-    let index = currentIndex(".simples", taskContainer);
-
 
     labelTask.addEventListener("click", () => {
         iconCheck.classList.toggle("active");

@@ -112,9 +112,9 @@ btnConfirmModal.addEventListener("click", () => {
 
 
 // Modal to continue task creation
- const modalContinued = document.querySelector(".continued");
- const cancelContinuation = modalContinued.querySelector(".btn-cancel");
- const btnContinue = modalContinued.querySelector(".btn-confirm");
+const modalContinued = document.querySelector(".continued");
+const cancelContinuation = modalContinued.querySelector(".btn-cancel");
+const btnContinue = modalContinued.querySelector(".btn-confirm");
 const continueNameMainModal = modalContinued.querySelector(".name-main").textContent = localStorage.getItem("nameMainCurrent");
 const continueTotalSubtaskModal = modalContinued.querySelector(".total-subtasks");
 
@@ -142,4 +142,47 @@ cancelContinuation.addEventListener("click", () => {
 btnContinue.addEventListener("click", () => {
     modalContinued.close();
     taskSubtasksModal.showModal();
+});
+
+
+// Modal to confirm task completed
+const confirmComplete = document.querySelector(".confirm-complete");
+const cancelConfirmation = confirmComplete.querySelector(".btn-cancel");
+const confirmConfirmation = confirmComplete.querySelector(".btn-confirm");
+
+cancelConfirmation.addEventListener("click", () => confirmComplete.close())
+confirmConfirmation.addEventListener("click", () => {
+    if(currentTask.classList.contains("simples")){
+        let allSimplesTasks = [...firstColumn.querySelectorAll(".simples")];
+        let index = allSimplesTasks.indexOf(currentTask);
+
+        tasks.simples[index].column = 1;
+        tasksCompleted.push(tasks.simples[index]);
+        tasks.simples.splice(index, 1);
+
+        localStorage.setItem("simplesTasks", JSON.stringify(tasks.simples));
+        localStorage.setItem("tasksCompleted", JSON.stringify(tasksCompleted));
+
+        confirmComplete.close();
+        location.reload();
+
+        currentTask = undefined;
+    }
+
+    if(currentTask.classList.contains("main")){
+        let allMainTasks = [...firstColumn.querySelectorAll(".main")];
+        let index = allMainTasks.indexOf(currentTask);
+
+        tasks.mains[index].progress = 100;
+        
+        mainTasksCompleted.push(tasks.mains[index]);
+        tasks.mains.splice(index, 1);
+
+        localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
+        localStorage.setItem("mainTasksCompleted", JSON.stringify(mainTasksCompleted));
+
+        confirmComplete.close();
+        location.reload();
+        currentTask = undefined;
+    }
 });
