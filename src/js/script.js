@@ -40,13 +40,11 @@ window.addEventListener("DOMContentLoaded", () => {
                 taskMain.querySelector(".visual-conclusion").style.width = "100%";
                 let progress = taskMain.querySelector(".progress");
                 progress.textContent = "100%";
-                progress.style.display = "block";
                 progress.classList.add("completed");
-                let mainTask = taskMain.querySelector(".main-task");
                 let currentManagement = taskMain.querySelector(".management");
 
                 let btnEdit = currentManagement.querySelector("button:first-child").style.display = "none";
-                let btnDelete = currentManagement.querySelector("button:last-child").classList.add("completed");
+                // let btnDelete = currentManagement.querySelector("button:last-child").classList.add("completed");
 
                 let subtasks = taskMain.querySelector(".subtasks-list").querySelectorAll(".subtask-container");
                 subtasks.forEach(sub => {

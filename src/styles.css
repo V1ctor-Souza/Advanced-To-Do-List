@@ -315,6 +315,7 @@ dialog.fadeOut{
     width: 80%;
     margin: 0 auto;
     display: flex;
+    align-items: center;
     flex-direction: column;
     transition: height 0.3s ease;
 }
@@ -323,8 +324,7 @@ dialog.fadeOut{
     margin-bottom: 20px;
     height: 31px;
 }
-
-/*Ativação*/
+/*Active*/
 .taskSubtasks-inputs .defined-name{
     margin-top: 5px;
     position: relative;
@@ -345,6 +345,10 @@ dialog.fadeOut{
     left: 0;
     transform: translateY(-50%);
     content: "Nome da tarefa principal:"
+}
+
+.nameSubtask-container label input{
+    width: 100%;
 }
 
 /*Modal edit*/
@@ -527,7 +531,7 @@ dialog.fadeOut{
     padding: 4px 8px;
 }
 
-.taskSubtasks-inputs .limit{
+/* .taskSubtasks-inputs .limit{
     margin-left: 10px;
     display: flex;
     align-items: center;
@@ -538,7 +542,7 @@ dialog.fadeOut{
     text-align: center;
     background-color: var(--cta-primary);
     cursor: pointer;
-}
+} */
 
     /*Lista de subtarefas*/
     .taskSubtasks-list{
@@ -790,7 +794,6 @@ dialog.fadeOut{
         color: var(--button-create-task);
     }
     .progress.completed{
-        display: block;
         color: blue;
     }
     
