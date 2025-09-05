@@ -33,6 +33,43 @@ body{
     --tip: #F96464 /*Cor de dicas: */
 }
 
+
+/* warning message*/
+.warning{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    position: fixed;
+    top: 100px;
+    color: #9F6000;
+    font-family: "Roboto", sans-serif;
+    background-color: #FEEFB3;
+    width: max-content;
+    padding: 10px;
+    animation: notification-slideLeft 0.5s ease;
+}
+.warning.end{
+    animation: notification-slideRight 0.5s ease;
+}
+
+@keyframes notification-slideLeft{
+    from{
+        left: -50%;
+    }
+    to{
+        left: 0;
+    }
+}
+
+@keyframes notification-slideRight {
+    from{
+        left: 0;
+    }
+    to{
+        left: -50%;
+    }
+}
+
 .checkmark{
         position: relative;
         display: inline-block;
