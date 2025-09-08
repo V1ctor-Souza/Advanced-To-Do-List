@@ -146,7 +146,7 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
     });
 
     inputSimpleTask.value = '';
-    simpleTaskModal.close();
+    currentTask = taskContainer;
 
     taskCount(firstColumn.childElementCount - 1, pendingTasks, "Tarefa", "pendente");
 }
@@ -154,6 +154,25 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
 btnSimpleTask.addEventListener("click", () => {
     if(inputSimpleTask.value){
         createSimpleTask(columns[0], inputSimpleTask.value);
+
+        document.body.offsetHeight;
+        let taskRect = currentTask.getBoundingClientRect();
+        let modalRect = simpleTaskModal.getBoundingClientRect();
+
+        let taskCenterX = taskRect.left + taskRect.width / 2;
+        let taskCenterY = taskRect.top + taskRect.height / 2;
+        let modalCenterX = modalRect.left + modalRect.width / 2;
+        let modalCenterY = modalRect.top + modalRect.height / 2;
+
+        let deltaX = taskCenterX - modalCenterX;
+        let deltaY = taskCenterY - modalCenterY;
+
+        simpleTaskModal.style.setProperty("--dx", `${deltaX}px`);
+        simpleTaskModal.style.setProperty("--dy", `${deltaY}px`);
+
+        simpleTaskModal.classList.add("closeToTask");
+        simpleTaskModal.addEventListener("animationend", handleClose);
+
         inputSimpleTask.style.removeProperty("border");
     } else{
         inputSimpleTask.style.setProperty("border", "1px solid red");

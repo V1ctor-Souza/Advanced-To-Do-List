@@ -41,6 +41,15 @@ btnCreateST.addEventListener("click", () => {
     simpleTaskModal.showModal();
 });
 
+function handleClose(e){
+    if (e.animationName === "closeToTask"){
+        simpleTaskModal.close();
+        simpleTaskModal.classList.remove("closeToTask");
+        simpleTaskModal.removeEventListener("animationend", handleClose);
+        currentTask = undefined;
+    }
+}
+
 
 /* Modal to create main tasks */
 const taskSubtasksModal = document.querySelector(".taskSubtasks-modal");

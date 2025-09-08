@@ -213,17 +213,19 @@ dialog .line{
     }
 }
 
-@keyframes fadeOut{
-    from{
-        opacity: 1;
+@keyframes closeToTask{
+   from {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
     }
-    to{
+    to {
+        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0);
         opacity: 0;
     }
 }
 
-dialog.fadeOut{
-    animation: fadeOut 0.3s ease;
+dialog.closeToTask{
+    animation: closeToTask 0.3s forwards;
 }
 
 
