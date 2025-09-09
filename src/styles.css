@@ -422,13 +422,23 @@ dialog.closeToTask{
     width: 100%;
     padding: 20px;
 }
-.delete-confirmation .text-container h3,
-.continued .text-container h3{
+.delete-confirmation .text-container h3{
     margin-top: 10px;
     font-size: 1.3em;
 }
+.continued .text-container h3{
+    font-size: 1.3em;
+    margin-top: -5px;
+    margin-bottom: 15px;
+}
+.continued .text-container p{
+    font-weight: 330;
+    margin-bottom: 4px;
+}
+.continued .text-container strong{
+    font-weight: 400;
+}
 .delete-confirmation .text-container p,
-.continued .text-container p,
 .confirm-complete .text-container p{
     margin: 10px 0;
 }
