@@ -154,40 +154,22 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
 btnSimpleTask.addEventListener("click", () => {
     if(inputSimpleTask.value){
         createSimpleTask(columns[0], inputSimpleTask.value);
-
-        document.body.offsetHeight;
-        let taskRect = currentTask.getBoundingClientRect();
-        let modalRect = simpleTaskModal.getBoundingClientRect();
-
-        let taskCenterX = taskRect.left + taskRect.width / 2;
-        let taskCenterY = taskRect.top + taskRect.height / 2;
-        let modalCenterX = modalRect.left + modalRect.width / 2;
-        let modalCenterY = modalRect.top + modalRect.height / 2;
-
-        let deltaX = taskCenterX - modalCenterX;
-        let deltaY = taskCenterY - modalCenterY;
-
-        simpleTaskModal.style.setProperty("--dx", `${deltaX}px`);
-        simpleTaskModal.style.setProperty("--dy", `${deltaY}px`);
-
-        simpleTaskModal.classList.add("closeToTask");
-        simpleTaskModal.addEventListener("animationend", handleClose);
-
+        CloseToTaskAnimation(currentTask, simpleTaskModal);
         inputSimpleTask.style.removeProperty("border");
     } else{
         inputSimpleTask.style.setProperty("border", "1px solid red");
     }
 });
-inputSimpleTask.addEventListener("keydown", (e) => {
-    if(e.key === 'Enter'){
-        if(inputSimpleTask.value){
-            createSimpleTask(inputSimpleTask.value);
-            inputSimpleTask.style.removeProperty("border");
-        } else{
-            inputSimpleTask.style.setProperty("border", "1px solid red");
-        }
-    }
-});
+// inputSimpleTask.addEventListener("keydown", (e) => {
+//     if(e.key === 'Enter'){
+//         if(inputSimpleTask.value){
+//             createSimpleTask(inputSimpleTask.value);
+//             inputSimpleTask.style.removeProperty("border");
+//         } else{
+//             inputSimpleTask.style.setProperty("border", "1px solid red");
+//         }
+//     }
+// });
 
 
 
@@ -218,12 +200,12 @@ btnSubtask.addEventListener("click", () => {
        subtasksCurrent.push(inputSubtask.value);
        localStorage.setItem("subtasksCurrent", JSON.stringify(subtasksCurrent));
        createVisualSubtasks(inputSubtask.value);
+        inputSubtask.style.removeProperty("border");
     } else{
         inputSubtask.style.setProperty("border", "1px solid red");
     }
 
     let minSubtask = subtaskinModal.childElementCount;
-    console.log(minSubtask);
     localStorage.setItem("minSubtask", minSubtask);
     if(minSubtask >= 2){
         btncreateMainTask.style.setProperty("display", "block");
@@ -275,12 +257,12 @@ btncreateMainTask.addEventListener("click", () => {
     localStorage.setItem("mainTasks", JSON.stringify(tasks.mains));
     createMainTask(columns[0], nameMainCurrent, tasks.mains[indexCurrentMain].subtasks);
 
+    CloseToTaskAnimation(currentTask, taskSubtasksModal);
     localStorage.removeItem("nameMainCurrent");
     localStorage.removeItem("minSubtask");
     taskSubtasksModal.classList.remove("active");
     inputMainTask.value = '';
     subtaskinModal.innerHTML = '';
-    taskSubtasksModal.close();
     subtasksCurrent.length = 0;
     localStorage.removeItem("subtasksCurrent");
     subtasksCurrent = [];
@@ -304,8 +286,8 @@ function createMainTask(column, nameMain, subtasks){
     let localSubtasksList = createStructure("section", "subtasks-list", undefined, taskContainer);
 
     let visualConclusion = createStructure("div", "visual-conclusion", undefined, taskContainer);
-    
-    let index = currentIndex(".main", taskContainer);
+
+    currentTask = taskContainer;
 
     /* Edit main task */
     btnEdit.addEventListener("click", () => {
@@ -317,7 +299,6 @@ function createMainTask(column, nameMain, subtasks){
     /* Delete main task */ 
     btnDelete.addEventListener("click", () => {
         taskBeingDeleted = taskContainer;
-        console.log(taskBeingDeleted);
         deleteConfirmation.showModal();
         nameMainModal.textContent = nameMainTask.textContent;
         totalSubtaskModal.textContent = localSubtasksList.childElementCount;
@@ -420,11 +401,9 @@ function sendingSubtasks(nameSubtask, targetSubtaskList){
 
         // find main task
         let currentMain = e.target.closest(".main");
-        console.log(currentMain);
         
         // find subtask
         let currentSubtask = e.target.closest(".subtask");
-        console.log(currentSubtask);
 
         // capturing the current index of the main task and the index of the subtask
         let { parentIndex, subtaskIndex } = findSubtask(

@@ -61,3 +61,33 @@ function currentIndex(allElement, localElement, action = {}){
 
     return index;
 }
+
+
+// Function to apply animation in the modal when creating a task
+function CloseToTaskAnimation(currentTask, currentModal){
+    document.body.offsetHeight;
+
+    let taskRect = currentTask.getBoundingClientRect();
+    let modalRect = currentModal.getBoundingClientRect();
+
+    let taskCenterX = taskRect.left + taskRect.width / 2;
+    let taskCenterY = taskRect.top + taskRect.height / 2;
+    let modalCenterX = modalRect.left + modalRect.width / 2;
+    let modalCenterY = modalRect.top + modalRect.height / 2;
+
+    let deltaX = taskCenterX - modalCenterX;
+    let deltaY = taskCenterY - modalCenterY;
+
+    currentModal.style.setProperty("--dx", `${deltaX}px`);
+    currentModal.style.setProperty("--dy", `${deltaY}px`);
+
+    currentModal.classList.add("closeToTask");
+    currentModal.addEventListener("animationend", function handleClose(e){
+        if(e.animationName === "closeToTask"){
+            currentModal.close();
+            currentModal.classList.remove("closeToTask");
+            currentModal.removeEventListener("animationend", handleClose);
+            currentTask = undefined;
+        }
+    });
+}
