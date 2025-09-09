@@ -72,7 +72,8 @@ Esse sistema permite exportar o histórico geral das tarefas em formato PDF.
  * [x] Adicionar Modal de Continuação de Criação
  * [x] Criar aviso para recarregar página após excluir uma subtarefa
  * [x] Adicionar Confirmação de Conclusão em drag and drop
- * [ ] Integrar animações visuais (modais, tarefas sendo movidas, copo de água)
+ * [ ] Integrar animação visual do modal na criação de tarefas
+ * [ ] Sistema de ativar/desativar reset diário
  * [ ] Adicionar responsividade
  * [ ] Implementar Filtro de Tarefas Inteligente
  * [ ] Adicionar acessibidade e realizar teste com NVDA
