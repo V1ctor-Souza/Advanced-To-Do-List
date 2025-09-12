@@ -17,6 +17,7 @@
         </section>
 
         <section id="createTasks">
+            <span class="reset_date_warn">Próximo reset automático: <br> <strong class="date-reset"></strong></span>
             <h2 class="title">Sua lista de tarefas</h2>
             <button class="btn-createTasks">
                 <img src="assets/more.png" alt="imagem expressando adição">
@@ -25,6 +26,42 @@
         </section>
     </header>
 
+    <section class="config">
+        <i class="bi bi-gear"></i>
+    </section>
+
+    <aside class="menuConfig">
+        <section class="text">
+            <h2>Configurações</h2>
+            <i class="bi bi-x-circle-fill close"></i>
+        </section>
+
+        <section class="options">
+            <label class="reset_automatic">
+                <p>Reset automaticamente</p>
+                <span class="button-reset"></span>
+            </label>
+            <section class="documentation">
+                <i class="bi bi-file-text"></i>
+                <p>Documentação</p>
+            </section>
+        </section>
+
+        <section class="social_media">            
+            <span class="line"></span>
+
+            <section class="link_social_media">
+                <a href="#" class="linkedin">
+                    <i class="bi bi-linkedin"></i>
+                </a>
+
+                <a href="#" class="github">
+                    <i class="bi bi-github"></i>
+                </a>
+            </section>
+        </section>
+    </aside>
+
 <!-- 
     ############
     #          #
@@ -32,32 +69,32 @@
     #          #
     ############ 
  -->
-    <dialog class="main-modal">
-        <section class="texts-container">
-            <h2 class="title">Escolha o tipo de tarefa</h2>
-            <p><strong>Tarefa simples:</strong> diz respeito a uma única tarefa, não contendo subtarefas.</p>
-            <p><strong>Tarefa com subtarefas:</strong> tarefa principal que contém pequenas tarefas, chamadas de subtarefas. Para concluí-la é necessário finalizar todas as subtarefas.</p>
-            <a href="#">Entenda mais</a>
-        </section>
-        <div class="line"></div>
+        <dialog class="main-modal">
+            <section class="texts-container">
+                <h2 class="title">Escolha o tipo de tarefa</h2>
+                <p><strong>Tarefa simples:</strong> diz respeito a uma única tarefa, não contendo subtarefas.</p>
+                <p><strong>Tarefa com subtarefas:</strong> tarefa principal que contém pequenas tarefas, chamadas de subtarefas. Para concluí-la é necessário finalizar todas as subtarefas.</p>
+                <a href="#">Entenda mais</a>
+            </section>
+            <div class="line"></div>
 
-        <section class="buttons">
-            <button class="btn-createSimpleTask">Criar tarefa simples</button>
-            <button class="btn-createTWS">Criar tarefa com subtarefas</button>
-        </section>
-    </dialog>
+            <section class="buttons">
+                <button class="btn-createSimpleTask">Criar tarefa simples</button>
+                <button class="btn-createTWS">Criar tarefa com subtarefas</button>
+            </section>
+        </dialog>
 
-    <dialog class="simpleTask-modal">
-        <h2 class="title">Digite o nome da nova tarefa</h2>
-        <p><strong>Filtro de Tarefas Inteligente:</strong> reconhece palavras-chaves que criam tarefas especiais com funcionalidades únicas. Escrever, por exemplo "beber água" ou algo similiar a isso cria uma tarefa especial.</p>
-        <a href="#">Saiba mais</a>
-        <div class="line"></div>
+        <dialog class="simpleTask-modal">
+            <h2 class="title">Digite o nome da nova tarefa</h2>
+            <p><strong>Filtro de Tarefas Inteligente:</strong> reconhece palavras-chaves que criam tarefas especiais com funcionalidades únicas. Escrever, por exemplo "beber água" ou algo similiar a isso cria uma tarefa especial.</p>
+            <a href="#">Saiba mais</a>
+            <div class="line"></div>
 
-        <section class="input-container">
-            <input class="name-SimpleTask" type="text" placeholder="Escreva o nome da tarefa">
-            <button>Criar tarefa</button>
-        </section>
-    </dialog>
+            <section class="input-container">
+                <input class="name-SimpleTask" type="text" placeholder="Escreva o nome da tarefa">
+                <button>Criar tarefa</button>
+            </section>
+        </dialog>
 
         <dialog class="taskSubtasks-modal">
             <h2 class="title">Digite o nome da tarefa principal</h2>
@@ -130,6 +167,7 @@
             </section>  
         </dialog>
 
+
         <dialog class="confirm-complete">
             <section class="text-container">
                 <h3>Deseja concluir essa tarefa?</h3>
@@ -141,6 +179,7 @@
             </section>
 
         </dialog>
+
 
     <main id="main-container">
         <section class="column">

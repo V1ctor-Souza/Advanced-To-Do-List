@@ -1,5 +1,42 @@
-// Checking for the existence of a simple task
+/* config */
+const menuConfig = document.querySelector(".menuConfig");
+const configClose = menuConfig.querySelector(".close");
+const iconConfig = document.querySelector(".config i");
+const resetAutomatic = document.querySelector(".reset_automatic");
+const btnReset = document.querySelector(".button-reset");
+const resetDateWarn = document.querySelector(".reset_date_warn");
+const dateReset = document.querySelector(".date-reset");
+
 window.addEventListener("DOMContentLoaded", () => {
+    if(localStorage.getItem("toggleReset")){
+        btnReset.classList.add("active");
+        resetDateWarn.style.setProperty("display", "block");
+
+        if(!localStorage.getItem("lastDate")){
+            localStorage.setItem("lastDate", new Date().getTime());
+        }
+        let lastDate = Number(localStorage.getItem("lastDate"));
+        let date = infoLastDate(lastDate);
+
+        dateReset.textContent = `${date.day}/${date.month}/${date.year} às ${date.hours}:${date.minutes}`;
+
+        let currentDate = new Date().getTime();
+        let dif = currentDate - lastDate;
+        let oneDay = 24 * 60 * 60 * 1000;
+
+        if(dif >= oneDay){
+            localStorage.removeItem("simplesTasks");
+            localStorage.removeItem("tasksCompleted");
+            localStorage.removeItem("mainTasksCompleted");
+            localStorage.removeItem("nameMainCurrent");
+            localStorage.removeItem("subtasksCurrent");
+            localStorage.removeItem("mainTasks");
+            localStorage.setItem("lastDate", new Date().getTime());
+        }
+    } else{
+        localStorage.removeItem("lastDate");
+    }
+
     if(localStorage.getItem("simplesTasks")){
         tasks.simples.push(...JSON.parse(localStorage.getItem("simplesTasks")));
 
@@ -127,6 +164,32 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+});
+
+// open menu config
+iconConfig.addEventListener("click", () => {
+    menuConfig.classList.add("active");
+    createStructure('div', 'back', undefined, document.body);
+});
+
+// enable or disable automatic restart
+resetAutomatic.addEventListener("click", () => {
+    btnReset.classList.toggle("active");
+
+    if(btnReset.classList.contains("active")){
+        localStorage.setItem("toggleReset", 'active');
+        resetDateWarn.style.setProperty("display", "block");
+        setTimeout(() => {location.reload();}, 500);
+    } else{
+        localStorage.removeItem("toggleReset");
+        localStorage.removeItem("lastDate");
+        resetDateWarn.style.removeProperty("display");
+    }
+});
+
+configClose.addEventListener("click", () => {
+    menuConfig.classList.remove("active");
+    let backMenu = document.querySelector(".back").remove();
 });
 
 

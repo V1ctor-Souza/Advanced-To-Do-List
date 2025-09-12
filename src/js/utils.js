@@ -91,3 +91,19 @@ function CloseToTaskAnimation(currentTask, currentModal){
         }
     });
 }
+
+
+// Function for dates
+function infoLastDate(lastDate){
+    let date = new Date(lastDate);
+    date.setDate(date.getDate() + 1);
+
+    return {
+        day: String(date.getDate()).padStart(2, "0"),
+        month: String(date.getMonth() + 1).padStart(2, "0"),
+        year: date.getFullYear(),
+        hours: String(date.getHours()).padStart(2, "0"),
+        minutes: String(date.getMinutes()).padStart(2, "0"),
+        seconds: String(date.getSeconds()).padStart(2, "0")
+    };
+}
