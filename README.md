@@ -73,7 +73,7 @@ Esse sistema permite exportar o histórico geral das tarefas em formato PDF.
  * [x] Criar aviso para recarregar página após excluir uma subtarefa
  * [x] Adicionar Confirmação de Conclusão em drag and drop
  * [x] Integrar animação visual do modal na criação de tarefas
- * [ ] Sistema de ativar/desativar reset diário
+ * [x] Sistema de ativar/desativar reset diário
  * [ ] Adicionar responsividade
  * [ ] Documentação
  * [ ] Implementar Filtro de Tarefas Inteligente
