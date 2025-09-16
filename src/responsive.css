@@ -1,0 +1,136 @@
+@media (max-width: 1020px){
+    header #createTasks .btn-createTasks{
+        font-size: 1.3rem;
+    }
+    header #createTasks .btn-createTasks img{
+        width: 1.1rem;
+    }
+    header #createTasks .title{
+        font-size: 2.3rem;
+    }
+    #main-container .task-status{
+        font-size: 1.7rem;
+    }
+    .task-container{
+        width: 100%;
+    }
+}
+
+@media (max-width: 900px){
+    header #createTasks .btn-createTasks{
+        font-size: 1.1rem;
+    }
+
+    header #createTasks .title{
+        font-size: 2.1rem;
+    }
+    .reset_date_warn{
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 805px){
+    header #createTasks{
+        flex-direction: column;
+        gap: 1rem;
+    }
+    header #createTasks .title{
+        font-size: 2.5rem;
+    }
+    header #createTasks .btn-createTasks{
+        font-size: 1.6rem;
+        margin-bottom: -15px;
+    }
+    #main-container{
+        flex-direction: column;
+        justify-content: space-between;
+        border: none;
+        margin: 0 auto;
+    }
+    #main-container .column{
+        width: 100%;
+    }
+    #main-container .column::before{
+        content: '';
+        height: 2px;
+        min-width: 80%;
+        background-color: #555555;
+        opacity: .7;
+        margin-bottom: .8rem;
+    }
+    #main-container .column:first-child{
+        margin-bottom: 30%;
+    }
+    #main-container .task-status{
+        font-size: 1.8rem;
+    }
+    
+    .task-container{
+        width: 80%;
+    }
+}
+
+@media (max-width: 485px){
+   header #createTasks .title{
+        font-size: 2rem;
+    }
+    header #createTasks .btn-createTasks{
+        font-size: 1.3rem;
+    }
+    #main-container .task-status{
+        font-size: 1.6rem;
+    }
+    .task-container{
+        width: 100%;
+        padding: 8px;
+    }
+    .task-container .task .checkmark{
+        margin-left: 5px;
+    }
+    .task-container .taskName{
+        font-size: 1.1rem;
+    }
+    .task-container .management{
+        gap: 10px;
+    }
+    .task-container .management img{
+        width: 24px;
+        height: 24px;
+    }
+    .task-container .management button:last-child img{
+        width: 20px;
+        height: 20px;
+    }
+    .main-task{
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 380px){
+    .menuConfig{
+        width: 80%;
+        height: 260px;
+        font-size: 1em;
+    }
+    .menuConfig .options{
+        width: 90%;
+        font-size: 1em;
+    }
+
+    header #createTasks .title{
+        font-size: 1.8rem;
+    }
+    
+    #main-container .task-status{
+        font-size: 1.4rem;
+    }
+    .task-container .taskName{
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 320px){
+    .task-container .taskName{
+        margin-left: -3px;
+    }
+}

@@ -169,6 +169,7 @@ window.addEventListener("DOMContentLoaded", () => {
 // open menu config
 iconConfig.addEventListener("click", () => {
     menuConfig.classList.add("active");
+    document.body.classList.add("active");
     createStructure('div', 'back', undefined, document.body);
 });
 
@@ -190,6 +191,7 @@ resetAutomatic.addEventListener("click", () => {
 configClose.addEventListener("click", () => {
     menuConfig.classList.remove("active");
     let backMenu = document.querySelector(".back").remove();
+    document.body.classList.remove("active");
 });
 
 

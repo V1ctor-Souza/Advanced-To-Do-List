@@ -14,6 +14,10 @@
 body{
     background-color: var(--background-primary);
     color: var(--text-primary);
+    overflow-x: hidden;
+}
+body.active{
+    overflow: hidden;
 }
 
 :root{
@@ -72,28 +76,27 @@ body{
 /* --------------------------------------- */
 
 .checkmark{
-        position: relative;
-        display: inline-block;
-        min-width: 16px; min-height: 16px;
-        border: 2px solid var(--text-primary);
-        margin-right: -4px;
-        cursor: pointer;
-    }
+    position: relative;
+    display: inline-block;
+    min-width: 16px; min-height: 16px;
+    border: 2px solid var(--text-primary);
+    margin-right: -4px;
+    cursor: pointer;
+}
 
-    .checkmark i{
-        position: absolute;
-        top: 40%;
-        left: 70%;
-        transform: translate(-50%, -50%);
-        font-size: 32px;
-        font-weight: 600;
-        opacity: 0;
-        transition: opacity .2s ease;
-    }
-
-    .checkmark i.active{
-        opacity: 1;
-    }
+.checkmark i{
+    position: absolute;
+    top: 40%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity .2s ease;
+}
+.checkmark i.active{
+    opacity: 1;
+}
 
 /*Section header*/
 header{
@@ -128,49 +131,42 @@ header #visual-storage .progress-storage{
 /*Título e criação de tarefas*/
 /* Observação: */
 /* #createTasks e #main-container precisam ter a mesma largura */
+
 header #createTasks{
-    position: relative;
     width: 90%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    font-size: 1.8em;
     margin-bottom: 10px;
+}
+#createTasks .btn-createTasks{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-primary);
+    background-color: var(--button-create-task);
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.6rem;
+}
 
-    .btn-createTasks{
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: var(--text-primary);
-        background-color: var(--button-create-task);
-        padding: 8px 14px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: .9em;
-        position: absolute; top: 50%; right: 0;
-        transform: translate(0, -50%);
-    }
-
-    .btn-createTasks img,
-    .btn-createTasks span{
-        background-color: var(--button-create-task);
-    }
+.btn-createTasks img,
+.btn-createTasks span{
+     background-color: var(--button-create-task);
 }
 
 .reset_date_warn{
     font-family: "Roboto", sans-serif;
-    font-size: 0.66em;
-    position: absolute;
-    left: 0;
-    top: 15%;
+    font-size: 1.2rem;
     text-align: center;
     color: #ff9d4d;
     display: none;
+}
 
-    /* .date-reset{
-        display: none;
-    } */
+#createTasks .title{
+    font-size: 2.5rem;
 }
 
 /* Menu config */
@@ -181,7 +177,7 @@ header #createTasks{
     height: 100vh;
     width: 100%;
     background-color: rgba(4, 4, 4, 0.5);
-    z-index: 0;
+    z-index: 998;
 }
 
 .config{
@@ -194,9 +190,9 @@ header #createTasks{
 }
 
 .menuConfig{
-    position: absolute;
-    right: -50%;
+    position: fixed;
     top: 0;
+    right: 0;
     width: 320px;
     height: 280px;
     background-color: #1A1A1A;
@@ -205,9 +201,11 @@ header #createTasks{
     font-family: "Roboto", sans-serif;
     z-index: 999;
     transition: all 0.5s ease;
+    transform: translateX(100%);
 }
 .menuConfig.active{
-    right: 0;
+    transform: translateX(0%);
+    overflow-y: hidden;
 }
 
 .menuConfig .text{
@@ -819,7 +817,7 @@ dialog.closeToTask{
 
 #main-container .task-status{
     font-family: "Karla", sans-serif;
-    font-size: 1.8em;
+    font-size: 1.8rem;
 }
 
 /* Task container */
@@ -840,14 +838,17 @@ dialog.closeToTask{
 
     .task{
         display: flex;
-        /* border: 1px solid red; */
         max-width: max-content;
         overflow: hidden;
+        gap: 12px;
+        justify-content: center;
+        align-items: center;
         cursor: grab;
     }
+}
 
-    /*Gerenciamento*/
-    .task, .management{
+/*Management*/
+    .management{
         display: flex;
         gap: 12px;
         justify-content: center;
@@ -893,13 +894,12 @@ dialog.closeToTask{
     .taskName.checked span{
         background-size: 100% 4px;
     }
-}
 
 
 /*Task with subtask*/
 .task-container.main{
     position: relative;
-    z-index: 999;
+    z-index: 997;
     display: flex;
     flex-direction: column;
 
