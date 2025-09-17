@@ -302,6 +302,14 @@ header #createTasks{
 /*Modals*/
 
 /*Geral*/
+dialog{
+    position: relative;
+    padding: 20px;
+    width: 90%;
+    max-width: 560px;
+    max-height: 90vh;
+}
+
 dialog[open]{
     font-family: 'Roboto', sans-serif;
     position: fixed;
@@ -315,11 +323,6 @@ dialog[open]{
 
 dialog::backdrop{
     background-color: rgba(0, 0, 0, .5);
-}
-
-dialog{
-    padding: 20px;
-    width: 40%;
 }
 
 dialog .title{
@@ -370,7 +373,15 @@ dialog.closeToTask{
 }
 
 
-/*Modal principal*/
+/* small description */
+dialog sub{
+    color: #888686;
+    margin-top: 1px;
+    display: none;
+}
+
+
+/*Main modal*/
 .main-modal.slideDown{
     animation: slideDown 0.6s ease;
 }
@@ -396,17 +407,17 @@ dialog.closeToTask{
     text-align: center;
 }
 .main-modal .buttons .btn-createSimpleTask{
-    margin-bottom: 10px;
     background-color: var(--button-create-task);
-    width: 35%;
+    max-width: 165px;
 }
 .main-modal .buttons .btn-createSimpleTask:hover{
     background-color: #399714;
 }
 
 .main-modal .buttons .btn-createTWS{
+    margin-top: 10px;
+    max-width: 220px;
     background-color: var(--cta-primary);
-    width: 48%;
 }
 .main-modal .buttons .btn-createTWS:hover{
     background-color: #c96f16;
