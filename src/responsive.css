@@ -93,13 +93,11 @@
         display: block;
     }
 
-
-    /*Main modal*/
-    
     /* .main-modal a{
         display: none;
     } */
 
+    /*Main modal*/
     dialog.main-modal .buttons{
         align-items: left;
     }
@@ -118,6 +116,24 @@
         color: var(--cta-primary);
         border: 1px solid var(--cta-primary);
         max-width: 220px;
+    }
+}
+
+@media (max-width: 510px){
+    /* Modals */
+
+    /* Global */
+    dialog .title{
+        font-size: 1.4em;
+    }
+
+    /* Simple task */
+    .simpleTask-modal .input-container{
+        flex-direction: column;
+        gap: 8px;
+    }
+    .simpleTask-modal .input-container input{
+        width: 200px;
     }
 }
 
@@ -162,6 +178,13 @@
     }
 }
 
+@media (max-width: 385px){
+    /* Modals */
+    dialog .title{
+        font-size: 1.1em;
+    }
+}
+
 @media (max-width: 380px){
     .menuConfig{
         width: 80%;
@@ -183,7 +206,6 @@
     .task-container .taskName{
         font-size: 1rem;
     }
-
 
     /* Modals */
 

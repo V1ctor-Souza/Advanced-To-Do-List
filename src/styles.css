@@ -438,14 +438,14 @@ dialog sub{
     outline: none;
     border: 1px solid #5e5b5b;
     border-radius: 4px;
-    width: 40%;
+    max-width: 300px;
 }
 
 .simpleTask-modal button{
     background-color: var(--button-create-task);
     cursor: pointer;
     color: #fff;
-    border: none;
+    border: 2px solid #31ca13;
     border-radius: 4px;
     padding: 4px 20px;
     font-size: 1em;
