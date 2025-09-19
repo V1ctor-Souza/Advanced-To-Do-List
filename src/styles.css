@@ -11,10 +11,20 @@
     user-select: none;
 }
 
+input, button{
+    all: unset;
+    font-family: inherit;
+}
+button{
+    white-space: nowrap;
+    flex-shrink: 1;
+}
+
 body{
     background-color: var(--background-primary);
     color: var(--text-primary);
     overflow-x: hidden;
+    height: 100vh;
 }
 body.active{
     overflow: hidden;
@@ -307,7 +317,7 @@ dialog{
     padding: 20px;
     width: 90%;
     max-width: 560px;
-    max-height: 90vh;
+    max-height: 90dvh;
 }
 
 dialog[open]{
@@ -457,12 +467,21 @@ dialog sub{
 
 /*Modal de tarefa com subtarefas*/
 .taskSubtasks-modal{
-    height: 110px;
+    height: 108px;
     overflow: hidden;
     transition: all 0.3s;
 }
 .taskSubtasks-modal.active{
     height: 100%;
+}
+.taskSubtasks-modal .set-nameMTask-responsive{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 10px;
+}
+.taskSubtasks-modal .set-nameMTask-responsive i{
+    font-size: 2.2em;
 }
 .taskSubtasks-inputs{
     position: relative;
@@ -670,7 +689,7 @@ dialog sub{
     border-radius: 4px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
-    width: 60%;
+    max-width: 80%;
 }
 .taskSubtasks-inputs button{
     border-top-right-radius: 4px;
@@ -695,24 +714,11 @@ dialog sub{
     padding: 4px 8px;
 }
 
-/* .taskSubtasks-inputs .limit{
-    margin-left: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #FFF;
-    padding: 6px;
-    border-radius: 4px;
-    text-align: center;
-    background-color: var(--cta-primary);
-    cursor: pointer;
-} */
-
-    /*Lista de subtarefas*/
+    /*Subtasks list */
     .taskSubtasks-list{
         position: relative;
         width: 100%;
-        min-height: 300px;
+        min-height: 200px;
         max-height: max-content;
         border: 2px solid #000;      
         border-radius: 0 30px;
@@ -733,7 +739,7 @@ dialog sub{
     /* in Modal */
     .subtask-list-inModal{
         margin-top: -10px;
-        min-height: 270px;
+        min-height: 200px;
         max-height: 270px;
         overflow-y: auto;
         font-size: 1.2em;
@@ -917,10 +923,13 @@ dialog sub{
     .main-task{
         display: flex;
         flex-direction: row;
-        justify-content: flex-start;
+        justify-content: center;
         align-items: center;
         cursor: grab;
-        justify-content: space-between;
+        justify-content: space-between; 
+    }
+    .main-task .management{
+        margin-bottom: -5px;
     }
 
     .task-name-container{

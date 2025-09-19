@@ -160,36 +160,41 @@ btnSimpleTask.addEventListener("click", () => {
         inputSimpleTask.style.setProperty("border", "1px solid red");
     }
 });
-// inputSimpleTask.addEventListener("keydown", (e) => {
-//     if(e.key === 'Enter'){
-//         if(inputSimpleTask.value){
-//             createSimpleTask(inputSimpleTask.value);
-//             inputSimpleTask.style.removeProperty("border");
-//         } else{
-//             inputSimpleTask.style.setProperty("border", "1px solid red");
-//         }
-//     }
-// });
-
-
 
 // Main tasks creation
-const btnMainTask = document.querySelector(".taskSubtasks-inputs button");
+// const btnMainTask = document.querySelector(".taskSubtasks-inputs button");
+const btnsMainTask = document.querySelectorAll(".taskSubtasks-inputs button");
 const inputMainTask = document.querySelector(".taskSubtasks-inputs input");
 
-btnMainTask.addEventListener("click", () => {
-    if(inputMainTask.value){
-        nameMainCurrent = inputMainTask.value;
+btnsMainTask.forEach(btn => {
+    btn.addEventListener("click", () => {
+        if(inputMainTask.value){
+            nameMainCurrent = inputMainTask.value;
 
-        /* storing name of current main task  */
-        localStorage.setItem("nameMainCurrent", nameMainCurrent);
+            /* storing name of current main task  */
+            localStorage.setItem("nameMainCurrent", nameMainCurrent);
 
-        inputMainTask.style.removeProperty("border");
-        taskSubtasksModal.classList.add("active");
-    } else{
-        inputMainTask.style.setProperty("border", "1px solid red");
-    }
+            inputMainTask.style.removeProperty("border");
+            taskSubtasksModal.classList.add("active");
+        } else{
+            inputMainTask.style.setProperty("border", "1px solid red");
+        }
+    });
 });
+
+// btnMainTask.addEventListener("click", () => {
+//     if(inputMainTask.value){
+//         nameMainCurrent = inputMainTask.value;
+
+//         /* storing name of current main task  */
+//         localStorage.setItem("nameMainCurrent", nameMainCurrent);
+
+//         inputMainTask.style.removeProperty("border");
+//         taskSubtasksModal.classList.add("active");
+//     } else{
+//         inputMainTask.style.setProperty("border", "1px solid red");
+//     }
+// });
 
 // Subtasks
 const btnSubtask = document.querySelector(".btn-addSubtask");
