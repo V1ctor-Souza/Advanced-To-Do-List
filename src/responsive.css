@@ -1,3 +1,11 @@
+@media (max-width: 1200px){
+    /* Modal */
+    .editModal .btnEdit{
+        margin-top: 10px;
+        width: 50%;
+    }
+}
+
 @media (max-width: 1020px){
     header #createTasks .btn-createTasks{
         font-size: 1.3rem;
@@ -14,6 +22,18 @@
     .task-container{
         width: 100%;
     }
+
+    /* Modal */
+    .editModal h2{
+        font-size: 1.2em;
+    }
+    .editModal img{
+        width: 24px;
+        height: 24px;
+    }
+    .editModal p{
+        font-size: 0.9em;
+    }
 }
 
 @media (max-width: 900px){
@@ -26,6 +46,11 @@
     }
     .reset_date_warn{
         font-size: 1.1rem;
+    }
+
+    /* Modal */
+    .editModal{
+        width: 40%;
     }
 }
 
@@ -83,7 +108,8 @@
     dialog a{
         display: none;
     }
-    dialog p,
+    dialog.main-modal p,
+    dialog.simpleTask-modal p,
     dialog .line{
         display: none;
     }
@@ -130,6 +156,16 @@
     }
 }
 
+@media (max-width: 680px){
+    /* Edit modal */
+    .editModal{
+        width: 50%;
+    }
+    .editModal p{
+        font-size: .8em;
+    }
+}
+
 @media (max-width: 510px){
     /* Modals */
 
@@ -152,6 +188,14 @@
     }
     .simpleTask-modal .input-container input{
         width: 200px;
+    }
+
+    /* Edit modal */
+    .editModal{
+        width: 70%;
+    }
+    .editModal p{
+        display: none;
     }
 }
 
@@ -201,6 +245,24 @@
     }
      .createMainTask button{
         font-size: 1.2em;
+    }
+
+    /* .editModal input{ */
+        /* min-width: 70%; */
+        /* width: 70%; */
+    /* } */
+    
+    /* Edit modal */
+    .editModal h2{
+        font-size: 1em;
+    }
+    .editModal img{
+        width: 22px;
+        height: 22px;
+
+    }
+    .editModal p{
+        font-size: .8em;
     }
 }
 
@@ -262,6 +324,11 @@
 @media (max-width: 320px){
     .task-container .taskName{
         margin-left: -3px;
+    }
+
+    /* Modal */
+    .editModal{
+        width: 80%;
     }
 }
 

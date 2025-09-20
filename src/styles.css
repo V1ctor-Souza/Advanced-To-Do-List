@@ -547,9 +547,15 @@ dialog sub{
     margin-bottom: 8px;
 }
 .editModal input{
+    min-width: 30%;
+    max-width: 80%;
+    width: 60%;
+    border: 1px solid #000;
     font-size: 0.9em;
     padding-left: 32px;
     height: 30px;
+    text-align: left;
+    cursor: pointer;
 }
 .editModal input:focus{
     box-shadow: 0 0 0 2px #4ade80;
@@ -564,11 +570,12 @@ dialog sub{
     color: #666;
 }
 .editModal .btnEdit{
+    max-width: 30%;
     background-color: var(--button-create-task);
     color: #FFF;
-    border: none;
+    border: 2px solid #46c227;
     border-radius: 4px;
-    padding: 4.5px 16px;
+    padding: 4.2px 16px;
     font-size: 0.9em;
     cursor: pointer;
     transition: background 0.3s;
