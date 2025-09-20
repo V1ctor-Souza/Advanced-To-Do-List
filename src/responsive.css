@@ -264,3 +264,15 @@
         margin-left: -3px;
     }
 }
+
+@media (orientation: landscape) and (max-height: 500px){
+    dialog.taskSubtasks-modal{
+        width: 100% !important;
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 0% !important;
+    }
+     .subtask-list-inModal{
+        min-height: 80px;
+    }
+}

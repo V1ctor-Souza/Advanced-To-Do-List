@@ -465,7 +465,7 @@ dialog sub{
     background-color: #399714;
 }
 
-/*Modal de tarefa com subtarefas*/
+/* Modal: task with subtasks */
 .taskSubtasks-modal{
     height: 108px;
     overflow: hidden;
@@ -790,7 +790,7 @@ dialog sub{
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: 30px;
+        margin-top: 10px;
     }
     .createMainTask button{
         display: none;
