@@ -681,8 +681,6 @@ dialog sub{
 }
 .continued .container-buttons button:focus{
     outline: none;
-    /* box-shadow: 0 0 0 3px #085c7e; */
-    /* border-radius: 4px; */
 }
 /*----------------------------------*/
 
@@ -781,7 +779,8 @@ dialog sub{
     }
     .subtask-list-inModal p .nameSubTask{
         display: inline-block;
-        width: 60%;
+        width: 80%;
+        overflow-wrap: break-word;
         border-left: 1px solid #797575;
         padding-left: 8px;
     }
@@ -911,8 +910,7 @@ dialog sub{
     }
 
     /*Animation in task name*/
-    .taskName span,
-    .task-container.main .taskName{
+    .taskName span{
         display: inline;
         position: relative;
         cursor: pointer;
@@ -940,7 +938,7 @@ dialog sub{
         justify-content: center;
         align-items: center;
         cursor: grab;
-        justify-content: space-between; 
+        justify-content: space-between;
     }
     .main-task .management{
         margin-bottom: -5px;
@@ -949,13 +947,15 @@ dialog sub{
     .task-name-container{
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: left;
         gap: 4px;
         cursor: pointer;
     }
 
     .main-task h3{
         font-size: 1.1em;
+        word-break: break-word; 
+        overflow-wrap: break-word;
     }
     .main-task h3.completed{
         text-decoration: line-through;
@@ -984,20 +984,6 @@ dialog sub{
     }
     .progress.completed{
         color: blue;
-    }
-    
-    .taskName{
-        display: inline;
-        position: relative;
-        cursor: pointer;
-        background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
-        background-size: 0% 4px;
-        background-repeat: no-repeat;
-        background-position: left center;
-        transition: background-size 0.4s;
-    }
-    .taskName.checked{
-        background-size: 100% 4px;
     }
 }
 
@@ -1033,12 +1019,6 @@ dialog sub{
     gap: 10px;
 }
 
-/*Ideia*/
-/* .subtask-container:nth-child(2){
-    padding-bottom: 2px;
-    border-bottom: 2px dashed rgba(204, 204, 204, 0.6);
-} */
-
 .subtask-container .subtask{
     margin-left: 20px;
     display: flex;
@@ -1049,6 +1029,6 @@ dialog sub{
     width: max-content;
 }
 .subtask-container .subtask .taskName{
+    word-break: break-word; 
     overflow-wrap: break-word;
-    width: max-content;
 }

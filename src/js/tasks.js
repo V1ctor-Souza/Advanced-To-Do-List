@@ -182,20 +182,6 @@ btnsMainTask.forEach(btn => {
     });
 });
 
-// btnMainTask.addEventListener("click", () => {
-//     if(inputMainTask.value){
-//         nameMainCurrent = inputMainTask.value;
-
-//         /* storing name of current main task  */
-//         localStorage.setItem("nameMainCurrent", nameMainCurrent);
-
-//         inputMainTask.style.removeProperty("border");
-//         taskSubtasksModal.classList.add("active");
-//     } else{
-//         inputMainTask.style.setProperty("border", "1px solid red");
-//     }
-// });
-
 // Subtasks
 const btnSubtask = document.querySelector(".btn-addSubtask");
 const inputSubtask = document.querySelector(".nameSubtask-container input");
@@ -393,7 +379,8 @@ function sendingSubtasks(nameSubtask, targetSubtaskList){
     let subtask = createStructure("label", "subtask", undefined, subtaskContainer);
     let checkmark = createStructure("span", "checkmark", undefined, subtask);
     let iconCheck = createStructure("i", "bi bi-check2", undefined, checkmark);
-    let taskName = createStructure("span", "taskName", {textContent: nameSubtask}, subtask);
+    let taskName = createStructure("div", "taskName", undefined, subtask);
+    let nameTask = createStructure("span", undefined, {textContent: nameSubtask}, taskName);
     let managementSubtask = createStructure("div", "management", undefined, subtaskContainer);
     let btnEditSubtask = createStructure("button", undefined, undefined, managementSubtask);
     let imgEditSubtask = createStructure("img", undefined, {src: "assets/edit.png", alt: "imagem de edição"}, btnEditSubtask);
