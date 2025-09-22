@@ -74,12 +74,14 @@ Esse sistema permite exportar o histórico geral das tarefas em formato PDF.
  * [x] Adicionar Confirmação de Conclusão em drag and drop
  * [x] Integrar animação visual do modal na criação de tarefas
  * [x] Sistema de ativar/desativar reset diário
- * [ ] Adicionar responsividade
+ * [x] Adicionar responsividade
+ * [ ] Sistema de tarefas pré-definidas
  * [ ] Documentação
- * [ ] Implementar Filtro de Tarefas Inteligente
- * [ ] Adicionar acessibidade e realizar teste com NVDA
- * [ ] Criar histórico geral unificado
- * [ ] Adicionar exportação do histórico em PDF
- * [ ] Criar testes finais e revisar documentação
+ * [ ] Reformular README
  * [ ] Associar Wireframe do Figma no README
- * [ ] Associar plugins do Figma no README
+ <!-- * [ ] Implementar Filtro de Tarefas Inteligentes -->
+ <!-- * [ ] Adicionar acessibidade e realizar teste com NVDA -->
+ <!-- * [ ] Criar histórico geral unificado -->
+ <!-- * [ ] Adicionar exportação do histórico em PDF -->
+ <!-- * [ ] Criar testes finais e revisar documentação -->
+ <!-- * [ ] Associar plugins do Figma no README -->
