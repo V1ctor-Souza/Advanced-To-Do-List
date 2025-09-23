@@ -75,7 +75,7 @@ Esse sistema permite exportar o histórico geral das tarefas em formato PDF.
  * [x] Integrar animação visual do modal na criação de tarefas
  * [x] Sistema de ativar/desativar reset diário
  * [x] Adicionar responsividade
- * [ ] Sistema de tarefas pré-definidas
+ * [x] Sistema de tarefas pré-definidas
  * [ ] Sistema de armazenamento de localStorage
  * [ ] Documentação
  * [ ] Reformular README
