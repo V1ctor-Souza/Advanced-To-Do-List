@@ -49,6 +49,11 @@
         margin-top: 15px;
         position: relative;
     }
+    #createTasks .reset_date_warn{
+        position: relative;
+        /* top: unset; left: unset; */
+    }
+
 
     /* Main content */
     #main-container{

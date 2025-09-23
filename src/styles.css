@@ -150,9 +150,6 @@ header #createTasks{
     align-items: center;
     margin-bottom: 10px;
 }
-header #createTasks.resetActive{
-    justify-content: space-between;
-}
 #createTasks .btn-createTasks{
     display: flex;
     align-items: center;
@@ -166,7 +163,6 @@ header #createTasks.resetActive{
     font-size: 1.6rem;
     position: absolute; top: 50%; right: 0;
     transform: translate(0, -50%);
-
 }
 
 .btn-createTasks img,
@@ -180,6 +176,9 @@ header #createTasks.resetActive{
     text-align: center;
     color: #ff9d4d;
     display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 #createTasks .title{
