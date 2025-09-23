@@ -6,6 +6,8 @@ const resetAutomatic = document.querySelector(".reset_automatic");
 const btnReset = document.querySelector(".button-reset");
 const resetDateWarn = document.querySelector(".reset_date_warn");
 const dateReset = document.querySelector(".date-reset");
+const saveTasks = document.querySelector(".save_tasks");
+const unsaveTasks = document.querySelector(".unsave_tasks");
 
 window.addEventListener("DOMContentLoaded", () => {
     if(localStorage.getItem("toggleReset")){
@@ -18,13 +20,22 @@ window.addEventListener("DOMContentLoaded", () => {
         let lastDate = Number(localStorage.getItem("lastDate"));
         let date = infoLastDate(lastDate);
 
+        if(localStorage.getItem("savedSimpleTasks") || localStorage.getItem("savedMainTasks")){
+            saveTasks.classList.remove("active");
+            unsaveTasks.classList.add("active");
+        } else{
+            saveTasks.classList.add("active");
+            unsaveTasks.classList.remove("active");
+        }
+
         dateReset.textContent = `${date.day}/${date.month}/${date.year} às ${date.hours}:${date.minutes}`;
 
         let currentDate = new Date().getTime();
         let dif = currentDate - lastDate;
-        let oneDay = 24 * 60 * 60 * 1000;
+        // let oneDay = 24 * 60 * 60 * 1000;
+        let oneMinute = 10 * 1000;
 
-        if(dif >= oneDay){
+        if(dif >= oneMinute){
             localStorage.removeItem("simplesTasks");
             localStorage.removeItem("tasksCompleted");
             localStorage.removeItem("mainTasksCompleted");
@@ -32,6 +43,13 @@ window.addEventListener("DOMContentLoaded", () => {
             localStorage.removeItem("subtasksCurrent");
             localStorage.removeItem("mainTasks");
             localStorage.setItem("lastDate", new Date().getTime());
+
+            if(localStorage.getItem("savedSimpleTasks")){
+                localStorage.setItem("simplesTasks", localStorage.getItem("savedSimpleTasks"));
+            }
+            if(localStorage.getItem("savedMainTasks")){
+                localStorage.setItem("mainTasks", localStorage.getItem("savedMainTasks"));
+            }
         }
     } else{
         localStorage.removeItem("lastDate");
@@ -184,7 +202,11 @@ resetAutomatic.addEventListener("click", () => {
     } else{
         localStorage.removeItem("toggleReset");
         localStorage.removeItem("lastDate");
+        localStorage.removeItem("savedSimpleTasks");
+        localStorage.removeItem("savedMainTasks");
         resetDateWarn.style.removeProperty("display");
+        saveTasks.classList.remove("active");
+        unsaveTasks.classList.remove("active");
     }
 });
 
@@ -192,6 +214,26 @@ configClose.addEventListener("click", () => {
     menuConfig.classList.remove("active");
     let backMenu = document.querySelector(".back").remove();
     document.body.classList.remove("active");
+});
+
+// save or unsave tasks
+saveTasks.addEventListener("click", () => {
+    if(tasks.simples.length > 0){
+        localStorage.setItem("savedSimpleTasks", JSON.stringify(tasks.simples));
+        saveTasks.classList.remove("active");
+        unsaveTasks.classList.add("active");
+    }
+    if(tasks.mains.length > 0){
+        localStorage.setItem("savedMainTasks", JSON.stringify(tasks.mains));
+        saveTasks.classList.remove("active");
+        unsaveTasks.classList.add("active");
+    }
+});
+unsaveTasks.addEventListener("click", () => {
+    localStorage.removeItem("savedSimpleTasks");
+    localStorage.removeItem("savedMainTasks");
+    saveTasks.classList.add("active");
+    unsaveTasks.classList.remove("active");
 });
 
 

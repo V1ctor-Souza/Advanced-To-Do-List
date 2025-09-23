@@ -289,6 +289,30 @@ header #createTasks.resetActive{
     font-size: 1em;
 }
 
+/* save and cancel tasks */
+.save_tasks,
+.unsave_tasks{
+    display: none;
+    gap: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.save_tasks i,
+.unsave_tasks i{
+    font-size: 0.9em;
+}
+
+.save_tasks{
+    color: #00FF09;
+}
+.unsave_tasks{
+    color: #EA3726;
+}
+.save_tasks.active,
+.unsave_tasks.active{
+    display: flex;
+}
+
 .social_media{
     position: absolute;
     bottom: 0;
