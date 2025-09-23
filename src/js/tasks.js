@@ -450,7 +450,6 @@ function sendingSubtasks(nameSubtask, targetSubtaskList){
         }
         taskBeingDeleted = null;
 
-        // createStructure("span", "checkmark", undefined, subtask);
         let warning = createStructure("div", "warning", undefined, document.body);
         let iconWarning = createStructure("i", "bi bi-exclamation-triangle-fill", undefined, warning);
         let textWarning = createStructure("p", undefined, {textContent: "É necessário reiniciar a página após a exclusão de quaisquer subtarefas."}, warning);

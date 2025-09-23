@@ -58,7 +58,7 @@ body.active{
     color: #9F6000;
     font-family: "Roboto", sans-serif;
     background-color: #FEEFB3;
-    width: max-content;
+    max-width: 380px;
     padding: 10px;
     animation: notification-slideLeft 0.5s ease;
 }
