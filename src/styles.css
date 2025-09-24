@@ -511,7 +511,7 @@ dialog sub{
 
 /* Modal: task with subtasks */
 .taskSubtasks-modal{
-    height: 108px;
+    height: 110px;
     overflow: hidden;
     transition: all 0.3s;
 }

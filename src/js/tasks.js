@@ -124,6 +124,7 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
         taskBeingEdited = valueTask;
         inputEditModal.placeholder = nameTask;
         editModal.showModal();
+        document.body.classList.add("active");
     });
 
     btnDelete.addEventListener("click", (e) => {
@@ -162,7 +163,6 @@ btnSimpleTask.addEventListener("click", () => {
 });
 
 // Main tasks creation
-// const btnMainTask = document.querySelector(".taskSubtasks-inputs button");
 const btnsMainTask = document.querySelectorAll(".taskSubtasks-inputs button");
 const inputMainTask = document.querySelector(".taskSubtasks-inputs input");
 
@@ -285,6 +285,7 @@ function createMainTask(column, nameMain, subtasks){
         taskBeingEdited = nameMainTask;
         inputEditModal.placeholder = nameMainTask.textContent;
         editModal.showModal();
+        document.body.classList.add("active");
     });
 
     /* Delete main task */ 
@@ -293,6 +294,7 @@ function createMainTask(column, nameMain, subtasks){
         deleteConfirmation.showModal();
         nameMainModal.textContent = nameMainTask.textContent;
         totalSubtaskModal.textContent = localSubtasksList.childElementCount;
+        document.body.classList.add("active");
     });
 
     taskNameContainer.addEventListener("click", () => {
@@ -421,6 +423,7 @@ function sendingSubtasks(nameSubtask, targetSubtaskList){
     }
 
     btnEditSubtask.addEventListener("click", (e) => {
+        document.body.classList.add("active");
         taskBeingEdited = e.target.closest("article").querySelector(".subtask");
         indexCurrentMain = subtaskContainer.closest("article.task-container.main");
         editModal.showModal();

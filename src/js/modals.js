@@ -2,7 +2,6 @@
 let allModal = document.querySelectorAll("dialog");
 allModal.forEach(modal => {
     modal.addEventListener("click", (e) => {
-        
         if(modal.classList.contains("continued")) return;
 
         let posModal = modal.getBoundingClientRect();
@@ -16,7 +15,8 @@ allModal.forEach(modal => {
             modal.classList.remove("slideDown");
             modal.close();  
             inputSimpleTask.value = '';
-        };
+            document.body.classList.remove("active");
+        }
     });
 });
 
@@ -28,6 +28,7 @@ btnCreateTasks.addEventListener("click", () => {
     btnCreateTasks.blur();
     mainModal.showModal();
     mainModal.classList.add("slideDown");
+    document.body.classList.add("active");
 });
 
 
@@ -39,6 +40,8 @@ btnCreateST.addEventListener("click", () => {
     mainModal.close();
     mainModal.classList.remove("slideDown");
     simpleTaskModal.showModal();
+    setTimeout(() => { document.body.classList.add("active"); }, 80);
+    
 });
 
 /* Modal to create main tasks */
@@ -49,6 +52,7 @@ btnCreateTWS.addEventListener("click", () => {
     mainModal.close();
     mainModal.classList.remove("slideDown");
     taskSubtasksModal.showModal();
+    setTimeout(() => { document.body.classList.add("active"); }, 80);
 });
 
 /* Modal to edit task */

@@ -84,5 +84,6 @@ new Sortable(columns[1], {
         currentTask = evt.item;
         evt.from.insertBefore(currentTask, evt.from.children[evt.oldIndex]);
         confirmComplete.showModal();
+        document.body.classList.add("active");
     }
 });
