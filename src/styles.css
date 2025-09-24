@@ -237,6 +237,12 @@ header #createTasks{
     font-size: 1.1em;
     cursor: pointer;
 }
+.menuConfig .text i{
+    transition: color 0.3s ease;
+}
+.menuConfig .text i:hover{
+    color: #ccc;
+}
 .menuConfig .options{
     width: 80%;
     margin: 30px auto;
@@ -283,9 +289,13 @@ header #createTasks{
     gap: 3px;
     margin-top: 20px;
     cursor: pointer;
+    transition: color 0.3s ease;
 }
 .menuConfig .options .documentation i{
     font-size: 1em;
+}
+.menuConfig .options .documentation:hover{
+    color: #ccc;
 }
 
 /* save and cancel tasks */
@@ -333,6 +343,10 @@ header #createTasks{
 .social_media i{
     font-size: 1.1em;
     color: #FFF;
+    transition: color 0.3s ease;
+}
+.social_media i:hover{
+    color: #ccc;
 }
 .social_media .link_social_media a:first-child{
     margin-right: 10px;
