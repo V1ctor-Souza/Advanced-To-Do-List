@@ -188,7 +188,12 @@ window.addEventListener("DOMContentLoaded", () => {
 iconConfig.addEventListener("click", () => {
     menuConfig.classList.add("active");
     document.body.classList.add("active");
-    createStructure('div', 'back', undefined, document.body);
+    let background = createStructure('div', 'back', undefined, document.body);
+    background.addEventListener("click", () => {
+        menuConfig.classList.remove("active");
+        document.body.classList.remove("active");
+        background.remove();
+    });
 });
 
 // enable or disable automatic restart

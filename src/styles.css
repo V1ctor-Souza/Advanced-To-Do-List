@@ -210,7 +210,7 @@ header #createTasks{
     top: 0;
     right: 0;
     width: 320px;
-    height: 280px;
+    height: 320px;
     background-color: #1A1A1A;
     display: flex;
     flex-direction: column;
