@@ -87,7 +87,6 @@ const totalSubtaskModal = deleteConfirmation.querySelector(".total-subtasks");
 btnCancelModal.addEventListener("click", () => deleteConfirmation.close());
 
 btnConfirmModal.addEventListener("click", () => {
-    console.log(taskBeingDeleted);
     if(completedTaskColumn.contains(taskBeingDeleted)){
         // find current task index
         let allTaskInCompleted = Array.from(completedTaskColumn.querySelectorAll(".main"));
@@ -189,3 +188,52 @@ confirmConfirmation.addEventListener("click", () => {
         currentTask = undefined;
     }
 });
+
+
+// Modal to confirm reset all tasks
+const btnResetAll = document.querySelector(".force_reset button");
+const confirmResetAllTasks = document.querySelector(".confirm-delete-all-tasks");
+const btnCancelResetAll = confirmResetAllTasks.querySelector(".btn-cancel");
+const btnConfirmResetAll = confirmResetAllTasks.querySelector(".btn-confirm");
+
+btnResetAll.addEventListener("click", () => {
+    confirmResetAllTasks.showModal();
+    setTimeout(() => { document.body.classList.add("active"); }, 80);
+});
+
+
+btnCancelResetAll.addEventListener("click", () => confirmResetAllTasks.close());
+btnConfirmResetAll.addEventListener("click", () => {
+    confirmResetAllTasks.close();
+    setTimeout(() => {
+        menuConfig.classList.remove("active");
+        document.querySelector(".back").remove();
+
+        setTimeout(() => {
+            let allTasks = document.querySelectorAll(".task-container");
+            allTasks.forEach(task => {
+                task.remove();
+                taskCount(firstColumn.childElementCount - 1, pendingTasks, "Tarefa", "pendente");
+                taskCount(columns[1].childElementCount - 1, completedTasks, "Tarefa", "concluída");
+
+                localStorage.removeItem("simplesTasks");
+                localStorage.removeItem("mainTasks");
+                localStorage.removeItem("tasksCompleted");
+                localStorage.removeItem("mainTasksCompleted");
+
+                if(localStorage.getItem("savedSimpleTasks")){
+                    localStorage.setItem("simplesTasks", localStorage.getItem("savedSimpleTasks"));
+                }
+                if(localStorage.getItem("savedMainTasks")){
+                    localStorage.setItem("mainTasks", localStorage.getItem("savedMainTasks"));
+                }
+                setTimeout(() => {location.reload();}, 500);
+            });
+        }, 500);
+    }, 250);
+    
+});
+
+// btnCancelResetAll.addEventListener("click", () => {
+
+// });

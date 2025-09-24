@@ -51,7 +51,6 @@
     }
     #createTasks .reset_date_warn{
         position: relative;
-        /* top: unset; left: unset; */
     }
 
 
@@ -209,6 +208,10 @@
     .main-task{
         font-size: 1.2rem;
     }
+    .menuConfig{
+        max-width: 340px;
+        /* width: 70%; */
+    }
 
     /* Modals */
     dialog .title{
@@ -257,8 +260,7 @@
 
 @media (max-width: 380px){
     .menuConfig{
-        width: 80%;
-        height: 260px;
+        max-width: 280px;
         font-size: 1em;
     }
     .menuConfig .options{

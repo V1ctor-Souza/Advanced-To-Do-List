@@ -32,10 +32,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
         let currentDate = new Date().getTime();
         let dif = currentDate - lastDate;
-        // let oneDay = 24 * 60 * 60 * 1000;
-        let oneMinute = 10 * 1000;
+        let oneDay = 24 * 60 * 60 * 1000;
 
-        if(dif >= oneMinute){
+        if(dif >= oneDay){
             localStorage.removeItem("simplesTasks");
             localStorage.removeItem("tasksCompleted");
             localStorage.removeItem("mainTasksCompleted");

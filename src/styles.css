@@ -297,6 +297,22 @@ header #createTasks{
 .menuConfig .options .documentation:hover{
     color: #ccc;
 }
+.menuConfig .force_reset{
+    width: max-content;
+    padding: 4px;
+    border: 1px solid orange;
+    color: orange;
+    border-radius: 6px;
+    font-size: 0.9em;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+.menuConfig .force_reset:hover{
+    color: #FFF;
+    border: 1px solid #FFF;
+    box-shadow: 0 0 1px 1px #ffffffcc;
+}
 
 /* save and cancel tasks */
 .save_tasks,
@@ -629,7 +645,8 @@ dialog sub{
 }
 
 /* Modals: delete confirmation, continued and confirm complete*/
-.delete-confirmation, .continued, .confirm-complete{
+.delete-confirmation, .continued, .confirm-complete,
+.confirm-delete-all-tasks{
     max-width: 400px;
     text-align: center;
     font-size: 1.2em;
@@ -639,12 +656,14 @@ dialog sub{
 
 .delete-confirmation .text-container,
 .continued .text-container,
-.confirm-complete .text-container{
+.confirm-complete .text-container,
+.confirm-delete-all-tasks .text-container{
     margin: 0 auto;
     width: 100%;
     padding: 20px;
 }
-.delete-confirmation .text-container h3{
+.delete-confirmation .text-container h3,
+.confirm-delete-all-tasks .text-container h3{
     margin-top: 10px;
     font-size: 1.3em;
 }
@@ -661,17 +680,20 @@ dialog sub{
     font-weight: 400;
 }
 .delete-confirmation .text-container p,
-.confirm-complete .text-container p{
+.confirm-complete .text-container p,
+.confirm-delete-all-tasks .text-container p{
     margin: 10px 0;
 }
 .delete-confirmation .container-buttons,
 .continued .container-buttons,
-.confirm-complete .container-buttons{
+.confirm-complete .container-buttons,
+.confirm-delete-all-tasks .container-buttons{
     display: flex;
 }
 .delete-confirmation .container-buttons button,
 .continued .container-buttons button,
-.confirm-complete .container-buttons button{
+.confirm-complete .container-buttons button,
+.confirm-delete-all-tasks .container-buttons button{
     background: none;
     border: none;
     cursor: pointer;
@@ -681,15 +703,18 @@ dialog sub{
     border-top: 1px solid #ccc;
     transition: all 0.2s ease-in;
 }
-.delete-confirmation .container-buttons button:first-child:hover{
+.delete-confirmation .container-buttons button:first-child:hover,
+.confirm-delete-all-tasks .container-buttons button:first-child:hover{
     background-color: #eceaea;
 }
-.delete-confirmation .container-buttons button:last-child{
+.delete-confirmation .container-buttons button:last-child,
+.confirm-delete-all-tasks .container-buttons button:last-child{
     background-color: #E3242E;
     color: #FFF;
     border-left: 1px solid #ccc;
 }
-.delete-confirmation .container-buttons button:last-child:hover{
+.delete-confirmation .container-buttons button:last-child:hover,
+.confirm-delete-all-tasks .container-buttons button:last-child:hover{
     background-color: #FFF;
     color: #E3242E;
 }
