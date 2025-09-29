@@ -107,3 +107,32 @@ function infoLastDate(lastDate){
         seconds: String(date.getSeconds()).padStart(2, "0")
     };
 }
+
+
+// Function to calc all keys and value from localStorage
+function calcLocalStorageUsage(){
+    let total = 0;
+    
+    for(let i = 0; i < localStorage.length; i++){
+        let key = localStorage.key(i);
+        let value = localStorage.getItem(key);
+
+        let size = (key.length + value.length) * 2;
+        total += size;
+    }
+    return total;
+}
+
+
+// Function to update storage capacity
+const maxMB = 5 * 1024 * 1024;
+const maxWidth = 680;
+
+function updateBar(totalUsage){
+    let proporcion = totalUsage / maxMB;
+
+    const width = Math.min(maxWidth, maxWidth * proporcion);
+
+    const visualBar = document.querySelector(".visual-bar");
+    visualBar.style.width = width + "px";
+}

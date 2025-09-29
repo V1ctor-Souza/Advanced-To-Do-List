@@ -69,6 +69,9 @@ btnEditTask.addEventListener("click", () => {
         } else if(taskBeingEdited.tagName === "LABEL"){
             currentIndex(".subtask", taskBeingEdited, {type: 'edit'});
         }
+
+        let currentUsage = calcLocalStorageUsage();
+        updateBar(currentUsage);
     }
     taskBeingEdited = null;
     editModal.close();
@@ -110,6 +113,9 @@ btnConfirmModal.addEventListener("click", () => {
     taskBeingDeleted = null;
     taskCount(firstColumn.childElementCount - 1, pendingTasks, "Tarefa", "pendente");
     taskCount(completedTaskColumn.childElementCount - 1, completedTasks, "Tarefa", "concluída");
+
+    let currentUsage = calcLocalStorageUsage();
+    updateBar(currentUsage);
 });
 
 
@@ -166,8 +172,7 @@ confirmConfirmation.addEventListener("click", () => {
         localStorage.setItem("tasksCompleted", JSON.stringify(tasksCompleted));
 
         confirmComplete.close();
-        location.reload();
-
+        location.reload()
         currentTask = undefined;
     }
 
@@ -227,13 +232,13 @@ btnConfirmResetAll.addEventListener("click", () => {
                 if(localStorage.getItem("savedMainTasks")){
                     localStorage.setItem("mainTasks", localStorage.getItem("savedMainTasks"));
                 }
+
+                let currentUsage = calcLocalStorageUsage();
+                updateBar(currentUsage);
+
                 setTimeout(() => {location.reload();}, 500);
             });
         }, 500);
     }, 250);
     
 });
-
-// btnCancelResetAll.addEventListener("click", () => {
-
-// });

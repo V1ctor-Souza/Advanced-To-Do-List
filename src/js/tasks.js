@@ -144,12 +144,17 @@ function createSimpleTask(columnTask, nameTask, addStorage = true){
             taskCount(completedTaskColumn.childElementCount - 1, completedTasks, "Tarefa", "concluída");
         }
         
+        let currentUsage = calcLocalStorageUsage();
+        updateBar(currentUsage);
     });
 
     inputSimpleTask.value = '';
     currentTask = taskContainer;
 
     taskCount(firstColumn.childElementCount - 1, pendingTasks, "Tarefa", "pendente");
+
+    let currentUsage = calcLocalStorageUsage();
+    updateBar(currentUsage);
 }
 
 btnSimpleTask.addEventListener("click", () => {
@@ -374,6 +379,10 @@ function createMainTask(column, nameMain, subtasks){
             visualConclusion.style.setProperty("width", total + "%");
         });
     });
+
+
+    let currentUsage = calcLocalStorageUsage();
+    updateBar(currentUsage);
 }
 
 function sendingSubtasks(nameSubtask, targetSubtaskList){

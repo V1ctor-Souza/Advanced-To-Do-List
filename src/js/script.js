@@ -49,6 +49,9 @@ window.addEventListener("DOMContentLoaded", () => {
             if(localStorage.getItem("savedMainTasks")){
                 localStorage.setItem("mainTasks", localStorage.getItem("savedMainTasks"));
             }
+
+            let currentUsage = calcLocalStorageUsage();
+            updateBar(currentUsage);
         }
     } else{
         localStorage.removeItem("lastDate");
@@ -141,7 +144,6 @@ window.addEventListener("DOMContentLoaded", () => {
         tasks.mains.forEach(task => {
             createMainTask(columns[0], task.nameMain, task.subtasks);
         });
-        // taskCount(firstColumn.childElementCount - 1);
     }
 
     /* checking if subtasks completed */
@@ -181,6 +183,13 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    /* updating store */
+    let currentUsage = calcLocalStorageUsage();
+    updateBar(currentUsage);
+
+    taskCount(firstColumn.childElementCount - 1, pendingTasks, "Tarefa", "pendente");
+    taskCount(columns[1].childElementCount - 1, completedTasks, "Tarefa", "concluída");
 });
 
 // open menu config

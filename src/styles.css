@@ -132,10 +132,18 @@ header #visual-storage{
 
 /*Barra de progresso do armazenamento*/
 header #visual-storage .progress-storage{
+    max-width: 680px;
     width: 50%;
     height: 15px;
     background-color: #fff;
     border-radius: 10px;
+}
+header #visual-storage .progress-storage .visual-bar{
+    width: 0;
+    height: 15px;
+    border-radius: 10px;
+    background-color: green;
+    transition: width 0.5s ease;
 }
 
 /*Título e criação de tarefas*/
