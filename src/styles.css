@@ -139,7 +139,6 @@ header #visual-storage .progress-storage{
     border-radius: 10px;
 }
 header #visual-storage .progress-storage .visual-bar{
-    width: 0;
     height: 15px;
     border-radius: 10px;
     background-color: green;

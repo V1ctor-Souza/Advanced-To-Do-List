@@ -135,4 +135,11 @@ function updateBar(totalUsage){
 
     const visualBar = document.querySelector(".visual-bar");
     visualBar.style.width = width + "px";
+
+    if(visualBar.style.width === "500px"){
+        visualBar.style.backgroundColor = "orange";
+    }
+    if(visualBar.style.width === "630px"){
+        visualBar.style.backgroundColor = "red";
+    }
 }
