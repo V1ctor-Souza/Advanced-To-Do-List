@@ -77,6 +77,6 @@ Esse sistema permite exportar o histórico geral das tarefas em formato PDF.
  * [x] Adicionar responsividade
  * [x] Sistema de tarefas pré-definidas
  * [x] Sistema de armazenamento de localStorage
- * [ ] Documentação
+ * [x] Documentação
  * [ ] Reformular README
  * [ ] Associar Wireframe do Figma no README
