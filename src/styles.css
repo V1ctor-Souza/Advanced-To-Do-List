@@ -301,7 +301,12 @@ header #createTasks{
 .menuConfig .options .documentation i{
     font-size: 1em;
 }
-.menuConfig .options .documentation:hover{
+.menuConfig .options .documentation a{
+    color: #FFF;
+    text-decoration: none;
+}
+.menuConfig .options .documentation:hover,
+.menuConfig .options .documentation a:hover{
     color: #ccc;
 }
 .menuConfig .force_reset{
@@ -894,7 +899,7 @@ dialog sub{
 /*Conteúdos*/
 #main-container{
     width: 90%;
-    min-height: 80vh;
+    min-height: 78vh;
     height: max-content;
     border: 2px solid #fff;
     margin: 0 auto;
