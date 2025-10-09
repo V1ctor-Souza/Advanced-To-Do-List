@@ -66,8 +66,9 @@ A documentação completa do projeto está disponível em PDF dentro da pasta `d
  * [x] Sistema de tarefas pré-definidas
  * [x] Sistema de armazenamento de localStorage
  * [x] Documentação
- * [ ] Reformular README
- * [ ] Associar Wireframe do Figma no README
+ * [x] Reformular README
+ * [x] Associar Wireframe do Figma no README
+ * [ ] Criar: Estude este projeto
 
 ## Licença
 Este projeto está licenciado sob a licença MIT - consulte o arquivo [Mit License](LICENSE) para mais detalhes. Fique à vontade para estudar, modificar e utilizar o código para fins educacionais ou pessoais.
