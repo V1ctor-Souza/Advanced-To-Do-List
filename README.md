@@ -7,12 +7,15 @@ Lista de tarefas avançada com suporte a subtarefas, drag and drop, UX, armazena
 ## Sobre o projeto
 Criado originalmente para atender minhas necessidades do dia a dia e para estudo, o **Advanced To-Do List** é um sistema de gerenciamento de tarefas que vai além das listas de tarefas tradicionais, oferecendo diversas funcionalidades e preservando a imersão do usuário.
 
+Nota: este projeto foi finalizado, mas várias ideias foram descontinuadas, por eu ter outras prioridades nos estudos.
+
 ## Funcionalidades principais
 * ✅ Criação de tarefas simples e principais;
 * 🔁 Subtarefas com progresso automático;
 * 💾 Armazenamento local (sem perda de dados ao recarregar);
 * 🌙 Tema imersivo com animações visuais;
-* 📄 Documentação (ver seção [Documentação](#-documentação));
+* 📄 Documentação (ver seção [Documentação](#documentação));
+* Muito mais...
 
 ## Exemplos:
 | Tarefa Simples | Tarefa Principal |
@@ -65,3 +68,6 @@ A documentação completa do projeto está disponível em PDF dentro da pasta `d
  * [x] Documentação
  * [ ] Reformular README
  * [ ] Associar Wireframe do Figma no README
+
+## Licença
+Este projeto está licenciado sob a licença MIT - consulte o arquivo [Mit License](LICENSE) para mais detalhes. Fique à vontade para estudar, modificar e utilizar o código para fins educacionais ou pessoais.
