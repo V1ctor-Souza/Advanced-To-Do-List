@@ -1,53 +1,36 @@
 # Advanced To-Do List
-Lista de tarefas avançada com suporte a subtarefas, filtro de tarefas inteligente, drag and drop, armazenamento local e muito mais.
+Lista de tarefas avançada com suporte a subtarefas, drag and drop, UX, armazenamento local e muito mais.
+
 
 ## Sobre o projeto
 Criado originalmente para atender minhas necessidades do dia a dia e para estudo, o **Advanced To-Do List** é um sistema de gerenciamento de tarefas que vai além das listas de tarefas tradicionais, oferecendo diversas funcionalidades e preservando a imersão do usuário.
 
 ## Funcionalidades principais
+* ✅ Criação de tarefas simples e principais;
+* 🔁 Subtarefas com progresso automático;
+* 💾 Armazenamento local (sem perda de dados ao recarregar);
+* 🌙 Tema imersivo com animações visuais;
+* 📄 Documentação (ver seção [Documentação](#-documentação));
 
-* **Criação de tarefas simples e tarefas com subtarefas:**
-	* Tarefas com subtarefas possuem barra de progresso.
-	* Ao concluir uma tarefa, é possível ver data e hora de conclusão ao passar o mouse.
-* **Filtro de Tarefas Inteligente:**
-	* Identifica palavras-chave e transforma em tarefas especiais.
-	* Atualmente existe apenas uma tarefa especial implementada e, por mais que eu tenha outras ideias, não sei se darei continuidade.
-	* Exemplo de sistemas especiais:
-		* Sistema de notificação.
-		* Sistema de hidratação com animações (copo e garrafa enchendo).
-* **Armazenamento local (localStorage + JSON):**
-	* Limite de armazenamento visível para o usuário. 
-* **Drag and Drop intuitivo** para organizar tarefas.
-* **Interações e animações visuais:**
-	* Animação de lixeira ao excluir tarefas concluídas.
-* **Sistema de histórico geral:**
-	 * Exibe todas as tarefas já criadas, mostrando o estado atual delas.
-	* Possibilidade de exportar o histórico em PDF para acompanhamento externo ([veja mais](#exportação-de-dados)).
-* **Modais dinâmicos** gerados via JavaScript.
-* **Responsividade**:
-	* Totalmente adaptado para diferentes tamanhos de tela, garantindo boa experiência no desktop, tablet e mobile.
-* **Acessibilidade**:
-	* Estrutura HTML semântica.
-	* Suporte a leitores de tela (testado com NVDA).
-	* Alto contraste e foco visível para navegação via teclado.
-* **Documentação completa do projeto**.
+## Exemplos:
+| Tarefa Simples | Tarefa Principal |
+|----------------|-----------------|
+| ![Figura 1](./docs/images/simple-task.png) | ![Figura 2](./docs/images/main-task.png) |
 
-## Armazenamento e otimização
-O projeto utiliza **localStorage** de forma otimizada para garantir eficiência e evitar sobrecarga desnecessária, já que a capacidade de **Storage** é aproximadamente 5MB por navegador.
-* Tarefas especiais possuem identificadores únicos para evitar duplicações.
-* Sistema de **reset automático**:
-	* O histórico geral das tarefas é controlado, armazenando apenas dados essenciais e sofrendo reset após **30 dias**.
-	* Tarefas especiais são integras ao histórico geral, com registro detalhado de progresso diário (por exemplo: "Você ingeriu 2L de água").
-	* O histórico centralizado pode ser exportado em PDF ([veja mais em Exportação de dados](#exportação-de-dados)).
-* O sistema foi projetado para garantir que apenas informações relevantes ocupem espaço local, mantendo o app leve e performático.
+## Design e Usabilidade
+O design foi completamente criado a partir do Figma antes da codificação.
+Foram definidos grids, cores, ícones e tipografia para manter consistência visual.
 
+🔗 [Acesse o Design no Figma](https://bit.ly/advanced-todo-list)
 
-## Exportação de dados
-Pensando no reset que acontece a cada 30 dias no histórico geral de tarefas, decidi criar um acompanhamento pessoal e aproximar o projeto para o mundo real. 
-Esse sistema permite exportar o histórico geral das tarefas em formato PDF.
-* O histórico dos últimos 30 dias pode ser baixado antes do reset automático.
-* Possibilidade de exportar via impressão ou geração automática de arquivo PDF.
-* Esta funcionalidade foi inspirada em **soluções que desenvolvi em experiências anteriores**, reforçando a aplicação prática do projeto.
+## Documentação
+A documentação completa do projeto está disponível em PDF dentro da pasta `docs/Documentacao.pdf`
+[Baixar Documentação (PDF)](./docs/Documentacao.pdf)
+
+## Próximos Passos
+- Estudo de Banco de Dados (PostgreSQL)
+- Aprofundamento em Acessibilidade, Responsividade e Performance Web
+- Publicação de novos projetos com foco em usabilidade
 
 ## To Do 
 
