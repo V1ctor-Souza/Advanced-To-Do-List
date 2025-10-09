@@ -162,6 +162,7 @@ btnSimpleTask.addEventListener("click", () => {
         createSimpleTask(columns[0], inputSimpleTask.value);
         CloseToTaskAnimation(currentTask, simpleTaskModal);
         inputSimpleTask.style.removeProperty("border");
+        document.body.classList.remove("active");
     } else{
         inputSimpleTask.style.setProperty("border", "1px solid red");
     }
@@ -263,6 +264,7 @@ btncreateMainTask.addEventListener("click", () => {
     localStorage.removeItem("subtasksCurrent");
     subtasksCurrent = [];
     btncreateMainTask.style.removeProperty("display");
+    document.body.classList.remove("active");
 });
 
 // Function to create standard structure off the main task
