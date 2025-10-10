@@ -18,6 +18,10 @@ input, button{
 button{
     white-space: nowrap;
     flex-shrink: 1;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    border: none;
 }
 
 body{
@@ -161,8 +165,8 @@ header #createTasks{
     display: flex;
     align-items: center;
     gap: 10px;
-    color: var(--text-primary);
-    background-color: var(--button-create-task);
+    color: var(--text-primary, #FFFFFF);
+    background-color: var(--button-create-task, #2CD70A);
     padding: 8px 14px;
     border: none;
     border-radius: 6px;
@@ -174,7 +178,7 @@ header #createTasks{
 
 .btn-createTasks img,
 .btn-createTasks span{
-     background-color: var(--button-create-task);
+     background-color: var(--button-create-task, #2CD70A);
 }
 
 .reset_date_warn{
@@ -935,9 +939,10 @@ dialog sub{
     font-size: 1.4em;
     display: flex;
     font-family: 'Roboto', sans-serif;
-    background-color: var(--background-task);
+    background-color: var(--background-task, #575252);
     border-radius: 6px;
     justify-content: space-between;
+    cursor: -webkit-grab;
     cursor: grab;
 
     .task{
